@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
-from models import *
-from data_manager import DataManager
+from flask import Flask, request
+from backend.models.models import *
+from backend.data_manager import DataManager
 import os
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))

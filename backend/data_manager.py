@@ -1,5 +1,5 @@
-from models import db, Users, Projects, Content, Funding
-import requests
+from backend.models.models import db, Users
+
 
 class DataManager():
     def get_users(self):
