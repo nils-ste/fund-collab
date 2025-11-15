@@ -8,3 +8,6 @@ class DataManager():
         new_user = Users(username=username, password=password, email=email, role=role)
         db.session.add(new_user)
         db.session.commit()
+
+    def update_user(self, user_id, username, password, email, role):
+
