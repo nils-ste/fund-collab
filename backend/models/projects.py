@@ -9,3 +9,7 @@ class Projects(db.Model):
     tags = db.Column(db.List(db.String(80)), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
 
+    def to_dict(self):
+        return {"project_title": self.project_title, "status": self.status,
+                "public": self.public,"tags": self.tags,"created_at": self.created_at}
+

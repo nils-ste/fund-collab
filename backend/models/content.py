@@ -7,3 +7,6 @@ class Content(db.Model):
     permission_editing = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     permission_reading = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
+
+    def to_dict(self):
+        return {"section_type": self.section_type, "text_box": self.text_box,}

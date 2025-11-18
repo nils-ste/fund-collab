@@ -1,21 +1,22 @@
 from flask import request, jsonify, Blueprint
 from ..models import Users, db
-bp = Blueprint('users', __name__)
+bp = Blueprint('users', __name__, url_prefix='/users')
 
-@bp.route('/users', methods=['GET'])
-def get_users():
-    users = Users.query.all()
-    if not users:
-        return jsonify({})
-    return users
+@bp.route('/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    user = Users.query.get_or_404(user_id)
+    return jsonify(user.to_dict()), 200
 
-@bp.route('/users', methods=['POST'])
-def create_user(user_json):
-    user_data = user_json.json()
-    db.session.add(user_data)
+@bp.route('', methods=['POST'])
+def create_user():
+    user_data = request.get_json()
+    user = Users(**user_data)
+    db.session.add(user)
     db.session.commit()
 
-@bp.route('/users', methods=['PUT'])
+    return jsonify(user.to_dict()), 201
+
+@bp.route('/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     #fetch user by id
     user = Users.query.get_or_404(user_id)
@@ -25,14 +26,16 @@ def update_user(user_id):
     editable_fields = ['email', 'password', 'role', 'project_ids']
     #update selected fields
     for field in editable_fields:
-        if field not in data:
+        if field in data:
             setattr(user, field, data[field])
 
     db.session.commit()
-    return user
+    return jsonify(user.to_dict()), 200
 
 
-@bp.route('/users', methods=['DELETE'])
+@bp.route('/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
-    db.session.delete(Users.query.get(user_id))
+    user = Users.query.get_or_404(user_id)
+    db.session.delete(user)
     db.session.commit()
+    return '', 204

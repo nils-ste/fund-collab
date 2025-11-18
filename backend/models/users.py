@@ -8,3 +8,8 @@ class Users(db.Model):
     role = db.Column(db.String(80), nullable=False)
     project_ids = db.Column(db.String(80), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
+
+    def to_dict(self):
+        return {"id": self.id,"username": self.username,"email": self.email,
+                "role": self.role,"project_ids": self.project_ids,
+                "created_at": self.created_at}
