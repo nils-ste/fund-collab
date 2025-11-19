@@ -35,7 +35,7 @@ def update_user(user_id):
 
 @bp.route('/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
-    user = Users.query.get_or_404(user_id)
+    user = Users.query.filter_by(id=user_id).first_or_404()
     db.session.delete(user)
     db.session.commit()
     return '', 204

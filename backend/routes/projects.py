@@ -11,9 +11,6 @@ def projects(user_id):
 
 @bp.route('/<int:user_id>', methods=['POST'])
 def create_project(user_id):
-    projects_user = Projects.query.filter_by(user_id=user_id).all()
-    if not projects_user:
-        return jsonify({})
     new_project = request.get_json()
     db.session.add(new_project)
     db.session.commit()
@@ -25,16 +22,17 @@ def update_project(project_id):
     if not project_specific:
         return jsonify({})
     data = request.get_json
-    db.session.add(data)
+    editable_fields = ['project_title', 'status', 'public', 'tags'] #potentially user_ids depending on permissions?
+    for field in editable_fields:
+        if field in data:
+            setattr(project_specific, field, data[field])
     db.session.commit()
-    return jsonify(data)
+    return jsonify(project_specific.to_dict())
 
 @bp.route('/<int:user_id>', methods=['DELETE'])
 def delete_project(project_id):
-    project_specific = Projects.query.filter_by(project_id=project_id).all()
-    if not project_specific:
-        return jsonify({})
+    project_specific = Projects.query.filter_by(project_id=project_id).first_or_404()
     db.session.delete(project_specific)
     db.session.commit()
-    return jsonify({})
+    return '', 204
 
