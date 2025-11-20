@@ -12,7 +12,7 @@ def get_user(user_id):
     return jsonify(user.to_dict()), 200
 
 
-@bp.route('', methods=['POST'])
+@bp.route('/', methods=['POST'])
 def create_user():
     user_data = request.get_json()
     user = Users(username=user_data.get('username'), email=user_data.get('email'), password=user_data.get('password'),
