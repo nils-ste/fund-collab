@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from ..models import Users, db
+from models import Users, db
 bp = Blueprint('users', __name__, url_prefix='/users')
 
 @bp.route('/<int:user_id>', methods=['GET'])

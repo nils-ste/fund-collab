@@ -7,3 +7,4 @@ def register_routes(app):
     app.register_blueprint(funding_bp)
     app.register_blueprint(users_bp)
     app.register_blueprint(content_bp)
+    return app
