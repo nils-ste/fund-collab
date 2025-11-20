@@ -31,12 +31,11 @@ def update_user(user_id):
     data = request.get_json()
 
     # set editable fields (check if username and password should be edible this way)
-    editable_fields = ['email', 'password', 'role', 'project_ids']
+    editable_fields = ['username','email', 'password', 'role']
     # update selected fields
     for field in editable_fields:
         if field in data:
             setattr(user, field, data[field])
-
     db.session.commit()
     return jsonify(user.to_dict()), 200
 
