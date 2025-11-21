@@ -6,10 +6,13 @@ from models import Users, db
 bp = Blueprint('users', __name__, url_prefix='/users')
 
 
-@bp.route('/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    user = Users.query.get_or_404(user_id)
-    return jsonify(user.to_dict()), 200
+@bp.route('/', methods=['GET'])
+def get_users():
+    users = Users.query.all()
+    users_obj = {}
+    for user in users:
+        users_obj[user.id]= user.to_dict()
+    return jsonify(users_obj), 200
 
 
 @bp.route('/', methods=['POST'])
