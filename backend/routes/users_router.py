@@ -6,13 +6,10 @@ from models import Users, db
 bp = Blueprint('users', __name__, url_prefix='/users')
 
 
-@bp.route('/', methods=['GET'])
-def get_users():
-    users = Users.query.all()
-    users_obj = {}
-    for user in users:
-        users_obj[user.id]= user.to_dict()
-    return jsonify(users_obj), 200
+@bp.route('/<int:user_id>', methods=['GET'])
+def get_users(user_id):
+    user = Users.query.filter_by(id=user_id).first()
+    return jsonify(user.to_dict), 200
 
 
 @bp.route('/', methods=['POST'])
@@ -20,11 +17,13 @@ def create_user():
     user_data = request.get_json()
     user = Users(username=user_data.get('username'), email=user_data.get('email'), password=user_data.get('password'),
                  role=user_data.get('role', 0), created_at=datetime.datetime.now())
-    db.session.add(user)
-    db.session.add(user)
-    db.session.commit()
-
-    return jsonify(user.to_dict()), 201
+    try:
+        db.session.add(user)
+        db.session.commit()
+        return jsonify(user.to_dict()), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"Error": f"Database could not be reached - {str(e)}"}), 500
 
 
 @bp.route('/<int:user_id>', methods=['PUT'])
@@ -39,13 +38,21 @@ def update_user(user_id):
     for field in editable_fields:
         if field in data:
             setattr(user, field, data[field])
-    db.session.commit()
-    return jsonify(user.to_dict()), 200
+    try:
+        db.session.commit()
+        return jsonify(user.to_dict()), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"Error": f"Database could not be reached - {str(e)}"}), 500
 
 
 @bp.route('/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     user = Users.query.filter_by(id=user_id).first_or_404()
-    db.session.delete(user)
-    db.session.commit()
-    return '', 204
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return '', 204
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"Error": f"Database could not be reached - {str(e)}"}), 500

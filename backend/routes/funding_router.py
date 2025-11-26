@@ -1,27 +1,31 @@
 from flask import request, jsonify, Blueprint
 from models import Funding, db
 
-bp = Blueprint('funding', __name__, url_prefix='/funding')
+bp = Blueprint('funding', __name__, url_prefix='/projects/<int:project_id>/funding')
 
 
-@bp.route('/<int:project_id>', methods=['GET'])
+@bp.route('/', methods=['GET'])
 def funding_by_id(project_id):
     funding = Funding.query.filter_by(project_id=project_id).all()
     funding_obj = {}
     for fund in funding:
         funding_obj[fund.id] = fund.to_dict()
-    return jsonify(funding_obj)
+    return jsonify(funding_obj), 200
 
 
-@bp.route('/<int:project_id>', methods=['POST'])
+@bp.route('/', methods=['POST'])
 def add_funding(project_id):
     funding_data = request.get_json()
     new_funding = Funding(project_id=project_id, title=funding_data.get('title'),
                           deadline=funding_data.get('deadline'), requirements=funding_data.get(
             'requirements'))
-    db.session.add(new_funding)
-    db.session.commit()
-    return jsonify(new_funding.to_dict())
+    try:
+        db.session.add(new_funding)
+        db.session.commit()
+        return jsonify(new_funding.to_dict()), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"Error": f"Database could not be reached - {str(e)}"}), 500
 
 
 @bp.route('/<int:id>', methods=['PUT'])
@@ -32,13 +36,21 @@ def update_funding(id):
     for field in editable_fields:
         if field in data:
             setattr(funding, field, data[field])
-    db.session.commit()
-    return jsonify({funding.to_dict()})
+    try:
+        db.session.commit()
+        return jsonify({funding.to_dict()}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"Error": f"Database could not be reached - {str(e)}"}), 500
 
 
 @bp.route('/<int:id>', methods=['DELETE'])
 def delete_funding(id):
     funding = Funding.query.filter_by(id=id).first()
-    db.session.delete(funding)
-    db.session.commit()
-    return '', 204
+    try:
+        db.session.delete(funding)
+        db.session.commit()
+        return '', 204
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"Error": f"Database could not be reached - {str(e)}"}), 500
