@@ -1,4 +1,4 @@
 Flask~=3.1.2
-sqlalchemy
+Flask-SQLAlchemy
+SQLAlchemy
 gunicorn
-uvicorn[standard]
