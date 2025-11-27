@@ -52,7 +52,7 @@ def update_project(id, user_id):
 
 @bp.route('/<int:id>', methods=['DELETE'])
 def delete_project(id, user_id):
-    project_specific = Projects.query.get(user_id=user_id, id=id)
+    project_specific = Projects.query.filter_by(user_id=user_id, id=id).first()
     if not project_specific:
         return jsonify({"Error": "Project not found"}), 404
     try:

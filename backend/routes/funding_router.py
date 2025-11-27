@@ -29,8 +29,8 @@ def add_funding(project_id):
 
 
 @bp.route('/<int:id>', methods=['PUT'])
-def update_funding(id):
-    funding = Funding.query.filter_by(id=id).all()
+def update_funding(project_id, id):
+    funding = Funding.query.filter_by(project_id=project_id, id=id).all()
     data = request.get_json()
     editable_fields = ['title', 'deadline', 'requirements']
     for field in editable_fields:
@@ -45,8 +45,8 @@ def update_funding(id):
 
 
 @bp.route('/<int:id>', methods=['DELETE'])
-def delete_funding(id):
-    funding = Funding.query.filter_by(id=id).first()
+def delete_funding(project_id, id):
+    funding = Funding.query.filter_by(project_id=project_id, id=id).first()
     try:
         db.session.delete(funding)
         db.session.commit()

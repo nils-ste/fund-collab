@@ -33,8 +33,8 @@ def create_content(project_id):
 
 
 @bp.route('/content/<int:id>', methods=['PUT'])
-def update_content(id):
-    content = Content.query.filter_by(id=id).first()
+def update_content(project_id, id):
+    content = Content.query.filter_by(project_id=project_id, id=id).first()
     data = request.get_json()
     editable_fields = ['section_type', 'text_box', 'permission_reading', 'permission_editing']
     for field in editable_fields:
@@ -49,8 +49,8 @@ def update_content(id):
 
 
 @bp.route('/content/<int:id>', methods=['DELETE'])
-def delete_content(id):
-    content = Content.query.filter_by(id=id).first()
+def delete_content(project_id, id):
+    content = Content.query.filter_by(project_id=project_id, id=id).first()
     try:
         db.session.delete(content)
         db.session.commit()
