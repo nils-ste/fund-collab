@@ -30,7 +30,7 @@ def add_funding(project_id):
 
 @bp.route('/<int:id>', methods=['PUT'])
 def update_funding(project_id, id):
-    funding = Funding.query.filter_by(project_id=project_id, id=id).all()
+    funding = Funding.query.filter_by(project_id=project_id, id=id).first()
     data = request.get_json()
     editable_fields = ['title', 'deadline', 'requirements']
     for field in editable_fields:
@@ -38,7 +38,7 @@ def update_funding(project_id, id):
             setattr(funding, field, data[field])
     try:
         db.session.commit()
-        return jsonify({funding.to_dict()}), 200
+        return jsonify(funding.to_dict()), 200
     except Exception as e:
         db.session.rollback()
         return jsonify({"Error": f"Database could not be reached - {str(e)}"}), 500
