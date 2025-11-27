@@ -3,7 +3,7 @@ import datetime
 from flask import request, jsonify, Blueprint
 from models import Projects, db
 
-bp = Blueprint('projects', __name__, url_prefix='users/<int:user_id>/projects')
+bp = Blueprint('projects', __name__, url_prefix='/users/<int:user_id>/projects')
 
 
 @bp.route('/', methods=['GET'])
@@ -33,8 +33,8 @@ def create_project(user_id):
 
 
 @bp.route('/<int:id>', methods=['PUT'])
-def update_project(id):
-    project_specific = Projects.query.filter_by(id=id).all()
+def update_project(id, user_id):
+    project_specific = Projects.query.filter_by(user_id=user_id,id=id).first()
     if not project_specific:
         return jsonify({})
     data = request.get_json()
@@ -51,8 +51,8 @@ def update_project(id):
 
 
 @bp.route('/<int:id>', methods=['DELETE'])
-def delete_project(id):
-    project_specific = Projects.query.get(id=id)
+def delete_project(id, user_id):
+    project_specific = Projects.query.get(user_id=user_id, id=id)
     if not project_specific:
         return jsonify({"Error": "Project not found"}), 404
     try:

@@ -9,7 +9,8 @@ bp = Blueprint('users', __name__, url_prefix='/users')
 @bp.route('/<int:user_id>', methods=['GET'])
 def get_users(user_id):
     user = Users.query.filter_by(id=user_id).first()
-    return jsonify(user.to_dict), 200
+    print(user)
+    return jsonify(user.to_dict()), 200
 
 
 @bp.route('/', methods=['POST'])
