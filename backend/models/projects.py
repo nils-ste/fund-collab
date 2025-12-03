@@ -9,6 +9,6 @@ class Projects(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
 
     def to_dict(self):
-        return {"project_title": self.project_title, "status": self.status,
+        return {"id": self.id,"project_title": self.project_title, "status": self.status,
                 "public": self.public,"created_at": self.created_at}
 

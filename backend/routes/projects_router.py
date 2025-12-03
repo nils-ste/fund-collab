@@ -11,9 +11,7 @@ def projects(user_id):
     projects_user = Projects.query.filter_by(user_id=user_id).all()
     if not projects_user:
         return jsonify({"Error": "Project not found"}), 404
-    projects = {}
-    for project in projects_user:
-        projects[project.id]= project.to_dict()
+    projects = [project.to_dict() for project in projects_user]
     return jsonify(projects), 200
 
 
