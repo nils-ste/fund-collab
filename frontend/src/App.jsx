@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import './App.css'
+import Projects from "./Projects"
+import ProjectsForm from "./ProjectsForm"
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>Hello World!</h1>
+      <Projects userId={1}/>
+      <ProjectsForm/>
     </>
   )
 }
