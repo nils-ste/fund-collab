@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 export default function Projects(props) {
     const [projectData, setProjectData] = useState([])
     useEffect(() => {
-        let url = `https://fund-collab.onrender.com/users/${props.userId}/projects`
+        let url = `https://fund-collab.onrender.com/users/1/projects`
         fetch(url, )
             .then(res => res.json())
             .then(data => setProjectData(data))

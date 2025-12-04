@@ -2,24 +2,25 @@ import { useState } from "react"
 
 export default function ProjectsForm(props) {
     const [projectData, setProjectData] = useState({
-        project_title: "", status: "", public: undefined
+        project_title: "", public: "", status: ""
     })
     function handleChange(e) {
-        const { name, value, type } = e.target
+        const { name, value} = e.target
         setProjectData(prev => ({ ...prev, [name]: value }))
+        console.log(projectData)
     }
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("fetch is firing")
-        let url = `http://127.0.0.1:5000//users/${props.userId}/projects`
-        const data = await fetch(url, { method: "POST", body: JSON.stringify(projectData), headers: {
+        let url = `https://fund-collab.onrender.com/users/1/projects`
+        const data = await fetch(url, { method: "POST", body: projectData, headers: {
                 "Content-Type": "application/json",
             },})
         console.log(data)
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={()=>handleSubmit}>
             <label>Enter Project Title:
                 <input
                     type="text"
@@ -43,20 +44,18 @@ export default function ProjectsForm(props) {
                     id="true"
                     name="public"
                     value="true"
-                    checked={projectData.public === true}
                     onChange={handleChange}
                 />
-                <label htmlFor="true">True</label>
+                <label for="true">True</label>
 
                 <input
                     type="radio"
                     id="false"
                     name="public"
                     value="false"
-                    checked={projectData.public === false}
                     onChange={handleChange}
                 />
-                <label htmlFor="false">False</label>
+                <label for="false">False</label>
             </div>
             <button type="submit">Submit</button>
 
