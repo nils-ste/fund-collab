@@ -2,25 +2,34 @@ import { useState } from "react"
 
 export default function ProjectsForm(props) {
     const [projectData, setProjectData] = useState({
-        project_title: "", public: "", status: ""
+        project_title: "", public: false, status: ""
     })
     function handleChange(e) {
-        const { name, value} = e.target
-        setProjectData(prev => ({ ...prev, [name]: value }))
-        console.log(projectData)
+        const { name, value, type } = e.target;
+
+        setProjectData(prev => ({
+            ...prev,
+            [name]: type === "radio" ? (value === "true") : value,
+        }));
     }
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("fetch is firing")
-        let url = `https://fund-collab.onrender.com/users/1/projects`
-        const data = await fetch(url, { method: "POST", body: projectData, headers: {
+        let url = `https://fund-collab.onrender.com/users/1/projects/`
+        const data = await fetch(url, {
+            method: "POST",
+            headers: {
                 "Content-Type": "application/json",
-            },})
-        console.log(data)
+            },
+            body: JSON.stringify(projectData),
+        })
+        if (response.ok) {
+            props.fetchProjects()
+        }
     }
 
     return (
-        <form onSubmit={()=>handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <label>Enter Project Title:
                 <input
                     type="text"
@@ -41,21 +50,23 @@ export default function ProjectsForm(props) {
 
                 <input
                     type="radio"
-                    id="true"
+                    id="public-true"
                     name="public"
                     value="true"
+                    checked={projectData.public === true}
                     onChange={handleChange}
                 />
-                <label for="true">True</label>
+                <label htmlFor="public-true">True</label>
 
                 <input
                     type="radio"
-                    id="false"
+                    id="public-false"
                     name="public"
                     value="false"
+                    checked={projectData.public === false}
                     onChange={handleChange}
                 />
-                <label for="false">False</label>
+                <label htmlFor="public-false">False</label>
             </div>
             <button type="submit">Submit</button>
 
