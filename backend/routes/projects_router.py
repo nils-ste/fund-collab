@@ -6,7 +6,7 @@ from models import Projects, db
 bp = Blueprint('projects', __name__, url_prefix='/users/<int:user_id>/projects')
 
 
-@bp.route('/', methods=['GET'])
+@bp.route('', methods=['GET'])
 def projects(user_id):
     projects_user = Projects.query.filter_by(user_id=user_id).all()
     if not projects_user:
@@ -15,7 +15,7 @@ def projects(user_id):
     return jsonify(projects), 200
 
 
-@bp.route('/', methods=['POST'])
+@bp.route('', methods=['POST'])
 def create_project(user_id):
     project_data = request.get_json()
     new_project = Projects(project_title=project_data.get('project_title'), status=project_data.get('status', 0),

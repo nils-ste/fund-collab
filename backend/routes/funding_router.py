@@ -4,7 +4,7 @@ from models import Funding, db
 bp = Blueprint('funding', __name__, url_prefix='/projects/<int:project_id>/funding')
 
 
-@bp.route('/', methods=['GET'])
+@bp.route('', methods=['GET'])
 def funding_by_id(project_id):
     funding = Funding.query.filter_by(project_id=project_id).all()
     funding_obj = {}
@@ -13,7 +13,7 @@ def funding_by_id(project_id):
     return jsonify(funding_obj), 200
 
 
-@bp.route('/', methods=['POST'])
+@bp.route('', methods=['POST'])
 def add_funding(project_id):
     funding_data = request.get_json()
     new_funding = Funding(project_id=project_id, title=funding_data.get('title'),

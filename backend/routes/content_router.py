@@ -6,7 +6,7 @@ from models import Content, db
 bp = Blueprint('content', __name__, url_prefix='/projects/<int:project_id>/content')
 
 
-@bp.route('/', methods=['GET'])
+@bp.route('', methods=['GET'])
 def content(project_id):
     content = Content.query.filter_by(project_id=project_id).all()
     content_obj = {}
@@ -15,7 +15,7 @@ def content(project_id):
     return jsonify(content_obj), 200
 
 
-@bp.route('/', methods=['POST'])
+@bp.route('', methods=['POST'])
 def create_content(project_id):
     content_data = request.get_json()
     new_content = Content(project_id=project_id, section_type=content_data.get('section_type', 0),
