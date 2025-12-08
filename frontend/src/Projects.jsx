@@ -1,8 +1,18 @@
-import { useState, useEffect } from "react"
 
 export default function Projects(props) {
-    const printable = props.projects.map(project => (
-        <p key={project.id}>{project.project_title}</p>
+    async function deleteElement(id) {
+        const res = await fetch(`${props.url}${id}`, { method: "DELETE" })
+        if (res.ok) {
+            return ("Project deleted successfully")
+        }
+    }
+
+    const data = props.projects
+    const printable = data.map(project => (
+        <div key={project.id}>
+            <p>{project.project_title}</p>
+            <button onClick={() => deleteElement(project.id)}>x</button>
+        </div>
     ));
 
 

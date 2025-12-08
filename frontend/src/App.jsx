@@ -6,10 +6,11 @@ import ProjectsForm from "./ProjectsForm"
 function App() {
 
   const [projects, setProjects] = useState([])
-  let user_id = 1
+  let userId = 1
+  const url= `https://fund-collab.onrender.com/users/1/projects/`
 
   async function fetchProjects() {
-    const res = await fetch(`https://fund-collab.onrender.com/users/1/projects/`)
+    const res = await fetch(url)
     const data = await res.json()
     setProjects(data)
   }
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <>
-      <Projects projects={projects} />
+      <Projects projects={projects}  url={url}/>
       <ProjectsForm fetchProjects={fetchProjects} />
     </>
   )
