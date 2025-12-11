@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { getProjects, postProject } from "./API/project";
 
 export default function ProjectsForm(props) {
     const [projectData, setProjectData] = useState({
@@ -7,26 +8,23 @@ export default function ProjectsForm(props) {
     function handleChange(e) {
         const { name, value, type } = e.target;
 
-        setProjectData(prev => ({
+        setProjectData((prev) => ({
             ...prev,
             [name]: type === "radio" ? (value === "true") : value,
         }));
     }
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log("fetch is firing")
-        let url = `https://fund-collab.onrender.com/users/1/projects/`
-        const data = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(projectData),
-        })
-        if (response.ok) {
-            props.fetchProjects()
+        try 
+        {
+        await postProject(props.userId, projectData)
+        const updated = await getProjects(props.userId)
+        props.setProjects(updated)
+        setProjectData({ project_title: "", public: false, status: "" });
         }
-    }
+        catch (err) {
+      console.error("Error posting project:", err);
+    }}
 
     return (
         <form onSubmit={handleSubmit}>

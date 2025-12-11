@@ -1,17 +1,41 @@
+import { getProjects, deleteProject } from "./API/project"
+import { useState, useEffect } from "react"
+import ProjectsForm from "./ProjectsForm"
 
 export default function Projects(props) {
-    async function deleteElement(id) {
-        const res = await fetch(`${props.url}${id}`, { method: "DELETE" })
-        if (res.ok) {
-            return ("Project deleted successfully")
+    const [projects, setProjects] = useState([])
+    let userId = 1
+
+
+    useEffect(() => {
+        async function fetchProjects() {
+            try {
+                const data = await getProjects(userId)
+                setProjects(data)
+            }
+            catch {
+                console.log("Error")
+            }
+        }
+        fetchProjects()
+    }
+        , [])
+
+    async function handleDelete(userId, projectId) {
+        try {
+            await deleteProject(userId, projectId)
+            const updated = await getProjects(userId)
+            setProjects(updated)
+        }
+        catch (err) {
+            console.error("Error deleting project:", err);
         }
     }
 
-    const data = props.projects
-    const printable = data.map(project => (
+    const printable = projects.map(project => (
         <div key={project.id}>
             <p>{project.project_title}</p>
-            <button onClick={() => deleteElement(project.id)}>x</button>
+            <button onClick={() => handleDelete(userId, project.id)}>x</button>
         </div>
     ));
 
@@ -19,6 +43,7 @@ export default function Projects(props) {
     return (
         <>
             {printable}
+            <ProjectsForm getProjects={getProjects} userId={userId} setProjects={setProjects} />
         </>
     )
 }
