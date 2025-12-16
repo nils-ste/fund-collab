@@ -6,6 +6,11 @@ bp = Blueprint('funding', __name__, url_prefix='/projects/<int:project_id>/fundi
 
 @bp.route('', methods=['GET'])
 def funding_by_id(project_id):
+    """
+    Get funding by id
+    :param project_id:
+    :return:
+    """
     funding = Funding.query.filter_by(project_id=project_id).all()
     funding_obj = {}
     for fund in funding:
@@ -15,6 +20,11 @@ def funding_by_id(project_id):
 
 @bp.route('', methods=['POST'])
 def add_funding(project_id):
+    """
+    Add funding
+    :param project_id:
+    :return:
+    """
     funding_data = request.get_json()
     new_funding = Funding(project_id=project_id, title=funding_data.get('title'),
                           deadline=funding_data.get('deadline'), requirements=funding_data.get(
@@ -30,6 +40,12 @@ def add_funding(project_id):
 
 @bp.route('/<int:id>', methods=['PUT'])
 def update_funding(project_id, id):
+    """
+    Update funding
+    :param project_id:
+    :param id:
+    :return:
+    """
     funding = Funding.query.filter_by(project_id=project_id, id=id).first()
     data = request.get_json()
     editable_fields = ['title', 'deadline', 'requirements']
@@ -46,6 +62,12 @@ def update_funding(project_id, id):
 
 @bp.route('/<int:id>', methods=['DELETE'])
 def delete_funding(project_id, id):
+    """
+    Delete funding
+    :param project_id:
+    :param id:
+    :return:
+    """
     funding = Funding.query.filter_by(project_id=project_id, id=id).first()
     try:
         db.session.delete(funding)

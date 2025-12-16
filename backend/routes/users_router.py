@@ -8,6 +8,11 @@ bp = Blueprint('users', __name__, url_prefix='/users')
 
 @bp.route('/<int:user_id>', methods=['GET'])
 def get_user(user_id):
+    """
+    Get user
+    :param user_id:
+    :return:
+    """
     user = Users.query.filter_by(id=user_id).first()
     print(user)
     return jsonify(user.to_dict()), 200
@@ -15,6 +20,10 @@ def get_user(user_id):
 
 @bp.route('', methods=['POST'])
 def create_user():
+    """
+    Create user
+    :return:
+    """
     user_data = request.get_json()
     user = Users(username=user_data.get('username'), email=user_data.get('email'), password=user_data.get('password'),
                  role=user_data.get('role', 0), created_at=datetime.datetime.now())
@@ -29,7 +38,11 @@ def create_user():
 
 @bp.route('/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
-    # fetch user by id
+    """
+    Update user
+    :param user_id:
+    :return:
+    """
     user = Users.query.get_or_404(user_id)
     data = request.get_json()
 
@@ -49,6 +62,11 @@ def update_user(user_id):
 
 @bp.route('/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
+    """
+    Delete user
+    :param user_id:
+    :return:
+    """
     user = Users.query.filter_by(id=user_id).first_or_404()
     try:
         db.session.delete(user)

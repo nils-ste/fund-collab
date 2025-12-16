@@ -8,6 +8,11 @@ bp = Blueprint('projects', __name__, url_prefix='/users/<int:user_id>/projects')
 
 @bp.route('', methods=['GET'])
 def projects(user_id):
+    """
+    Get all projects objects
+    :param user_id:
+    :return:
+    """
     projects_user = Projects.query.filter_by(user_id=user_id).all()
     if not projects_user:
         return jsonify({"Error": "Project not found"}), 404
@@ -17,6 +22,11 @@ def projects(user_id):
 
 @bp.route('', methods=['POST'])
 def create_project(user_id):
+    """
+    Create a new project object
+    :param user_id:
+    :return:
+    """
     project_data = request.get_json()
     new_project = Projects(project_title=project_data.get('project_title'), status=project_data.get('status', 0),
                            user_id=user_id, public=project_data.get('public', 0),
@@ -32,6 +42,12 @@ def create_project(user_id):
 
 @bp.route('/<int:id>', methods=['PUT'])
 def update_project(id, user_id):
+    """
+    Update a project object
+    :param id:
+    :param user_id:
+    :return:
+    """
     project_specific = Projects.query.filter_by(user_id=user_id,id=id).first()
     if not project_specific:
         return jsonify({})
@@ -50,6 +66,12 @@ def update_project(id, user_id):
 
 @bp.route('/<int:id>', methods=['DELETE'])
 def delete_project(id, user_id):
+    """
+    Delete a project object
+    :param id:
+    :param user_id:
+    :return:
+    """
     project_specific = Projects.query.filter_by(user_id=user_id, id=id).first()
     if not project_specific:
         return jsonify({"Error": "Project not found"}), 404

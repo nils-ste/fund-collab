@@ -8,6 +8,11 @@ bp = Blueprint('content', __name__, url_prefix='/projects/<int:project_id>/conte
 
 @bp.route('', methods=['GET'])
 def content(project_id):
+    """
+    Get all content objects
+    :param project_id:
+    :return:
+    """
     content = Content.query.filter_by(project_id=project_id).all()
     content_obj = {}
     for cont in content:
@@ -17,6 +22,11 @@ def content(project_id):
 
 @bp.route('', methods=['POST'])
 def create_content(project_id):
+    """
+    Create a new content object
+    :param project_id:
+    :return:
+    """
     content_data = request.get_json()
     new_content = Content(project_id=project_id, section_type=content_data.get('section_type', 0),
                           text_box=content_data.get('text_box'),
@@ -34,6 +44,12 @@ def create_content(project_id):
 
 @bp.route('/<int:id>', methods=['PUT'])
 def update_content(project_id, id):
+    """
+    Update a content object
+    :param project_id:
+    :param id:
+    :return:
+    """
     content = Content.query.filter_by(project_id=project_id, id=id).first()
     data = request.get_json()
     editable_fields = ['section_type', 'text_box', 'permission_reading', 'permission_editing']
@@ -50,6 +66,12 @@ def update_content(project_id, id):
 
 @bp.route('/<int:id>', methods=['DELETE'])
 def delete_content(project_id, id):
+    """
+    Delete a content object
+    :param project_id:
+    :param id:
+    :return:
+    """
     content = Content.query.filter_by(project_id=project_id, id=id).first()
     try:
         db.session.delete(content)

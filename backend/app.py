@@ -10,7 +10,11 @@ db.init_app(app)
 register_routes(app)
 
 @app.route('/')
-def get_data():
+def welcome_message():
+    """
+    Welcome message
+    :return:
+    """
     return {"message": "Welcome to fund-collab!"}
 
 

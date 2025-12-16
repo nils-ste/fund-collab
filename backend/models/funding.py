@@ -1,6 +1,9 @@
 from . import db
 
 class Funding(db.Model):
+    """
+    Funding table
+    """
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
     title = db.Column(db.String(80), nullable=False)

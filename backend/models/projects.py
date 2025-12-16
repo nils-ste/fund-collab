@@ -1,6 +1,9 @@
 from . import db
 
 class Projects(db.Model):
+    """
+    Projects table
+    """
     id = db.Column(db.Integer, primary_key=True)
     project_title = db.Column(db.String(80), nullable=False)
     status = db.Column(db.Integer, nullable=False)

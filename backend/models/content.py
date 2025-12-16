@@ -1,6 +1,9 @@
 from . import db
 
 class Content(db.Model):
+    """
+    Content table
+    """
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
     section_type = db.Column(db.Integer, nullable=False)
