@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
 import { getContent, deleteContent } from "../API/content"
 
-export default function Content() {
+export default function Content({projectId}) {
     const [content, setContent] = useState([])
-    let projectId = 1
 
     useEffect(() => {
         async function fetchContent() {
@@ -16,9 +15,9 @@ export default function Content() {
             }
         }
         fetchContent()
-    }, [])
+    }, [projectId])
 
-    async function handleDelete(projectId, contentId) {
+    async function handleDelete(contentId) {
         try {
             await deleteContent(projectId, contentId);
             const updated = await getContent(projectId);
@@ -33,7 +32,7 @@ export default function Content() {
     const printable = content.map(cont => (
         <div key={cont.id}>
             <p>{cont.text_box}</p>
-            <button onClick={() => handleDelete(projectId, cont.id) }>x</button>
+            <button onClick={() => handleDelete(cont.id) }>x</button>
         </div>
     )
     )
