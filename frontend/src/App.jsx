@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Projects userId={1} />
-      <Content projectId={1} />
+      <Content />
     </>
   )
 }

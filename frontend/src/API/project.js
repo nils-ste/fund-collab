@@ -1,20 +1,20 @@
 const BASE_URL = "https://fund-collab.onrender.com/users"
 
-export async function getProjects(user_id) {
-    const res = await fetch(`${BASE_URL}/${user_id}/projects`);
+export async function getProjects(userId) {
+    const res = await fetch(`${BASE_URL}/${userId}/projects`);
     if (!res.ok) throw new Error("Failed to load projects");
     const data = await res.json();
     return (data);
 }
 
-export async function deleteProject(user_id, project_id) {
-    const res = await fetch(`${BASE_URL}/${user_id}/projects/${project_id}`, { method: "DELETE" });
+export async function deleteProject(userId, projectId) {
+    const res = await fetch(`${BASE_URL}/${userId}/projects/${projectId}`, { method: "DELETE" });
     if (!res.ok) throw new Error("Failed to delete project");
     return true
 }
 
-export async function postProject(user_id, projectData) {
-    const data = await fetch(`${BASE_URL}/${user_id}/projects`, {
+export async function postProject(userId, projectData) {
+    const data = await fetch(`${BASE_URL}/${userId}/projects`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

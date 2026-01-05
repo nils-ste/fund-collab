@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getContent } from "./API/content"
+import { getContent, deleteContent } from "./API/content"
 
 export default function Content() {
     const [content, setContent] = useState([])
@@ -18,16 +18,29 @@ export default function Content() {
         fetchContent()
     }, [])
 
+    async function handleDelete(projectId, contentId) {
+        try {
+            await deleteContent(projectId, contentId);
+            const updated = await getContent(projectId);
+            setContent(updated);
+        }
+        catch (err) {
+            console.log("Error deleting project:", err);
+        }
+
+    }
+
     const printable = content.map(cont => (
         <div key={cont.id}>
             <p>{cont.text_box}</p>
+            <button onClick={() => handleDelete(projectId, cont.id) }>x</button>
         </div>
     )
     )
 
-    return(
+    return (
         <>
-        {printable}
+            {printable}
         </>
     )
 
