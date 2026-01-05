@@ -1,6 +1,6 @@
 import './App.css'
-import Projects from "./Projects"
-import Content from './Content'
+import Projects from "./Projects/Projects"
+import Content from './Content/Content'
 
 function App() {
 

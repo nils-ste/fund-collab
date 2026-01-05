@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { getProjects, postProject } from "./API/project";
+import { getProjects, postProject } from "../API/project";
 
 export default function ProjectsForm(props) {
     const [projectData, setProjectData] = useState({

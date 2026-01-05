@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getContent, deleteContent } from "./API/content"
+import { getContent, deleteContent } from "../API/content"
 
 export default function Content() {
     const [content, setContent] = useState([])

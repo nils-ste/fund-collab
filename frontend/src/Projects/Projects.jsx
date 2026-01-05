@@ -1,4 +1,4 @@
-import { getProjects, deleteProject } from "./API/project"
+import { getProjects, deleteProject } from "../API/project"
 import { useState, useEffect } from "react"
 import ProjectsForm from "./ProjectsForm"
 
