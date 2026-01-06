@@ -14,8 +14,6 @@ def projects(user_id):
     :return:
     """
     projects_user = Projects.query.filter_by(user_id=user_id).all()
-    if not projects_user:
-        return jsonify({"Error": "Project not found"}), 404
     projects = [project.to_dict() for project in projects_user]
     return jsonify(projects), 200
 

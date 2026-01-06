@@ -14,8 +14,6 @@ def content(project_id):
     :return:
     """
     content_user = Content.query.filter_by(project_id=project_id).all()
-    if not content_user:
-        return jsonify({"Error": "Content not found"}), 404
     content_obj = [cont.to_dict() for cont in content_user]
     return jsonify(content_obj), 200
 
