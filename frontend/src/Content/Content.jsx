@@ -17,11 +17,10 @@ export default function Content({ projectId }) {
   }, [projectId]);
 
   async function handleDelete(contentId) {
-    let updated = content
     try {
       await deleteContent(projectId, contentId);
-      updated.length > 1 ? updated = await getContent(projectId): updated = [];
-      setContent(updated);
+      const updated = await getContent(projectId);
+      setContent(updated.length ? [...updated] : []);
     } catch (err) {
       console.log("Error deleting project:", err);
     }

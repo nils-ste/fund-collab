@@ -20,7 +20,7 @@ export default function ProjectsForm(props) {
     try {
       await postProject(props.userId, projectData);
       const updated = await getProjects(props.userId);
-      props.setProjects(updated);
+      props.setProjects(updated.length ? [...updated] : []);
       setProjectData({ project_title: "", public: false, status: "" });
     } catch (err) {
       console.error("Error posting project:", err);

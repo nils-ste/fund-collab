@@ -12,7 +12,7 @@ export async function deleteProject(userId, projectId) {
     method: "DELETE",
   });
   if (!res.ok) throw new Error("Failed to delete project");
-  return true;
+  return;
 }
 
 export async function postProject(userId, projectData) {

@@ -19,11 +19,10 @@ export default function Projects({ userId }) {
   }, [userId]);
 
   async function handleDelete(userId, projectId) {
-    let updated = projects
     try {
       await deleteProject(userId, projectId);
-      updated.length > 1 ? updated = await getProjects(userId): updated = [];
-      setProjects(updated);
+      const updated = await getProjects(userId);
+      setProjects(updated.length ? [...updated] : []);
     } catch (err) {
       console.error("Error deleting project:", err);
     }
@@ -33,7 +32,7 @@ export default function Projects({ userId }) {
     <div key={project.id}>
       <p>{project.project_title}</p>
       <button onClick={() => handleDelete(userId, project.id)}>x</button>
-      {/* <Content projectId={project.id} /> */}
+      <Content projectId={project.id} />
     </div>
   ));
 
