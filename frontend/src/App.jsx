@@ -1,12 +1,12 @@
+import { useNavigate } from "react-router";
 import "./App.css";
-import Projects from "./Projects/Projects";
-import Content from "./Content/Content";
 
 function App() {
+  const navigate = useNavigate()
   return (
     <>
-      <Projects userId={1} />
-      <Content projectId={1} />
+    <button className="homepageRoute" onClick={() => navigate("/projects")}>Go to Projects</button>
+    <button className="homepageRoute" onClick={() => navigate("/content")}>Go to Content</button>
     </>
   );
 }

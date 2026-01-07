@@ -5,3 +5,11 @@
   text-align: center;
 }
 
+.homepageRoute {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  margin: 5px;
+}
+
