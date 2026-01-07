@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getProjects, postProject } from "../API/project";
 
-export default function ProjectsForm(props) {
+export default function ProjectsForm({ userId, setProjects }) {
   const [projectData, setProjectData] = useState({
     project_title: "",
     public: false,
@@ -18,9 +18,9 @@ export default function ProjectsForm(props) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await postProject(props.userId, projectData);
-      const updated = await getProjects(props.userId);
-      props.setProjects(updated.length ? [...updated] : []);
+      await postProject(userId, projectData);
+      const updated = await getProjects(userId);
+      setProjects(updated.length ? [...updated] : []);
       setProjectData({ project_title: "", public: false, status: "" });
     } catch (err) {
       console.error("Error posting project:", err);

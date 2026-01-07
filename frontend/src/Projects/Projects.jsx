@@ -40,7 +40,6 @@ export default function Projects({ userId }) {
     <>
       {printable}
       <ProjectsForm
-        getProjects={getProjects}
         userId={userId}
         setProjects={setProjects}
       />
