@@ -1,7 +1,7 @@
 import { getProjects, deleteProject } from "../API/project";
 import { useState, useEffect } from "react";
-import ProjectsForm from "./ProjectsForm";
-import Content from "../Content/Content";
+import ProjectsForm from "../Components/ProjectsForm";
+
 
 export default function Projects({ userId }) {
   const [projects, setProjects] = useState([]);
@@ -32,7 +32,6 @@ export default function Projects({ userId }) {
     <div key={project.id}>
       <p>{project.project_title}</p>
       <button onClick={() => handleDelete(userId, project.id)}>x</button>
-      <Content projectId={project.id} />
     </div>
   ));
 

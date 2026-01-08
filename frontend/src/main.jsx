@@ -3,8 +3,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import "./index.css";
 import App from "./App.jsx";
-import Projects from "./Projects/Projects";
-import Content from "./Content/Content" ;
+import Projects from "./Page/Projects.jsx";
+import Content from "./Page/Content.jsx" ;
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getContent, deleteContent } from "../API/content";
+import ContentForm from "../Components/ContentForm";
 
 export default function Content({ projectId }) {
   const [content, setContent] = useState([]);
@@ -33,5 +34,10 @@ export default function Content({ projectId }) {
     </div>
   ));
 
-  return <>{printable}</>;
+  return (
+    <>
+      {printable}
+      <ContentForm projectId={projectId} setContent={setContent} />
+    </>
+  );
 }
