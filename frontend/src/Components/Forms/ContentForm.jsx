@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getContent, postContent } from "../API/content";
+import { getContent, postContent } from "../../API/content";
 
 export default function ContentForm({ projectId, setContent }) {
   const [contentData, setContentData] = useState({

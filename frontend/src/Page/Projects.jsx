@@ -1,6 +1,6 @@
 import { getProjects, deleteProject } from "../API/project";
 import { useState, useEffect } from "react";
-import ProjectsForm from "../Components/ProjectsForm";
+import ProjectsForm from "../Components/Forms/ProjectsForm";
 
 
 export default function Projects({ userId }) {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getContent, deleteContent } from "../API/content";
-import ContentForm from "../Components/ContentForm";
+import ContentForm from "../Components/Forms/ContentForm";
 
 export default function Content({ projectId }) {
   const [content, setContent] = useState([]);
