@@ -11,4 +11,4 @@ class Funding(db.Model):
     requirements = db.Column(db.String, nullable=False)
 
     def to_dict(self):
-        return {"title": self.title, "deadline": self.deadline,"requirements": self.requirements}
+        return {"id":self.id, "title": self.title, "deadline": self.deadline,"requirements": self.requirements}
