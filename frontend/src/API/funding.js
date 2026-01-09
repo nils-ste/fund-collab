@@ -19,7 +19,7 @@ export async function postFunding(projectId, fundingData) {
   const data = await fetch(`${BASE_URL}/${projectId}/funding`, {
     method: "POST",
     headers: {
-      "funding-Type": "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(fundingData),
   });

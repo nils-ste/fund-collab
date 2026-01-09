@@ -14,7 +14,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/projects" element={<Projects userId={1} />} />
         <Route path="/content" element={<Content projectId={2} />} />
-        <Route path="/funding/" element={<Funding projectId={1}/>} />
+        <Route path="/funding/" element={<Funding projectId={2}/>} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
