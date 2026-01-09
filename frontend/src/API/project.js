@@ -26,3 +26,15 @@ export async function postProject(userId, projectData) {
   if (!data.ok) throw new Error("Failed to create project");
   return data.json();
 }
+
+export async function putProject(userId, projectData, projectId) {
+  const data = await fetch(`${BASE_URL}/${userId}/projects/${projectId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(projectData),
+  });
+  if (!data.ok) throw new Error("Failed to create project");
+  return data.json();
+}

@@ -1,4 +1,4 @@
-export default function TextInput({ name, inputLabel, data, handleChange}) {
+export default function TextInput({ name, inputLabel, data, handleChange, placeholder = ""}) {
   return (
     <div className="relative z-0 w-full mb-5 group">
       <input
@@ -6,7 +6,7 @@ export default function TextInput({ name, inputLabel, data, handleChange}) {
         name={name}
         id={name}
         className="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
-        placeholder=" "
+        placeholder={placeholder}
         value={data}
         onChange={handleChange}
         required
