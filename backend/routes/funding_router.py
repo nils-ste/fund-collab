@@ -11,11 +11,9 @@ def funding_by_id(project_id):
     :param project_id:
     :return:
     """
-    funding = Funding.query.filter_by(project_id=project_id).all()
-    funding_obj = {}
-    for fund in funding:
-        funding_obj[fund.id] = fund.to_dict()
-    return jsonify(funding_obj), 200
+    funding_user = Funding.query.filter_by(project_id=project_id).all()
+    funding_list = [fund.to_dict() for fund in funding_user]
+    return jsonify(funding_list), 200
 
 
 @bp.route('', methods=['POST'])
