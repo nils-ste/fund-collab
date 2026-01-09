@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App.jsx";
 import Projects from "./Page/Projects.jsx";
 import Content from "./Page/Content.jsx" ;
+import Funding from "./Page/Funding.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/projects" element={<Projects userId={1} />} />
         <Route path="/content" element={<Content projectId={2} />} />
+        <Route path="/funding/" element={<Funding projectId={1}/>} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
