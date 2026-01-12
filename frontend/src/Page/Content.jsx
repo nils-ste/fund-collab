@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
 import ContentForm from "../Components/Forms/ContentForm";
 
-export default function Content({ projectId }) {
+export default function Content() {
+  const { projectId } = useParams(); 
+  const id = Number(projectId); 
   const [content, setContent] = useState([]);
 
   useEffect(() => {
