@@ -104,7 +104,9 @@ export default function Projects({ userId }) {
 
   return (
     <>
+      <div className="flex flex-wrap">
       {printable}
+    </div>
       <ProjectsForm userId={userId} setProjects={setProjects} />
     </>
   );
