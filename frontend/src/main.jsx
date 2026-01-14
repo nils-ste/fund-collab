@@ -6,19 +6,19 @@ import App from "./App.jsx";
 import Projects from "./Page/Projects.jsx";
 import Content from "./Page/Content.jsx" ;
 import Funding from "./Page/Funding.jsx";
-import NavBar from "./Components/NavBar.jsx";
+import Layout from "./Components/Layout/Layout.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-    <NavBar >
       <Routes>
+        <Route element={<Layout/>}>
         <Route path="/" element={<App />} />
         <Route path="/projects" element={<Projects userId={1} />} />
         <Route path="/content/:projectId" element={<Content />} />
         <Route path="/funding/" element={<Funding projectId={2}/>} />
+        </Route>
       </Routes>
-    </NavBar>
     </BrowserRouter>
   </StrictMode>
 );
