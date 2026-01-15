@@ -38,7 +38,7 @@ export default function Projects({ userId }) {
 
   const printable = projects.map((project) => {
     return (
-      <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+      <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700" key={project.id}>
         {/* Header row */}
         <div className="flex items-start justify-between mb-2">
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
