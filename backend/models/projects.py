@@ -1,3 +1,4 @@
+from sqlalchemy.orm import relationship
 from . import db
 
 class Projects(db.Model):
@@ -5,6 +6,14 @@ class Projects(db.Model):
     Projects table
     """
     id = db.Column(db.Integer, primary_key=True)
+    content = relationship(
+        "Content",
+        cascade="all, delete-orphan"
+    )
+    funding = relationship(
+        "Funding",
+        cascade="all, delete-orphan"
+    )
     project_title = db.Column(db.String(80), nullable=False)
     status = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
