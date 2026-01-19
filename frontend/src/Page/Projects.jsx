@@ -1,11 +1,11 @@
 import { getProjects, deleteProject } from "../API/project";
-import { useState, useEffect } from "react";
-import ProjectsForm from "../Components/Forms/ProjectsForm";
-import ProjectUpdateForm from "../Components/Forms/ProjectUpdateForm";
+import { useState, useEffect, useContext } from "react";
+import ProjectForm from "../Components/Forms/ProjectForm";
 import { Link } from "react-router";
+import { ProjectsContext } from "../Context/projectContext";
 
 export default function Projects({ userId }) {
-  const [projects, setProjects] = useState([]);
+  const {projects, setProjects} = useContext(ProjectsContext)
 
   useEffect(() => {
     async function fetchProjects() {
@@ -30,10 +30,10 @@ export default function Projects({ userId }) {
   }
 
   /* logic for conditional rendering of the update component. perhaps better as seperate component or headless component.*/
-  const [viewToggle, setViewToggle] = useState(null);
+  const [modalProject, setModalProject] = useState(null);
 
-  function updateFormToggle(projectId) {
-    setViewToggle((prev) => (prev === projectId ? null : projectId));
+  function closeModal() {
+    setModalProject(null);
   }
 
   const printable = projects.map((project) => {
@@ -55,7 +55,7 @@ export default function Projects({ userId }) {
             </button>
 
             <button
-              onClick={() => updateFormToggle(project.id)}
+              onClick={() => setModalProject(project)}
               className="px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
               aria-label="Edit project"
             >
@@ -90,14 +90,31 @@ export default function Projects({ userId }) {
           </svg>
         </Link>
 
-        {viewToggle === project.id && (
-          <ProjectUpdateForm
-            userId={userId}
-            setProjects={setProjects}
-            projectId={project.id}
-            projects={projects}
-          />
-        )}
+        {modalProject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
+          <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow">
+            {/* Close Button */}
+            <button
+              onClick={() => closeModal()}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white text-lg font-bold"
+            >
+              ✕
+            </button>
+
+            
+            <h3 className="text-xl font-bold mb-4">Update Project</h3>
+
+            {/* Update Form */}
+            <ProjectForm
+              userId={userId}
+              projectId={modalProject.id}
+              projects={projects}
+              setProjects={setProjects}
+              closeModal={closeModal}
+            />
+          </div>
+        </div>
+      )}
       </div>
     );
   });
@@ -107,7 +124,6 @@ export default function Projects({ userId }) {
       <div className="flex flex-wrap">
       {printable}
     </div>
-      <ProjectsForm userId={userId} setProjects={setProjects} />
     </>
   );
 }
