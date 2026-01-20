@@ -3,11 +3,12 @@ import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
 import { ContContext } from "../Context/contentContext";
 import ContentForm from "../Components/Forms/ContentForm";
+import ContentSelector from "../Components/Buttons/ContentSelector";
 
 export default function Content() {
   const { projectId } = useParams();
   const fetchId = Number(projectId);
-  const {content, setContent} = useContext(ContContext);
+  const { content, setContent } = useContext(ContContext);
 
   useEffect(() => {
     async function fetchContent() {
@@ -31,7 +32,7 @@ export default function Content() {
     }
   }
 
-  const [contentSection, setContentSection] = useState(true)
+  const [contentSection, setContentSection] = useState(true);
 
   const printable = content.map((cont) => (
     <div
@@ -56,19 +57,30 @@ export default function Content() {
       <button
         type="button"
         onClick={(prev) => setContentSection(!prev)}
-        className="flex justify-right text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+        className=" text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
       >
         Edit {cont.section_type}
       </button>
-      <button type="button" onClick={()=>handleDelete(cont.id)}>x</button>
+      <button
+        type="button"
+        onClick={() => handleDelete(cont.id)}
+        className=" text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+      >
+        x
+      </button>
     </div>
   ));
 
   return (
     <>
+    <ContentSelector projectId={fetchId}/>
       {printable}
 
-      <ContentForm projectId={fetchId} setContent={setContent} sectionType={"directors statement"} />
+      <ContentForm
+        projectId={fetchId}
+        setContent={setContent}
+        sectionType={"directors statement"}
+      />
     </>
   );
 }

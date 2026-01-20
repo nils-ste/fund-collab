@@ -32,14 +32,17 @@ export default function ContentForm({ projectId, setContent, sectionType }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-m p-8 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-m p-8 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+    >
       <label
         htmlFor="message"
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
       >
         Your {sectionType}
       </label>
-        <textarea
+      <textarea
         id="message"
         name="text_box"
         rows="10"
@@ -48,9 +51,13 @@ export default function ContentForm({ projectId, setContent, sectionType }) {
         placeholder={`Enter your ${sectionType}`}
         onChange={handleChange}
       />
-      
-        <button type="submit">Submit</button>
-      
+
+      <button
+        type="submit"
+        className=" text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+      >
+        Submit
+      </button>
     </form>
   );
 }
