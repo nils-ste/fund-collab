@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { getContent, postContent } from "../../API/content";
 
-export default function ContentForm({ projectId, setContent }) {
+export default function ContentForm({ projectId, setContent, sectionType }) {
   const [contentData, setContentData] = useState({
-    section_type: "",
+    section_type: sectionType,
     text_box: "",
     permission_editing: 0,
     permission_reading: 0,
@@ -22,10 +22,9 @@ export default function ContentForm({ projectId, setContent }) {
       const updated = await getContent(projectId);
       setContent(updated.length ? [...updated] : []);
       setContentData({
-        section_type: "",
         text_box: "",
-        permission_editing: [],
-        permission_reading: [],
+        permission_editing: 0,
+        permission_reading: 0,
       });
     } catch (err) {
       console.log("Error posting content", err);
@@ -33,26 +32,25 @@ export default function ContentForm({ projectId, setContent }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Select Section Type
-        <input
-          type="text"
-          name="section_type"
-          value={contentData.section_type}
-          onChange={handleChange}
-        />
+    <form onSubmit={handleSubmit} className="max-w-m p-8 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+      <label
+        htmlFor="message"
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >
+        Your {sectionType}
       </label>
-      <label>
-        Enter Text
-        <input
-          type="text"
-          name="text_box"
-          value={contentData.text_box}
-          onChange={handleChange}
-        />
+        <textarea
+        id="message"
+        name="text_box"
+        rows="10"
+        value={contentData.text_box}
+        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder={`Enter your ${sectionType}`}
+        onChange={handleChange}
+      />
+      
         <button type="submit">Submit</button>
-      </label>
+      
     </form>
   );
 }

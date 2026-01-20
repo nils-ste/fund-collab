@@ -8,11 +8,13 @@ import Content from "./Page/Content.jsx";
 import Funding from "./Page/Funding.jsx";
 import Layout from "./Components/Layout/Layout.jsx";
 import { ProjectsProvider } from "./Context/projectContext.jsx";
+import { ContentProvider } from "./Context/contentContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <ProjectsProvider>
+        <ContentProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<App />} />
@@ -24,6 +26,7 @@ createRoot(document.getElementById("root")).render(
             />
           </Route>
         </Routes>
+        </ContentProvider>
       </ProjectsProvider>
     </BrowserRouter>
   </StrictMode>
