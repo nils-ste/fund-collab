@@ -35,6 +35,6 @@ export async function putProject(userId, projectData, projectId) {
     },
     body: JSON.stringify(projectData),
   });
-  if (!data.ok) throw new Error("Failed to create project");
+  if (!data.ok) throw new Error("Failed to update project");
   return data.json();
 }

@@ -26,3 +26,15 @@ export async function postContent(projectId, contentData) {
   if (!data.ok) throw new Error ("Failed to create content");
   return data.json()
 }
+
+export async function putContent(projectId, contentData, contentId) {
+  const data = await fetch(`${BASE_URL}/${projectId}/content/${contentId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(contentData),
+  });
+  if (!data.ok) throw new Error("Failed to update content");
+  return data.json();
+}
