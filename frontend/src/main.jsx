@@ -9,25 +9,28 @@ import Funding from "./Page/Funding.jsx";
 import Layout from "./Components/Layout/Layout.jsx";
 import { ProjectsProvider } from "./Context/projectContext.jsx";
 import { ContentProvider } from "./Context/contentContext.jsx";
+import { FundingProvider } from "./Context/fundingContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <ProjectsProvider>
         <ContentProvider>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<App />} />
-            <Route path="projects" element={<Projects userId={1} />} />
-            <Route path="content/:projectId" element={<Content />} />
-            <Route
-              path="funding/:projectId"
-              element={<Funding projectId={2} />}
-            />
-          </Route>
-        </Routes>
+          <FundingProvider>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<App />} />
+                <Route path="projects" element={<Projects userId={1} />} />
+                <Route path="content/:projectId" element={<Content />} />
+                <Route
+                  path="funding/:projectId"
+                  element={<Funding projectId={2} />}
+                />
+              </Route>
+            </Routes>
+          </FundingProvider>
         </ContentProvider>
       </ProjectsProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

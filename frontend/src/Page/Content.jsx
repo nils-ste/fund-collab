@@ -2,9 +2,9 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
 import { ContContext } from "../Context/contentContext";
-import ContentForm from "../Components/Forms/ContentForm";
 import ContentSelector from "../Components/Buttons/ContentSelector";
 import ContentItem from "../Components/Forms/ContentItem";
+import Funding from "./Funding";
 
 export default function Content() {
   const { projectId } = useParams();
@@ -35,6 +35,7 @@ export default function Content() {
 
   return (
     <>
+      <Funding />
       <ContentSelector projectId={fetchId} />
       {content.map((cont) => (
         <ContentItem

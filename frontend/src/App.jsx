@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="flex justify-center items-center h-screen">
     <button className="homepageRoute" onClick={() => navigate("/projects")}>Go to Projects</button>
-    <button className="homepageRoute" onClick={() => navigate("/funding")}>Go to Funding</button>
+    <button className="homepageRoute" onClick={() => navigate("/funding/2")}>Go to Funding</button>
     </div>
   );
 }
