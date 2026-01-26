@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getFunding, postFunding } from "../../API/funding";
+import TextInput from "../Inputs/TextInput";
 
 export default function FundingForm({ projectId, setFunding }) {
   const [fundingData, setFundingData] = useState({
@@ -31,35 +32,38 @@ export default function FundingForm({ projectId, setFunding }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Enter Title
+    <form
+      className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+      onSubmit={handleSubmit}
+    >
+      <TextInput
+        name="title"
+        inputLabel="Enter Funding Title:"
+        data={fundingData.title}
+        handleChange={handleChange}
+      />
+      <TextInput
+        name="requirements"
+        inputLabel="Enter Requirements:"
+        data={fundingData.requirements}
+        handleChange={handleChange}
+      />
+      <label className="text-sm">
+        Enter Deadline
         <input
-          type="text"
-          name="title"
-          value={fundingData.title}
+          type="date"
+          name="deadline"
+          value={fundingData.deadline}
+          className="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           onChange={handleChange}
         />
       </label>
-      <label>
-        Enter Deadline
-        <input
-          type="text"
-          name="deadline"
-          value={fundingData.deadline}
-          onChange={handleChange}
-        />
-        </label>
-        <label>
-        Enter Requirements
-        <input
-          type="text"
-          name="requirements"
-          value={fundingData.requirements}
-          onChange={handleChange}
-        />
-        </label>
-        <button type="submit">Submit</button>
+      <button
+        type="submit"
+        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
+      >
+        Submit
+      </button>
     </form>
   );
 }

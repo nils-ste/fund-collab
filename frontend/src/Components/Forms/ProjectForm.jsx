@@ -51,7 +51,7 @@ export default function ProjectForm({
 
   return (
     <form
-      className="max-w-md mx-auto border rounded-sm p-4"
+      className="max-w-md mx-auto border rounded-sm p-4 bg-white dark:bg-gray-800 dark:text-white"
       onSubmit={handleSubmit}
     >
       <h3 className="text-lg font-bold mb-4">

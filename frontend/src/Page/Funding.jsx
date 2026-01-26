@@ -3,6 +3,7 @@ import { getFunding, deleteFunding } from "../API/funding";
 import { useParams } from "react-router";
 import FundingForm from "../Components/Forms/FundingForm";
 import { FundingContext } from "../Context/fundingContext";
+import FundingCards from "../Components/Cards/FundingCards";
 
 export default function Funding() {
   const { projectId } = useParams();
@@ -38,46 +39,19 @@ export default function Funding() {
   ));
 
   const [open, setOpen] = useState(false);
-  const fundingCont = funding.map((fund) => (
-    <div
-      key={fund.id}
-      className="mb-4 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 "
-    >
-      {" "}
-      <h6 className="mb-2 text-m text-gray-500 dark:text-gray-400">
-        {fund.title}
-      </h6>
-      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-        {fund.requirements}
-      </p>
-      <a
-        href="#"
-        className="text-blue-600 underline font-medium hover:no-underline"
-      >
-        limited-time sale
-      </a>
-      <div className="grid grid-cols-2 gap-4">
-        <button className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">
-          Learn more
-        </button>
-
-        <button className="px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-          Get access →
-        </button>
-      </div>
-    </div>
-  ));
+  
 
   return (
     <>
       <FundingForm projectId={projectId} setFunding={setFunding} />
       {/* Trigger */}
-      <div className="text-center">
+      <div className="flex justify-end px-4">
         <button
           onClick={() => setOpen(true)}
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
+          aria-label="Open funding drawer"
         >
-          Show right drawer
+          Show Funding
         </button>
       </div>
 
@@ -111,7 +85,7 @@ export default function Funding() {
 
         {/* Content */}
         <div className="p-4 overflow-y-auto h-[calc(100vh-64px)]">
-          {fundingCont}
+          <FundingCards handleDelete={handleDelete}/>
         </div>
       </div>
     </>
