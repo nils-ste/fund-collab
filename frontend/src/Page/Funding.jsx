@@ -114,7 +114,7 @@ export default function Funding() {
               <h3 className="text-xl font-bold mb-4">Add funding</h3>
 
               {/* Update Form */}
-              <FundingForm key={funding.id} projectId={projectId} setFunding={setFunding} closeModal={closeModal} />
+              <FundingForm projectId={projectId} setFunding={setFunding} closeModal={closeModal} />
             </div>
           </div>
         )}

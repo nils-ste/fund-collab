@@ -62,7 +62,6 @@ export default function FundingCards({ handleDelete }) {
               fundingId={fund.id}
               setFunding={setFunding}
               closeModal={() => setShowForm(false)}
-              key={fund.id}
             />
           </div>
         </div>
