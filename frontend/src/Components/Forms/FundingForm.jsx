@@ -1,12 +1,22 @@
 import { useState } from "react";
-import { getFunding, postFunding } from "../../API/funding";
+import { getFunding, postFunding, putFunding } from "../../API/funding";
 import TextInput from "../Inputs/TextInput";
 
-export default function FundingForm({ projectId, setFunding }) {
+export default function FundingForm({
+  projectId,
+  setFunding,
+  fundingId = null,
+  fundings = [],
+  closeModal,
+}) {
+  const funding = fundingId
+    ? fundings.find((f) => f.id === Number(fundingId))
+    : null;
+
   const [fundingData, setFundingData] = useState({
-    title: "",
-    deadline: "",
-    requirements: "",
+    title: funding?.title || "",
+    deadline: funding?.deadline || "",
+    requirements: funding?.requirements || "",
   });
 
   function handleChange(e) {
@@ -18,16 +28,23 @@ export default function FundingForm({ projectId, setFunding }) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await postFunding(projectId, fundingData);
+      if (fundingId) {
+        await putFunding(projectId, fundingData, fundingId);
+      } else {
+        await postFunding(projectId, fundingData);
+      }
       const updated = await getFunding(projectId);
       setFunding(updated.length ? [...updated] : []);
-      setFundingData({
-        title: "",
-        deadline: "",
-        requirements: "",
-      });
+      if (!fundingId) {
+        setFundingData({
+          title: "",
+          deadline: "",
+          requirements: "",
+        });
+      }
+      if (closeModal) closeModal();
     } catch (err) {
-      console.log("Error posting funding", err);
+      console.error("Error submitting project:", err);
     }
   }
 
@@ -35,6 +52,7 @@ export default function FundingForm({ projectId, setFunding }) {
     <form
       className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 dark:text-white"
       onSubmit={handleSubmit}
+      key={funding.id}
     >
       <TextInput
         name="title"
@@ -62,7 +80,7 @@ export default function FundingForm({ projectId, setFunding }) {
         type="submit"
         className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
       >
-        Submit
+        {fundingId ? "Update" : "Create"}
       </button>
     </form>
   );

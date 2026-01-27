@@ -23,6 +23,18 @@ export async function postFunding(projectId, fundingData) {
     },
     body: JSON.stringify(fundingData),
   });
-  if (!data.ok) throw new Error ("Failed to create funding");
-  return data.json()
+  if (!data.ok) throw new Error("Failed to create funding");
+  return data.json();
+}
+
+export async function putFunding(projectId, fundingData, fundingId) {
+  const data = await fetch(`${BASE_URL}/${projectId}/funding/${fundingId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(fundingData),
+  });
+  if (!data.ok) throw new Error("Failed to update funding");
+  return data.json();
 }

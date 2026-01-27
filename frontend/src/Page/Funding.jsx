@@ -39,11 +39,15 @@ export default function Funding() {
   ));
 
   const [open, setOpen] = useState(false);
-  
+
+  const [modalFunding, setModalFunding] = useState(false);
+
+  function closeModal() {
+    setModalFunding(false);
+  }
 
   return (
     <>
-      <FundingForm projectId={projectId} setFunding={setFunding} />
       {/* Trigger */}
       <div className="flex justify-end px-4">
         <button
@@ -82,12 +86,38 @@ export default function Funding() {
             ✕
           </button>
         </div>
+        {/*Trigger add funding modal inside the Funding drawer*/}
+        <button
+          onClick={() => setModalFunding(true)}
+          className="px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          aria-label="Edit project"
+        >
+          Add funding
+        </button>
 
         {/* Content */}
         <div className="p-4 overflow-y-auto h-[calc(100vh-64px)]">
-          <FundingCards handleDelete={handleDelete}/>
+          <FundingCards handleDelete={handleDelete} />
         </div>
       </div>
+      {modalFunding && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
+            <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow dark:bg-gray-800 dark:text-white">
+              {/* Close Button */}
+              <button
+                onClick={() => closeModal()}
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white text-lg font-bold"
+              >
+                ✕
+              </button>
+
+              <h3 className="text-xl font-bold mb-4">Add funding</h3>
+
+              {/* Update Form */}
+              <FundingForm key={funding.id} projectId={projectId} setFunding={setFunding} closeModal={closeModal} />
+            </div>
+          </div>
+        )}
     </>
   );
 }
