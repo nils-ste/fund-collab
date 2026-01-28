@@ -15,7 +15,7 @@ class Projects(db.Model):
         cascade="all, delete-orphan"
     )
     project_title = db.Column(db.String(80), nullable=False)
-    status = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.String(80), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     public = db.Column(db.Boolean, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
