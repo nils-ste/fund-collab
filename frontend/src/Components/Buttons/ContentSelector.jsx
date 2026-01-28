@@ -7,8 +7,8 @@ export default function ContentSelector({projectId}) {
   const [contentData, setContentData] = useState({
     section_type: "",
     text_box: "",
-    permission_editing: 0,
-    permission_reading: 0,
+    permission_editing: null,
+    permission_reading: null,
   });
 
   function handleChange(e) {
@@ -25,8 +25,8 @@ export default function ContentSelector({projectId}) {
       setContentData({
         section_type: "",
         text_box: "",
-        permission_editing: 0,
-        permission_reading: 0,
+        permission_editing: null,
+        permission_reading: null,
       });
     } catch (err) {"Error creating content:", err}
   }
@@ -35,14 +35,14 @@ export default function ContentSelector({projectId}) {
     <form className="flex mb-5 max-w-sm mx-auto" onSubmit={handleSubmit}>
       <div>
         <label
-          htmlFor="countries"
+          htmlFor="Roles"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Add new Section
         </label>
 
         <select
-          id="countries"
+          id="Roles"
           defaultValue=""
           onChange={handleChange}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg

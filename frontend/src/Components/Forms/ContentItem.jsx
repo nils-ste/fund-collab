@@ -13,8 +13,8 @@ export default function ContentItem({ cont, onDelete, projectId }) {
   const [contentData, setContentData] = useState({
     section_type: cont.section_type,
     text_box: cont.text_box,
-    permission_editing: 0,
-    permission_reading: 0,
+    permission_editing: null,
+    permission_reading: null,
   });
 
   function handleChange(e) {

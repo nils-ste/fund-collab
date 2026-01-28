@@ -4,7 +4,7 @@ import { getContent, postContent } from "../../API/content";
 export default function ContentForm({ projectId, setContent, sectionType }) {
   const [contentData, setContentData] = useState({
     section_type: sectionType,
-    text_box: "",
+    text_box: "Placeholder",
     permission_editing: 0,
     permission_reading: 0,
   });
@@ -22,7 +22,7 @@ export default function ContentForm({ projectId, setContent, sectionType }) {
       const updated = await getContent(projectId);
       setContent(updated.length ? [...updated] : []);
       setContentData({
-        text_box: "",
+        text_box: "Placeholder",
         permission_editing: 0,
         permission_reading: 0,
       });
