@@ -1,6 +1,9 @@
 import os
+from dotenv import load_dotenv
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-class Config(object):
-    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(basedir, 'database/fund_collab.db')}"
+# Load environment variables from .env
+load_dotenv()
+
+class Config:
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
