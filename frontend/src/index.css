@@ -4,9 +4,16 @@
   --bg-color: white;
 }
 
-#root {
+html,
+body {
   background-color: var(--bg-color);
-  min-height: 100vh;
+  margin: 0;
+  min-height: 100%;
+}
+
+#root {
+  min-height: 100dvh;
+  background-color: var(--bg-color);
 }
 
 @media (prefers-color-scheme: dark) {

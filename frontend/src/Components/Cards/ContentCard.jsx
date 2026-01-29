@@ -37,7 +37,7 @@ export default function ContentItem({ cont, onDelete, projectId }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-m p-8 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+      className="max-w-m m-5 p-8 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
       key={cont.id}
     >
       <div className="flex items-center justify-between mb-2">
