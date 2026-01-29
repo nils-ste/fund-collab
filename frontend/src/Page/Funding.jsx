@@ -3,7 +3,7 @@ import { getFunding, deleteFunding } from "../API/funding";
 import { useParams } from "react-router";
 import FundingForm from "../Components/Forms/FundingForm";
 import { FundingContext } from "../Context/fundingContext";
-import FundingCards from "../Components/Cards/FundingCards";
+import FundingCard from "../Components/Cards/FundingCard";
 
 export default function Funding() {
   const { projectId } = useParams();
@@ -98,7 +98,7 @@ export default function Funding() {
 
         {/* Content */}
         <div className="p-4 overflow-y-auto h-[calc(100vh-64px)]">
-          <FundingCards
+          <FundingCard
             handleDelete={handleDelete}
             setModalFunding={setModalFunding}
             setSelectedFundingId={setSelectedFundingId}

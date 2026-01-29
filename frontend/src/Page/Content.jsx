@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
 import { ContContext } from "../Context/contentContext";
 import ContentSelector from "../Components/Buttons/ContentSelector";
-import ContentItem from "../Components/Forms/ContentItem";
+import ContentCard from "../Components/Cards/ContentCard";
 import Funding from "./Funding";
 
 export default function Content() {
@@ -38,7 +38,7 @@ export default function Content() {
       <Funding />
       <ContentSelector projectId={fetchId} />
       {content.map((cont) => (
-        <ContentItem
+        <ContentCard
           key={cont.id}
           cont={cont}
           onDelete={handleDelete}
