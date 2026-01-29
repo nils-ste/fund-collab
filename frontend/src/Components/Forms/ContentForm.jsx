@@ -1,3 +1,5 @@
+/**Currently not in use. Only here for potential future usecases */
+
 import { useState } from "react";
 import { getContent, postContent } from "../../API/content";
 

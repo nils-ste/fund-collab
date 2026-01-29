@@ -4,7 +4,7 @@ import { FundingContext } from "../../Context/fundingContext";
 export default function FundingCards({ handleDelete, setModalFunding, setSelectedFundingId }) {
   const { funding} = useContext(FundingContext);
   const fundingCont = funding.map((fund) => (
-    <>
+
       <div
         key={fund.id}
         className="mb-4 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 "
@@ -46,7 +46,6 @@ export default function FundingCards({ handleDelete, setModalFunding, setSelecte
           </button>
         </div>
       </div>
-    </>
   ));
 
   return (
