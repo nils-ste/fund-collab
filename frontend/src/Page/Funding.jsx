@@ -8,6 +8,7 @@ import FundingCards from "../Components/Cards/FundingCards";
 export default function Funding() {
   const { projectId } = useParams();
   const { funding, setFunding } = useContext(FundingContext);
+  const [selectedFundingId, setSelectedFundingId] = useState(null);
 
   useEffect(() => {
     async function fetchFunding() {
@@ -97,27 +98,40 @@ export default function Funding() {
 
         {/* Content */}
         <div className="p-4 overflow-y-auto h-[calc(100vh-64px)]">
-          <FundingCards handleDelete={handleDelete} />
+          <FundingCards
+            handleDelete={handleDelete}
+            setModalFunding={setModalFunding}
+            setSelectedFundingId={setSelectedFundingId}
+          />
         </div>
       </div>
       {modalFunding && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
-            <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow dark:bg-gray-800 dark:text-white">
-              {/* Close Button */}
-              <button
-                onClick={() => closeModal()}
-                className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white text-lg font-bold"
-              >
-                ✕
-              </button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
+          <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow dark:bg-gray-800 dark:text-white">
+            {/* Close Button */}
+            <button
+              onClick={() => {
+                closeModal();
+                setSelectedFundingId(null);
+              }}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white text-lg font-bold"
+            >
+              ✕
+            </button>
 
-              <h3 className="text-xl font-bold mb-4">Add funding</h3>
+            <h3 className="text-xl font-bold mb-4">Add funding</h3>
 
-              {/* Update Form */}
-              <FundingForm projectId={projectId} setFunding={setFunding} closeModal={closeModal} />
-            </div>
+            {/* Update Form */}
+            <FundingForm
+              projectId={projectId}
+              fundings={funding}
+              fundingId={selectedFundingId}
+              setFunding={setFunding}
+              closeModal={closeModal}
+            />
           </div>
-        )}
+        </div>
+      )}
     </>
   );
 }

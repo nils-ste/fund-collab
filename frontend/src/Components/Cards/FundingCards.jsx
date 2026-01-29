@@ -1,12 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import { FundingContext } from "../../Context/fundingContext";
-import { useParams } from "react-router";
-import FundingForm from "../Forms/FundingForm";
 
-export default function FundingCards({ handleDelete }) {
-  const { funding, setFunding } = useContext(FundingContext);
-  const [showForm, setShowForm] = useState(false);
-  const { projectId } = useParams();
+export default function FundingCards({ handleDelete, setModalFunding, setSelectedFundingId }) {
+  const { funding} = useContext(FundingContext);
   const fundingCont = funding.map((fund) => (
     <>
       <div
@@ -33,7 +29,10 @@ export default function FundingCards({ handleDelete }) {
         </a>
         <div className="mt-2 grid grid-cols-2 gap-4">
           <button
-            onClick={() => setShowForm(true)}
+            onClick={() => {
+              setModalFunding(true);
+              setSelectedFundingId(fund.id);
+            }}
             className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100"
           >
             Edit
@@ -47,27 +46,12 @@ export default function FundingCards({ handleDelete }) {
           </button>
         </div>
       </div>
-      {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
-          <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow dark:bg-gray-800 dark:text-white">
-            <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white text-lg font-bold"
-              onClick={() => setShowForm(false)}
-            >
-              ✕
-            </button>
-            <FundingForm
-              projectId={projectId}
-              fundings={funding}
-              fundingId={fund.id}
-              setFunding={setFunding}
-              closeModal={() => setShowForm(false)}
-            />
-          </div>
-        </div>
-      )}
     </>
   ));
 
-  return <>{fundingCont}</>;
+  return (
+    <>
+      {fundingCont}
+    </>
+  );
 }

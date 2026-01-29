@@ -98,7 +98,7 @@ export default function Projects({ userId }) {
 
         {modalProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
-          <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow">
+          <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow dark:bg-gray-800 dark:text-white">
             {/* Close Button */}
             <button
               onClick={() => closeModal()}
@@ -106,9 +106,6 @@ export default function Projects({ userId }) {
             >
               ✕
             </button>
-
-            
-            <h3 className="text-xl font-bold mb-4">Update Project</h3>
 
             {/* Update Form */}
             <ProjectForm
