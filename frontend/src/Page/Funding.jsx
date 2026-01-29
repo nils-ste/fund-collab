@@ -119,8 +119,6 @@ export default function Funding() {
               ✕
             </button>
 
-            <h3 className="text-xl font-bold mb-4">Add funding</h3>
-
             {/* Update Form */}
             <FundingForm
               projectId={projectId}

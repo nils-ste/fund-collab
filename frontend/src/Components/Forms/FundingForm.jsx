@@ -50,9 +50,10 @@ export default function FundingForm({
 
   return (
     <form
-      className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+      className="max-w-md mx-auto border rounded-sm p-4 bg-white dark:bg-gray-800 dark:text-white"
       onSubmit={handleSubmit}
     >
+      <h3 className="text-xl font-bold mb-4">{fundingId ? "Update " : "Add " }funding</h3>
       <TextInput
         name="title"
         inputLabel="Enter Funding Title:"
@@ -82,5 +83,5 @@ export default function FundingForm({
         {fundingId ? "Update" : "Create"}
       </button>
     </form>
-  );
+    );
 }
