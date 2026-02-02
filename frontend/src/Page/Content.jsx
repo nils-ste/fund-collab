@@ -32,12 +32,13 @@ export default function Content() {
       console.log("Error deleting project:", err);
     }
   }
+  const sortedContent = [...content].sort((a, b) => b.id - a.id);
 
   return (
     <>
       <Funding />
       <ContentSelector projectId={fetchId} />
-      {content.map((cont) => (
+      {sortedContent.map((cont) => (
         <ContentCard
           key={cont.id}
           cont={cont}

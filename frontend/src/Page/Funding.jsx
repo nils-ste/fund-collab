@@ -47,6 +47,10 @@ export default function Funding() {
     setModalFunding(false);
   }
 
+  const sortedFunding = funding.sort(
+    (a, b) => new Date(a.deadline) - new Date(b.deadline),
+  );
+
   return (
     <>
       {/* Trigger */}
@@ -98,11 +102,15 @@ export default function Funding() {
 
         {/* Content */}
         <div className="p-4 overflow-y-auto h-[calc(100vh-64px)]">
-          <FundingCard
-            handleDelete={handleDelete}
-            setModalFunding={setModalFunding}
-            setSelectedFundingId={setSelectedFundingId}
-          />
+          {sortedFunding.map((fund) => (
+            <FundingCard
+              key={fund.id}
+              fund={fund}
+              handleDelete={handleDelete}
+              setModalFunding={setModalFunding}
+              setSelectedFundingId={setSelectedFundingId}
+            />
+          ))}
         </div>
       </div>
       {modalFunding && (
@@ -125,6 +133,7 @@ export default function Funding() {
               fundings={funding}
               fundingId={selectedFundingId}
               setFunding={setFunding}
+              setSelectedFundingId={setSelectedFundingId}
               closeModal={closeModal}
             />
           </div>

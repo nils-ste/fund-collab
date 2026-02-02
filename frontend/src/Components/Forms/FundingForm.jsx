@@ -8,6 +8,7 @@ export default function FundingForm({
   fundingId = null,
   fundings = [],
   closeModal,
+  setSelectedFundingId,
 }) {
   const funding = fundingId
     ? fundings.find((f) => f.id === Number(fundingId))
@@ -35,6 +36,7 @@ export default function FundingForm({
       }
       const updated = await getFunding(projectId);
       setFunding(updated.length ? [...updated] : []);
+      setSelectedFundingId(null)
       if (!fundingId) {
         setFundingData({
           title: "",
@@ -53,7 +55,9 @@ export default function FundingForm({
       className="max-w-md mx-auto border rounded-sm p-4 bg-white dark:bg-gray-800 dark:text-white"
       onSubmit={handleSubmit}
     >
-      <h3 className="text-xl font-bold mb-4">{fundingId ? "Update " : "Add " }funding</h3>
+      <h3 className="text-xl font-bold mb-4">
+        {fundingId ? "Update " : "Add "}funding
+      </h3>
       <TextInput
         name="title"
         inputLabel="Enter Funding Title:"
@@ -83,5 +87,5 @@ export default function FundingForm({
         {fundingId ? "Update" : "Create"}
       </button>
     </form>
-    );
+  );
 }

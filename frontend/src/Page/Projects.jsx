@@ -43,10 +43,19 @@ export default function Projects({ userId }) {
     setModalProject(null);
   }
 
+  const sortedProjects = [...projects].sort((a, b) => b.id - a.id);
 
   return (
     <div className="flex flex-wrap">
-      {projects.map((project) => (<ProjectCard key={project.id} project={project} userId={userId} onDelete={handleDelete} setModalProject={setModalProject} />))}
+      {sortedProjects.map((project) => (
+        <ProjectCard
+          key={project.id}
+          project={project}
+          userId={userId}
+          onDelete={handleDelete}
+          setModalProject={setModalProject}
+        />
+      ))}
       {modalProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
           <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow dark:bg-gray-800 dark:text-white">
