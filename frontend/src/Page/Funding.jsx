@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import FundingForm from "../Components/Forms/FundingForm";
 import { FundingContext } from "../Context/fundingContext";
 import FundingCard from "../Components/Cards/FundingCard";
+import Accordion from "../Components/Buttons/Accordion";
 
 export default function Funding() {
   const { projectId } = useParams();
@@ -32,13 +33,6 @@ export default function Funding() {
     }
   }
 
-  const printable = funding.map((fund) => (
-    <div key={fund.id}>
-      <p>{fund.title}</p>
-      <button onClick={() => handleDelete(fund.id)}>x</button>
-    </div>
-  ));
-
   const [open, setOpen] = useState(false);
 
   const [modalFunding, setModalFunding] = useState(false);
@@ -50,6 +44,10 @@ export default function Funding() {
   const sortedFunding = funding.sort(
     (a, b) => new Date(a.deadline) - new Date(b.deadline),
   );
+
+  const now = new Date();
+  const upcoming = funding.filter((item) => new Date(item.deadline) >= now);
+  const past = funding.filter((item) => new Date(item.deadline) < now);
 
   return (
     <>
@@ -94,7 +92,7 @@ export default function Funding() {
         {/*Trigger add funding modal inside the Funding drawer*/}
         <button
           onClick={() => setModalFunding(true)}
-          className="px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          className="mb-2 px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
           aria-label="Edit project"
         >
           Add funding
@@ -102,15 +100,28 @@ export default function Funding() {
 
         {/* Content */}
         <div className="p-4 overflow-y-auto h-[calc(100vh-64px)]">
-          {sortedFunding.map((fund) => (
-            <FundingCard
-              key={fund.id}
-              fund={fund}
-              handleDelete={handleDelete}
-              setModalFunding={setModalFunding}
-              setSelectedFundingId={setSelectedFundingId}
-            />
-          ))}
+          <Accordion title="Upcoming">
+            {upcoming.map((fund) => (
+              <FundingCard
+                key={fund.id}
+                fund={fund}
+                handleDelete={handleDelete}
+                setModalFunding={setModalFunding}
+                setSelectedFundingId={setSelectedFundingId}
+              />
+            ))}
+          </Accordion>
+          <Accordion title="Past" openOnRender={false}>
+            {past.map((fund) => (
+              <FundingCard
+                key={fund.id}
+                fund={fund}
+                handleDelete={handleDelete}
+                setModalFunding={setModalFunding}
+                setSelectedFundingId={setSelectedFundingId}
+              />
+            ))}
+          </Accordion>
         </div>
       </div>
       {modalFunding && (

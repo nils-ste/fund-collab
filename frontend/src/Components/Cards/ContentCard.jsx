@@ -37,7 +37,7 @@ export default function ContentItem({ cont, onDelete, projectId }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-m m-5 p-8 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+      className="max-w-m m-5 p-8 bg-white border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700"
       key={cont.id}
     >
       <div className="flex items-center justify-between mb-2">
@@ -70,7 +70,7 @@ export default function ContentItem({ cont, onDelete, projectId }) {
         id={cont.id}
         name="text_box"
         rows="10"
-        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-sm border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder={`Enter your ${cont.section_type}`}
         value={contentData.text_box}
         readOnly={isReadOnly}

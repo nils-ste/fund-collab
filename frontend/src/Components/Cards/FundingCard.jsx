@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { FundingContext } from "../../Context/fundingContext";
-
 export default function FundingCards({
   fund,
   handleDelete,
@@ -9,10 +6,10 @@ export default function FundingCards({
 }) {
   return (
     <div
-      className="mb-4 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 "
+      className="mb-4 max-w-sm p-6 bg-white border-t border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-500 "
     >
       {" "}
-      <h6 className="mb-2 text-m text-gray-500 dark:text-gray-400">
+      <h6 className="mb-2 text-m text-gray-500 dark:text-gray-300">
         {fund.title}
       </h6>
       <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
