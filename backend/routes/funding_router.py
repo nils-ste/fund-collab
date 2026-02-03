@@ -31,7 +31,7 @@ def add_funding(project_id):
 
     new_funding = Funding(project_id=project_id, title=funding_data.get('title'),
                           deadline=deadline_date, requirements=funding_data.get(
-            'requirements'), hyperlink=funding_data.get('hyperlink'), created_at=datetime.datetime.now())
+            'requirements'), hyperlink=funding_data.get('hyperlink'))
     try:
         db.session.add(new_funding)
         db.session.commit()
