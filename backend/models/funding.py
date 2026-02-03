@@ -8,7 +8,7 @@ class Funding(db.Model):
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
     title = db.Column(db.String(80), nullable=False)
     deadline = db.Column(db.Date, nullable=False)
-    hyperlink = db.Column(db.String(120), nullable=False)
+    hyperlink = db.Column(db.String(120), nullable=True)
     requirements = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
 
