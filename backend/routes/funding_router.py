@@ -48,7 +48,7 @@ def update_funding(project_id, id):
     """
     funding = Funding.query.filter_by(project_id=project_id, id=id).first()
     data = request.get_json()
-    editable_fields = ['title', 'deadline', 'requirements']
+    editable_fields = ['title', 'deadline', 'requirements', 'hyperlink']
     for field in editable_fields:
         if field in data:
             setattr(funding, field, data[field])
