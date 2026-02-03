@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { getContent, postContent } from "../../API/content";
 import { ContContext } from "../../Context/contentContext";
 
-export default function ContentSelector({projectId}) {
+export default function ContentSelector({ projectId }) {
   const { setContent } = useContext(ContContext);
   const [contentData, setContentData] = useState({
     section_type: "",
@@ -13,7 +13,7 @@ export default function ContentSelector({projectId}) {
 
   function handleChange(e) {
     const { value } = e.target;
-    setContentData((prev) => ({...prev, section_type: value}));
+    setContentData((prev) => ({ ...prev, section_type: value }));
   }
 
   async function handleSubmit(e) {
@@ -28,12 +28,14 @@ export default function ContentSelector({projectId}) {
         permission_editing: null,
         permission_reading: null,
       });
-    } catch (err) {"Error creating content:", err}
+    } catch (err) {
+      ("Error creating content:", err);
+    }
   }
 
   return (
-    <form className="flex mb-5 max-w-sm mx-auto" onSubmit={handleSubmit}>
-        <div>
+    <form className="flex gap-4 mb-5 max-w-sm mx-auto" onSubmit={handleSubmit}>
+      <div>
         <label
           htmlFor="Roles"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -58,10 +60,10 @@ export default function ContentSelector({projectId}) {
           <option value="Production Statement">Production Statement</option>
           <option value="Social Impact">Social Impact</option>
         </select>
-        </div>
-        <button
+      </div>
+      <button
         type="submit"
-        className="m-5 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+        className="self-end text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
       >
         Submit
       </button>

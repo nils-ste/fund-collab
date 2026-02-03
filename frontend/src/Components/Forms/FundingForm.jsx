@@ -17,6 +17,7 @@ export default function FundingForm({
   const [fundingData, setFundingData] = useState({
     title: funding?.title || "",
     deadline: funding?.deadline || "",
+    hyperlink: funding?.hyperlink || "",
     requirements: funding?.requirements || "",
   });
 
@@ -41,6 +42,7 @@ export default function FundingForm({
         setFundingData({
           title: "",
           deadline: "",
+          hyperlink: "",
           requirements: "",
         });
       }
@@ -68,6 +70,12 @@ export default function FundingForm({
         name="requirements"
         inputLabel="Enter Requirements:"
         data={fundingData.requirements}
+        handleChange={handleChange}
+      />
+      <TextInput
+        name="hyperlink"
+        inputLabel="Link to Website:"
+        data={fundingData.hyperlink}
         handleChange={handleChange}
       />
       <label className="text-sm">

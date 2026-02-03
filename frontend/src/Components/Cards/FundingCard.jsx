@@ -19,7 +19,7 @@ export default function FundingCards({
         Requirements: {fund.requirements}
       </p>
       <a
-        href="https://www.google.com"
+        href={fund.hyperlink}
         target="_blank"
         rel="noopener noreferrer"
         className="text-blue-600 underline font-medium hover:no-underline"

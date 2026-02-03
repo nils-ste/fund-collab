@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Accordion({title, children, openOnRender = true}) {
+export default function Accordion({ title, children, openOnRender = true }) {
   const [open, setOpen] = useState(openOnRender); // 👈 open by default
 
   return (
@@ -8,7 +8,7 @@ export default function Accordion({title, children, openOnRender = true}) {
       <h2>
         <button
           type="button"
-          onClick={() => setOpen(prev => !prev)}
+          onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
           className="flex border border-gray-200 items-center justify-between w-full p-5 font-medium text-gray-300 hover:bg-gray-100 hover:text-black gap-3"
         >
@@ -33,11 +33,14 @@ export default function Accordion({title, children, openOnRender = true}) {
         </button>
       </h2>
 
-      {open && (
-        <>
-          {children}
-        </>
-      )}
+      <div
+        className={`grid transition-all duration-300 ease-in-out
+  ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+      >
+        <div className="overflow-hidden">
+          <div className="p-2">{children}</div>
+        </div>
+      </div>
     </div>
   );
 }
