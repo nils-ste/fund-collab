@@ -26,9 +26,12 @@ def add_funding(project_id):
     :return:
     """
     funding_data = request.get_json()
+    deadline_str = funding_data.get('deadline')
+    deadline_date = datetime.datetime.strptime(deadline_str, "%Y-%m-%d").date() if deadline_str else None
+
     new_funding = Funding(project_id=project_id, title=funding_data.get('title'),
-                          deadline=funding_data.get('deadline'), requirements=funding_data.get(
-            'requirements'),hyperlink=funding_data.get('hyperlink') , created_at=datetime.datetime.now())
+                          deadline=deadline_date, requirements=funding_data.get(
+            'requirements'), hyperlink=funding_data.get('hyperlink'), created_at=datetime.datetime.now())
     try:
         db.session.add(new_funding)
         db.session.commit()
