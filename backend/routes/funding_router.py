@@ -1,3 +1,5 @@
+import datetime
+
 from flask import request, jsonify, Blueprint
 from models import Funding, db
 
@@ -26,7 +28,7 @@ def add_funding(project_id):
     funding_data = request.get_json()
     new_funding = Funding(project_id=project_id, title=funding_data.get('title'),
                           deadline=funding_data.get('deadline'), requirements=funding_data.get(
-            'requirements'))
+            'requirements'),hyperlink=funding_data.get('hyperlink') , created_at=datetime.datetime.now())
     try:
         db.session.add(new_funding)
         db.session.commit()
