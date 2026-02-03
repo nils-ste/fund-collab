@@ -27,7 +27,12 @@ def add_funding(project_id):
     """
     funding_data = request.get_json()
     deadline_str = funding_data.get('deadline')
-    deadline_date = datetime.datetime.strptime(deadline_str, "%Y-%m-%d").date() if deadline_str else None
+    deadline_date = None
+    if deadline_str:
+        try:
+            deadline_date = datetime.datetime.strptime(deadline_str, "%Y-%m-%d").date()
+        except ValueError:
+            return jsonify({"Error": "Invalid deadline format"}), 400
 
     new_funding = Funding(project_id=project_id, title=funding_data.get('title'),
                           deadline=deadline_date, requirements=funding_data.get(
