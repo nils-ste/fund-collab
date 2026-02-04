@@ -34,6 +34,11 @@ def add_funding(project_id):
         except ValueError:
             return jsonify({"Error": "Invalid deadline format"}), 400
 
+    required_fields= ['title', 'requirements']
+    missing_fields = [field for field in required_fields if not funding_data.get(field)]
+    if missing_fields:
+        return jsonify({"Error missing:": missing_fields}), 400
+
     new_funding = Funding(project_id=project_id, title=funding_data.get('title'),
                           deadline=deadline_date, requirements=funding_data.get(
             'requirements'), hyperlink=funding_data.get('hyperlink'))
@@ -55,6 +60,8 @@ def update_funding(project_id, id):
     :return:
     """
     funding = Funding.query.filter_by(project_id=project_id, id=id).first()
+    if not funding:
+        return jsonify({"Error": "Not found"}), 404
     data = request.get_json()
     editable_fields = ['title', 'deadline', 'requirements', 'hyperlink']
     for field in editable_fields:
@@ -77,6 +84,8 @@ def delete_funding(project_id, id):
     :return:
     """
     funding = Funding.query.filter_by(project_id=project_id, id=id).first()
+    if not funding:
+        return jsonify({"Error": "Not found"}), 404
     try:
         db.session.delete(funding)
         db.session.commit()

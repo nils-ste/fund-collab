@@ -1,3 +1,5 @@
+import datetime
+
 from sqlalchemy.orm import relationship
 from . import db
 
@@ -18,7 +20,7 @@ class Projects(db.Model):
     status = db.Column(db.String(80), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     public = db.Column(db.Boolean, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
     def to_dict(self):
         return {"id": self.id,"project_title": self.project_title, "status": self.status,

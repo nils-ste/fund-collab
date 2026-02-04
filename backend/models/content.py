@@ -1,3 +1,5 @@
+import datetime
+
 from . import db
 
 class Content(db.Model):
@@ -10,7 +12,7 @@ class Content(db.Model):
     text_box = db.Column(db.String(320), nullable=True)
     permission_editing = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     permission_reading = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
-    created_at = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
     def to_dict(self):
         return {"id": self.id, "section_type": self.section_type, "text_box": self.text_box,}

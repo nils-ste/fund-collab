@@ -1,5 +1,3 @@
-import datetime
-
 from flask import request, jsonify, Blueprint
 from models import Projects, db
 
@@ -27,8 +25,7 @@ def create_project(user_id):
     """
     project_data = request.get_json()
     new_project = Projects(project_title=project_data.get('project_title'), status=project_data.get('status', 0),
-                           user_id=user_id, public=project_data.get('public', 0),
-                           created_at=datetime.datetime.now())
+                           user_id=user_id, public=project_data.get('public', 0))
     try:
         db.session.add(new_project)
         db.session.commit()
@@ -48,7 +45,7 @@ def update_project(id, user_id):
     """
     project_specific = Projects.query.filter_by(user_id=user_id,id=id).first()
     if not project_specific:
-        return jsonify({})
+        return jsonify({"Error": "Not found"}), 404
     data = request.get_json()
     editable_fields = ['project_title', 'status', 'public']  # potentially user_ids depending on permissions?
     for field in editable_fields:

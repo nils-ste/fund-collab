@@ -1,5 +1,3 @@
-import datetime
-
 from flask import request, jsonify, Blueprint
 from models import Content, db
 
@@ -29,8 +27,7 @@ def create_content(project_id):
     new_content = Content(project_id=project_id, section_type=content_data.get('section_type'),
                           text_box=content_data.get('text_box'),
                           permission_editing=content_data.get('permission_editing', 0),
-                          permission_reading=content_data.get('permission_reading', 0),
-                          created_at=datetime.datetime.now())
+                          permission_reading=content_data.get('permission_reading', 0))
     try:
         db.session.add(new_content)
         db.session.commit()
@@ -49,6 +46,8 @@ def update_content(project_id, id):
     :return:
     """
     content = Content.query.filter_by(project_id=project_id, id=id).first()
+    if not content:
+        return jsonify({"Error": "Not found"}), 404
     data = request.get_json()
     editable_fields = ['section_type', 'text_box', 'permission_reading', 'permission_editing']
     for field in editable_fields:
@@ -71,6 +70,8 @@ def delete_content(project_id, id):
     :return:
     """
     content = Content.query.filter_by(project_id=project_id, id=id).first()
+    if not content:
+        return jsonify({"Error": "Not found"}), 404
     try:
         db.session.delete(content)
         db.session.commit()
