@@ -43,7 +43,7 @@ def update_project(id, user_id):
     :param user_id:
     :return:
     """
-    project_specific = Projects.query.filter_by(user_id=user_id,id=id).first()
+    project_specific = Projects.query.filter_by(user_id=user_id, id=id).first()
     if not project_specific:
         return jsonify({"Error": "Not found"}), 404
     data = request.get_json()
