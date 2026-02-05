@@ -13,6 +13,7 @@ export default function NavBar() {
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             to="/"
+            onClick={() => setIsMenuOpen(false)}
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
@@ -64,6 +65,7 @@ export default function NavBar() {
               <li>
                 <NavLink
                   to="/projects"
+                  onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive
                       ? "block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
@@ -71,12 +73,13 @@ export default function NavBar() {
                   }
                   aria-current="page"
                 >
-                  Home
+                  Projects
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  to="/content/1"
+                  to="/about"
+                  onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive
                       ? "block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
@@ -88,19 +91,8 @@ export default function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to="/content/2"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                      : "block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                  }
-                >
-                  Services
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/content/3"
+                  to="/contact"
+                  onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive
                       ? "block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
