@@ -10,7 +10,7 @@ export default function Accordion({ title, children, openOnRender = true }) {
           type="button"
           onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
-          className="flex border border-gray-200 items-center justify-between w-full p-5 font-medium text-gray-300 hover:bg-gray-100 hover:text-black gap-3"
+          className="flex border border-gray-200 items-center justify-between w-full p-5 font-medium text-black hover:bg-gray-100 hover:text-black gap-3 dark:text-white"
         >
           <span>{title}</span>
 

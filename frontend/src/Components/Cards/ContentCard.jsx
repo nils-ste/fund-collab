@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { getContent, putContent } from "../../API/content";
 import { ContContext } from "../../Context/contentContext";
-import { ChevronUp, ChevronDown } from "lucide-react";
+import { Pencil, Trash2, ChevronUp, ChevronDown } from "lucide-react";
 
 export default function ContentItem({ cont, onDelete, projectId }) {
   const [isReadOnly, setIsReadOnly] = useState(true);
@@ -64,17 +64,17 @@ export default function ContentItem({ cont, onDelete, projectId }) {
             <button
               type="button"
               onClick={() => toggleEdit()}
-              className="flex text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+              className="flex text-blue-700 hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
             >
-              Edit
+              <Pencil className="w-4 h-4" />
             </button>
           )}
           <button
             type="button"
             onClick={() => onDelete(cont.id)}
-            className="flex text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+            className="flex text-blue-700 hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center mb-2.5 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
           >
-            Delete
+            <Trash2 className="w-4 h-4" />
           </button>
         </div>
       </div>

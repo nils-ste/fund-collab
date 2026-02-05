@@ -6,10 +6,10 @@ export default function FundingCards({
 }) {
   return (
     <div
-      className="mb-4 max-w-sm p-6 bg-white border-t border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-500 "
+      className="mb-4 max-w-sm p-6 bg-white border-t border-gray-300 dark:bg-gray-800 dark:border-gray-500 "
     >
       {" "}
-      <h6 className="mb-2 text-m text-gray-500 dark:text-gray-300">
+      <h6 className="mb-2 text-m text-gray-700 dark:text-gray-200">
         {fund.title}
       </h6>
       <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">

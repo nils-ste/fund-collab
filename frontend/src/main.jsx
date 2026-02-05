@@ -26,6 +26,8 @@ createRoot(document.getElementById("root")).render(
                   path="funding/:projectId"
                   element={<Funding projectId={2} />}
                 />
+                <Route path="about" />
+                <Route path="contact" />
               </Route>
             </Routes>
           </FundingProvider>
