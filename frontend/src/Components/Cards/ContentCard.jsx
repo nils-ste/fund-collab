@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { getContent, putContent } from "../../API/content";
 import { ContContext } from "../../Context/contentContext";
+import { ChevronUp, ChevronDown } from "lucide-react";
 
 export default function ContentItem({ cont, onDelete, projectId }) {
   const [isReadOnly, setIsReadOnly] = useState(true);
@@ -16,6 +17,17 @@ export default function ContentItem({ cont, onDelete, projectId }) {
     permission_editing: null,
     permission_reading: null,
   });
+
+  const CONTENT_CHAR_LIMIT = 800;
+
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const shouldTruncate =
+    contentData.text_box && contentData.text_box.length > CONTENT_CHAR_LIMIT;
+  const displayContent =
+    shouldTruncate && !isExpanded
+      ? contentData.text_box.slice(0, CONTENT_CHAR_LIMIT) + "..."
+      : contentData.text_box;
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -38,14 +50,14 @@ export default function ContentItem({ cont, onDelete, projectId }) {
     <form
       onSubmit={handleSubmit}
       className="max-w-m m-5 rounded-sm bg-white border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700"
-      key={cont.id}
+      key={contentData.id}
     >
       <div className="flex border-b border-gray-700 items-center justify-between">
         <label
           htmlFor="message"
           className="block m-5 text-m font-medium text-gray-900 dark:text-white"
         >
-          Your {cont.section_type}
+          Your {contentData.section_type}
         </label>
         <div className="flex m-2 gap-2">
           {isReadOnly && (
@@ -67,10 +79,36 @@ export default function ContentItem({ cont, onDelete, projectId }) {
         </div>
       </div>
       {isReadOnly ? (
-        <div className="w-full min-h-[120px] block mb-5 p-5 text-sm text-gray-900 bg-gray-50 whitespace-pre-wrap dark:bg-gray-800 dark:text-white">
-          {cont.text_box || (
-            <span className="text-gray-400 italic">No content yet</span>
+        <div>
+          <div className="w-full min-h-[120px] block mb-3 p-5 text-sm text-gray-900 bg-gray-50 whitespace-pre-wrap dark:bg-gray-800 dark:text-white">
+            {displayContent || (
+              <span className="text-gray-400 italic">No content yet</span>
+            )}
+          </div>
+          <div className="mb-5 flex justify-between">
+          <p className="mt-2 pl-5 text-xs text-gray-400">
+            {contentData.text_box.length} characters
+          </p>
+          {shouldTruncate && (
+            <button
+              type="button"
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="mt-2 pr-5 flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              {isExpanded ? (
+                <>
+                  <ChevronUp className="w-4 h-4" />
+                  Show less
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="w-4 h-4" />
+                  Read more
+                </>
+              )}
+            </button>
           )}
+          </div>
         </div>
       ) : (
         <div>
@@ -79,12 +117,15 @@ export default function ContentItem({ cont, onDelete, projectId }) {
             name="text_box"
             rows="10"
             className="w-full min-h-[120px] block p-5 text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder={`Enter your ${cont.section_type}`}
+            placeholder={`Enter your ${contentData.section_type}`}
             value={contentData.text_box}
             readOnly={isReadOnly}
             onChange={handleChange}
             style={{ fieldSizing: "content" }}
           ></textarea>
+          <p className="mt-2 pl-5 text-xs text-gray-400">
+            {contentData.text_box.length} characters
+          </p>
         </div>
       )}
 
