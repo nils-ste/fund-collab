@@ -10,17 +10,19 @@ import Layout from "./Components/Layout/Layout.jsx";
 import { ProjectsProvider } from "./Context/projectContext.jsx";
 import { ContentProvider } from "./Context/contentContext.jsx";
 import { FundingProvider } from "./Context/fundingContext.jsx";
+import { AuthProvider } from "./Context/authContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
+    <AuthProvider>
       <ProjectsProvider>
         <ContentProvider>
           <FundingProvider>
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<App />} />
-                <Route path="projects" element={<Projects userId={1} />} />
+                <Route path="projects" element={<Projects/>} />
                 <Route path="content/:projectId" element={<Content />} />
                 <Route
                   path="funding/:projectId"
@@ -33,6 +35,7 @@ createRoot(document.getElementById("root")).render(
           </FundingProvider>
         </ContentProvider>
       </ProjectsProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 );

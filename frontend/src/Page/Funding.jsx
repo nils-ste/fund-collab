@@ -52,13 +52,13 @@ export default function Funding() {
   return (
     <>
       {/* Trigger */}
-      <div className="flex justify-end px-4">
+      <div className="flex-none px-4 ">
         <button
           onClick={() => setOpen(true)}
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
           aria-label="Open funding drawer"
         >
-          Show Funding
+        Funding
         </button>
       </div>
 
@@ -78,7 +78,7 @@ export default function Funding() {
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h5 className="text-base font-semibold text-gray-500 dark:text-gray-400">
+          <h5 className="text-base font-semibold text-gray-500 dark:text-gray-100">
             Funding
           </h5>
 

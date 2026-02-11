@@ -1,9 +1,9 @@
 import { getProjects, deleteProject } from "../API/project";
 import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router";
 import { ProjectsContext } from "../Context/projectContext";
 import ProjectForm from "../Components/Forms/ProjectForm";
 import ProjectCard from "../Components/Cards/ProjectCard";
+import { AuthContext } from "../Context/authContext";
 
 /**
  * Projects component
@@ -11,20 +11,9 @@ import ProjectCard from "../Components/Cards/ProjectCard";
  * Allows deletion and editing via modal.
  */
 
-export default function Projects({ userId }) {
+export default function Projects() {
   const { projects, setProjects } = useContext(ProjectsContext);
-
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        const data = await getProjects(userId);
-        setProjects(data);
-      } catch {
-        console.log("Error");
-      }
-    }
-    fetchProjects();
-  }, [userId]);
+  const {userId} = useContext(AuthContext)
 
   async function handleDelete(userId, projectId) {
     try {

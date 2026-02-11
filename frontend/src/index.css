@@ -2,6 +2,14 @@
 
 :root {
   --bg-color: white;
+  --color-primary: #1F2937;
+  --color-primary-hover: #1976D2;
+  --color-secondary: #F3F4F6;
+  --color-secondary-hover: #6B7280;
+  --color-button: #1976D2;
+  --color-button-hover:#1d4ed8;
+  --color-symbols: #1976D2;
+  --color-symbols-hover: #F3F4F6;
 }
 
 html,
