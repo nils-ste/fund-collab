@@ -5,7 +5,7 @@ export default function TextInput({ name, inputLabel, data, handleChange}) {
         type="text"
         name={name}
         id={name}
-        className="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+        className="block pt-2.5 pb-1 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
         value={data}
         onChange={handleChange}
         placeholder=""

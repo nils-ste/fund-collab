@@ -51,7 +51,7 @@ export default function ProjectForm({
 
   return (
     <form
-      className="max-w-md mx-auto p-4 bg-white dark:bg-gray-800 dark:text-white"
+      className="max-w-md mx-auto p-3 bg-white dark:bg-gray-800 dark:text-white"
       onSubmit={handleSubmit}
     >
       <h3 className="text-lg font-bold mb-4">
@@ -65,15 +65,37 @@ export default function ProjectForm({
         handleChange={handleChange}
       />
 
-      <TextInput
-        name="status"
-        inputLabel="Enter Project Status:"
-        data={projectData.status}
-        handleChange={handleChange}
-      />
+      <div>
+        <label
+          htmlFor="status"
+          className="block mb-2 text-sm text-gray-900 dark:text-white"
+        >
+          Project Status
+        </label>
+
+        <select
+          id="status"
+          name= "status"
+          defaultValue={project?.status || ""}
+          onChange={handleChange}
+          className="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-sm
+                   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:text-white
+                   dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="" disabled>
+            Select Project Status
+          </option>
+          <option value="Development">Development</option>
+          <option value="Pre-Production">Pre-Production</option>
+          <option value="Production">Production</option>
+          <option value="Post-Production">Post-Production</option>
+          <option value="Distribution">Distribution</option>
+        </select>
+      </div>
 
       <fieldset>
-        <span>Set to Public?</span>
+        <span className="block mb-2 text-sm text-gray-900 dark:text-white">Set to Public?</span>
         <legend className="sr-only">Set to Public?</legend>
 
         <div className="flex items-center mb-2">
@@ -88,7 +110,7 @@ export default function ProjectForm({
           />
           <label
             htmlFor="public-true"
-            className="select-none ms-2 text-sm font-medium text-heading"
+            className="select-none ms-2 text-sm text-heading"
           >
             True
           </label>
@@ -106,7 +128,7 @@ export default function ProjectForm({
           />
           <label
             htmlFor="public-false"
-            className="select-none ms-2 text-sm font-medium text-heading"
+            className="select-none ms-2 text-sm text-heading"
           >
             False
           </label>

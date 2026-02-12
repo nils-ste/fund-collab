@@ -55,6 +55,7 @@ export default function ContentSelector({ projectId }) {
           <option value="" disabled>
             Choose Section Type
           </option>
+          <option value="Tagline">Tagline</option>
           <option value="Directors Statement">Directors Statement</option>
           <option value="Synopsis">Synopsis</option>
           <option value="Production Statement">Production Statement</option>
