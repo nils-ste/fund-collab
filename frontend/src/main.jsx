@@ -15,26 +15,23 @@ import { AuthProvider } from "./Context/authContext.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-    <AuthProvider>
-      <ProjectsProvider>
-        <ContentProvider>
-          <FundingProvider>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<App />} />
-                <Route path="projects" element={<Projects/>} />
-                <Route path="content/:projectId" element={<Content />} />
-                <Route
-                  path="funding/:projectId"
-                  element={<Funding projectId={2} />}
-                />
-                <Route path="about" />
-                <Route path="contact" />
-              </Route>
-            </Routes>
-          </FundingProvider>
-        </ContentProvider>
-      </ProjectsProvider>
+      <AuthProvider>
+        <ProjectsProvider>
+          <ContentProvider>
+            <FundingProvider>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<App />} />
+                  <Route path="projects" element={<Projects />} />
+                  <Route path="content/:projectId" element={<Content />} />
+                  <Route path="funding/:projectId" element={<Funding />} />
+                  <Route path="about" />
+                  <Route path="contact" />
+                </Route>
+              </Routes>
+            </FundingProvider>
+          </ContentProvider>
+        </ProjectsProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

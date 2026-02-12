@@ -13,18 +13,21 @@ export default function Content() {
   const { content, setContent } = useContext(ContContext);
   const { projects, loadingProjects } = useContext(ProjectsContext);
 
-  useEffect(() => {
-    async function fetchContent() {
-      try {
-        const data = await getContent(fetchId);
-        setContent(data);
-        
-      } catch {
-        console.log("Error");
+  useEffect(
+    () => {
+      async function fetchContent() {
+        try {
+          const data = await getContent(fetchId);
+          setContent(data);
+        } catch {
+          console.log("Error");
+        }
       }
-    }
-    fetchContent();
-  }, [fetchId], setContent);
+      fetchContent();
+    },
+    [fetchId],
+    setContent,
+  );
 
   async function handleDelete(contentId) {
     try {
@@ -43,7 +46,7 @@ export default function Content() {
     <>
       <div className="flex items-center justify-between">
         <h1 className="self-center mb-4 ml-4 text-(--color-primary) text-2xl font-semibold whitespace-nowrap dark:text-white">
-          {project?.project_title || "Loading"}
+          {loadingProjects ? "Loading..." : project.project_title}
         </h1>
         <Funding />
       </div>

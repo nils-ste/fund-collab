@@ -1,6 +1,9 @@
 import { Link } from "react-router";
 
 export default function ProjectCard({project, userId, onDelete, setModalProject }) {
+/** Needs funding fetch with the project ID that compares deadline with now and shows*/
+
+
      return (
       <div className="max-w-sm m-2 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
         {/* Header row */}

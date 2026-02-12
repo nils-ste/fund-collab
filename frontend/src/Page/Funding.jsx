@@ -10,24 +10,17 @@ export default function Funding() {
   const { projectId } = useParams();
   const { funding, setFunding } = useContext(FundingContext);
   const [selectedFundingId, setSelectedFundingId] = useState(null);
+  
 
-  useEffect(() => {
-    async function fetchFunding() {
-      try {
-        const data = await getFunding(projectId);
-        setFunding(data);
-      } catch {
-        console.log("Error");
-      }
-    }
-    fetchFunding();
-  }, [projectId]);
+  const projectFunding = funding.filter(
+    (f) => f.project_id === Number(projectId),
+  );
+  
 
-  async function handleDelete(contentId) {
+  async function handleDelete(fundingId) {
     try {
-      await deleteFunding(projectId, contentId);
-      const updated = await getFunding(projectId);
-      setFunding(updated.length ? [...updated] : []);
+      await deleteFunding(projectId, fundingId);
+      setFunding((prev) => prev.filter((f) => f.id !== fundingId));
     } catch (err) {
       console.log("Error deleting project:", err);
     }
@@ -41,13 +34,15 @@ export default function Funding() {
     setModalFunding(false);
   }
 
-  const sortedFunding = funding.sort(
+  const sortedFunding = [...projectFunding].sort(
     (a, b) => new Date(a.deadline) - new Date(b.deadline),
   );
 
   const now = new Date();
-  const upcoming = funding.filter((item) => new Date(item.deadline) >= now);
-  const past = funding.filter((item) => new Date(item.deadline) < now);
+  const upcoming = sortedFunding.filter(
+    (item) => new Date(item.deadline) >= now,
+  );
+  const past = sortedFunding.filter((item) => new Date(item.deadline) < now);
 
   return (
     <>
@@ -58,7 +53,7 @@ export default function Funding() {
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
           aria-label="Open funding drawer"
         >
-        Funding
+          Funding
         </button>
       </div>
 
