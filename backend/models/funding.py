@@ -15,4 +15,4 @@ class Funding(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
     def to_dict(self):
-        return {"id":self.id, "title": self.title, "deadline": self.deadline.isoformat(),"hyperlink": self.hyperlink ,"requirements": self.requirements}
+        return {"id":self.id, "title": self.title, "deadline": self.deadline.isoformat(),"hyperlink": self.hyperlink ,"requirements": self.requirements, "project_id": self.project_id}
