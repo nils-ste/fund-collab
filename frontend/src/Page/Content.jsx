@@ -40,7 +40,6 @@ export default function Content() {
   }
   const sortedContent = [...content].sort((a, b) => b.id - a.id);
   const project = projects.find((obj) => obj.id === fetchId);
-  console.log(project);
 
   return (
     <>

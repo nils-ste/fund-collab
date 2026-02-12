@@ -6,8 +6,8 @@ export const FundingContext = createContext();
 
 export function FundingProvider({ children }) {
   const [funding, setFunding] = useState([]);
-  const [loadingFunding, setLoadingFunding] = useState(true)
-  const {projects, loadingProjects} = useContext(ProjectsContext)
+  const [loadingFunding, setLoadingFunding] = useState(true);
+  const { projects, loadingProjects } = useContext(ProjectsContext);
 
   useEffect(() => {
     if (loadingProjects) return;
@@ -29,9 +29,6 @@ export function FundingProvider({ children }) {
 
     fetchFunding();
   }, [projects, loadingProjects]);
-
-  console.log(funding)
-
 
   return (
     <FundingContext.Provider value={{ funding, setFunding }}>

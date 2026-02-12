@@ -10,12 +10,10 @@ export default function Funding() {
   const { projectId } = useParams();
   const { funding, setFunding } = useContext(FundingContext);
   const [selectedFundingId, setSelectedFundingId] = useState(null);
-  
 
   const projectFunding = funding.filter(
     (f) => f.project_id === Number(projectId),
   );
-  
 
   async function handleDelete(fundingId) {
     try {
@@ -38,11 +36,28 @@ export default function Funding() {
     (a, b) => new Date(a.deadline) - new Date(b.deadline),
   );
 
-  const now = new Date();
-  const upcoming = sortedFunding.filter(
-    (item) => new Date(item.deadline) >= now,
-  );
-  const past = sortedFunding.filter((item) => new Date(item.deadline) < now);
+  function isSameOrAfterToday(dateStr) {
+    const today = new Date();
+    const date = new Date(dateStr);
+
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+
+    return date >= today;
+  }
+
+  function isBeforeToday(dateStr) {
+    const today = new Date();
+    const date = new Date(dateStr);
+
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+
+    return date < today;
+  }
+
+  const upcoming = sortedFunding.filter((f) => isSameOrAfterToday(f.deadline));
+  const past = sortedFunding.filter((f) => isBeforeToday(f.deadline));
 
   return (
     <>
