@@ -35,7 +35,7 @@ export default function Projects() {
   const sortedProjects = [...projects].sort((a, b) => b.id - a.id);
 
   return (
-    <div className="flex flex-wrap justify-center md:justify-start">
+    <div className="flex flex-wrap justify-center md:justify-start md:mx-30">
       {sortedProjects.map((project) => (
         <ProjectCard
           key={project.id}

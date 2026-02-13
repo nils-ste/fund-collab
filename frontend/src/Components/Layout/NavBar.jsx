@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ProjectsContext } from "../../Context/projectContext";
 import ProjectForm from "../Forms/ProjectForm";
 import { AuthContext } from "../../Context/authContext";
@@ -9,6 +9,22 @@ export default function NavBar() {
   const { userId } = useContext(AuthContext);
   const [showForm, setShowForm] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [resizing, setResizing] = useState(false);
+
+  useEffect(() => {
+    let timeout;
+    const handleResize = () => {
+      setResizing(true);
+      clearTimeout(timeout);
+      timeout = setTimeout(() => setResizing(false), 100);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeout);
+    };
+  }, []);
+
   return (
     <>
       <nav className="bg-(--color-secondary) dark:bg-gray-900 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
@@ -60,7 +76,7 @@ export default function NavBar() {
           </div>
 
           <div
-            className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${!isMenuOpen ? "max-h-0 opacity-0 scale-95 pointer-events-none md:max-h-full md:opacity-100 md:scale-100 md:pointer-events-auto" : "max-h-96 opacity-100 scale-100 pointer-events-auto"} transition-all duration-300 ease-in-out`}
+            className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${!isMenuOpen ? "max-h-0 opacity-0 scale-95 pointer-events-none md:max-h-full md:opacity-100 md:scale-100 md:pointer-events-auto" : "max-h-96 opacity-100 scale-100 pointer-events-auto"} ${resizing ? "" : "transition-all duration-300 ease-in-out"}`}
           >
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-(--color-secondary) dark:bg-gray-900 md:dark:bg-gray-900 dark:border-gray-700">
               <li>

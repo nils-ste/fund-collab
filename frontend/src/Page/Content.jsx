@@ -30,7 +30,7 @@ export default function Content() {
   const project = projects.find((obj) => obj.id === fetchId);
 
   return (
-    <>
+    <div className="md:mx-23">
       <div className="flex items-center justify-between">
         <h1 className="self-center mb-4 ml-4 text-(--color-primary) text-2xl font-semibold whitespace-nowrap dark:text-white">
           {loadingProjects ? "Loading..." : project.project_title}
@@ -38,19 +38,25 @@ export default function Content() {
         <Funding />
       </div>
       <ContentSelector projectId={fetchId} />
-      {sortedContent.map((cont) => (
-        <ContentCard
-          key={cont.id}
-          cont={cont}
-          onDelete={handleDelete}
-          projectId={fetchId}
-        />
-      ))}
+      {sortedContent.length === 0 ? (
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl text-gray-400">
+          No content yet
+        </div>
+      ) : (
+        sortedContent.map((cont) => (
+          <ContentCard
+            key={cont.id}
+            cont={cont}
+            onDelete={handleDelete}
+            projectId={fetchId}
+          />
+        ))
+      )}
       {/*<ContentForm
         projectId={fetchId}
         setContent={setContent}
         sectionType={"directors statement"}
       />*/}
-    </>
+    </div>
   );
 }

@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { Pencil, Trash2 } from "lucide-react";
 import StatusBadge from "../Badges/StatusBadge";
 import UrgencyBadge from "../Badges/UrgencyBadge";
+import TaglinePreview from "../Badges/TaglinePreview";
 
 export default function ProjectCard({
   project,
@@ -9,6 +10,7 @@ export default function ProjectCard({
   onDelete,
   setModalProject,
 }) {
+
   return (
     <div className="max-w-sm min-w-sm m-2 p-6 bg-white border border-gray-200 rounded-sm shadow-sm dark:bg-gray-800 dark:border-gray-700">
       {/* Header row */}
@@ -38,7 +40,7 @@ export default function ProjectCard({
         </div>
       </div>
       {/** Need to implement tagline here, maybe shorten if too long */}
-      <br />
+      <TaglinePreview project={project}/>
       <UrgencyBadge project={project} />
 
       <Link
