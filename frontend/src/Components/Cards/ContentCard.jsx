@@ -3,7 +3,7 @@ import { getContent, putContent } from "../../API/content";
 import { ContContext } from "../../Context/contentContext";
 import { Pencil, Trash2, ChevronUp, ChevronDown } from "lucide-react";
 
-export default function ContentItem({ cont, onDelete, projectId }) {
+export default function ContentCard({ cont, onDelete, projectId }) {
   const [isReadOnly, setIsReadOnly] = useState(true);
   function toggleEdit() {
     setIsReadOnly((prev) => !prev);

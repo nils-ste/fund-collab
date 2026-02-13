@@ -13,20 +13,8 @@ export default function Content() {
   const { content, setContent } = useContext(ContContext);
   const { projects, loadingProjects } = useContext(ProjectsContext);
 
-  useEffect(
-    () => {
-      async function fetchContent() {
-        try {
-          const data = await getContent(fetchId);
-          setContent(data);
-        } catch {
-          console.log("Error");
-        }
-      }
-      fetchContent();
-    },
-    [fetchId],
-    setContent,
+  const projectContent = content.filter(
+    (c) => c.project_id === Number(projectId),
   );
 
   async function handleDelete(contentId) {
@@ -38,7 +26,7 @@ export default function Content() {
       console.log("Error deleting project:", err);
     }
   }
-  const sortedContent = [...content].sort((a, b) => b.id - a.id);
+  const sortedContent = [...projectContent].sort((a, b) => b.id - a.id);
   const project = projects.find((obj) => obj.id === fetchId);
 
   return (
