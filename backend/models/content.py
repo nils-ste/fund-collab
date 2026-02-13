@@ -15,4 +15,4 @@ class Content(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
     def to_dict(self):
-        return {"id": self.id, "section_type": self.section_type, "text_box": self.text_box,}
+        return {"id": self.id, "section_type": self.section_type, "text_box": self.text_box, "project_id": self.project_id, "permission_editing": self.permission_editing, "permission_reading": self.permission_reading}
