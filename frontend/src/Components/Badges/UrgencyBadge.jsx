@@ -5,7 +5,19 @@ import { Clock } from "lucide-react";
 export default function UrgencyBadge({ project }) {
   const { funding } = useContext(FundingContext);
   const projectFunding = funding.filter((f) => f.project_id === project.id);
-  const nextFunding = projectFunding.reduce((earliest, current) => {
+  function isSameOrAfterToday(dateStr) {
+    const today = new Date();
+    const date = new Date(dateStr);
+
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+
+    return date >= today;
+  }
+
+  const upcoming = projectFunding.filter((f) => isSameOrAfterToday(f.deadline));
+
+  const nextFunding = upcoming.reduce((earliest, current) => {
     if (!earliest) return current;
     return new Date(current.deadline) < new Date(earliest.deadline)
       ? current

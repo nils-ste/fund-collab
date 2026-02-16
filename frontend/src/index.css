@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --bg-color: white;
-  --color-primary: #1F2937;
-  --color-primary-hover: #1976D2;
+  --color-primary: white;
+  --color-primary-hover: #F3F4F6;
   --color-secondary: #F3F4F6;
   --color-secondary-hover: #6B7280;
-  --color-button: #1976D2;
-  --color-button-hover:#1d4ed8;
+  --color-font-primary: black;
+  --color-font-secondary: #6b7280;
+  --color-border-primary: #E5E7EB;
+  --color-button: #1D4ED8;
+  --color-button-hover:#1E40AF;
+  --color-button-focus:#93C5FD;
   --color-symbols: #1976D2;
   --color-symbols-hover: #F3F4F6;
 }

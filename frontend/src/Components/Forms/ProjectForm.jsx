@@ -51,7 +51,7 @@ export default function ProjectForm({
 
   return (
     <form
-      className="max-w-md mx-auto p-3 bg-white dark:bg-gray-800 dark:text-white"
+      className="max-w-md mx-auto p-3 bg-(--color-primary)"
       onSubmit={handleSubmit}
     >
       <h3 className="text-lg font-bold mb-4">
@@ -68,20 +68,18 @@ export default function ProjectForm({
       <div>
         <label
           htmlFor="status"
-          className="block mb-2 text-sm text-gray-900 dark:text-white"
+          className="block mb-2 text-sm text-(--color-font-primary)"
         >
           Project Status
         </label>
 
         <select
           id="status"
-          name= "status"
+          name="status"
           defaultValue={project?.status || ""}
           onChange={handleChange}
-          className="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-sm
-                   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
-                   dark:bg-gray-700 dark:border-gray-600 dark:text-white
-                   dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-(--color-primary) mb-5 border border-(--color-border-primary) text-(--color-font-primary) text-sm rounded-sm
+                   focus:border-(--color-button) block w-full p-2.5"
         >
           <option value="" disabled>
             Select Project Status
@@ -95,7 +93,9 @@ export default function ProjectForm({
       </div>
 
       <fieldset>
-        <span className="block mb-2 text-sm text-gray-900 dark:text-white">Set to Public?</span>
+        <span className="block mb-2 text-sm text-(--color-font-primary)">
+          Set to Public?
+        </span>
         <legend className="sr-only">Set to Public?</legend>
 
         <div className="flex items-center mb-2">
@@ -104,7 +104,7 @@ export default function ProjectForm({
             type="radio"
             name="public"
             value="true"
-            className="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle"
+            className="w-4 h-4 text-(--font-primary) border-default-medium bg-(--color-primary) rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle"
             checked={projectData.public === true}
             onChange={handleChange}
           />
@@ -122,7 +122,7 @@ export default function ProjectForm({
             type="radio"
             name="public"
             value="false"
-            className="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle"
+            className="w-4 h-4 text-(--font-primary) border-default-medium bg-(--color-primary) rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle"
             checked={projectData.public === false}
             onChange={handleChange}
           />
@@ -137,7 +137,7 @@ export default function ProjectForm({
 
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
+        className="px-4 py-2 bg-(--color-button) text-(--color-primary) rounded hover:bg-(--color-button-hover) focus:outline-none"
       >
         {projectId ? "Update" : "Create"}
       </button>

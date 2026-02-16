@@ -27,14 +27,14 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="bg-(--color-secondary) dark:bg-gray-900 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+      <nav className="bg-(--color-secondary) sticky w-full z-20 top-0 start-0 border-b border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             to="/"
             onClick={() => setIsMenuOpen(false)}
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <span className="self-center text-(--color-primary) text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center text-(--color-font-primary) text-2xl font-semibold (--color-primary)space-nowrap">
               fund-collab
             </span>
           </Link>
@@ -43,7 +43,7 @@ export default function NavBar() {
             <button
               type="button"
               onClick={() => setShowForm(true)}
-              className="text-(--color-secondary) bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-(--color-primary) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
             >
               + Project
             </button>
@@ -52,7 +52,7 @@ export default function NavBar() {
               data-collapse-toggle="navbar-sticky"
               type="button"
               onClick={() => setIsMenuOpen((prev) => !prev)}
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-(--color-font-secondary) rounded-lg md:hidden focus:outline-none focus:ring-2 hover:ring-(--color-secondary-hover) focus:ring-(--color-secondary-hover)"
               aria-controls="navbar-sticky"
               aria-expanded={isMenuOpen}
             >
@@ -78,15 +78,15 @@ export default function NavBar() {
           <div
             className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${!isMenuOpen ? "max-h-0 opacity-0 scale-95 pointer-events-none md:max-h-full md:opacity-100 md:scale-100 md:pointer-events-auto" : "max-h-96 opacity-100 scale-100 pointer-events-auto"} ${resizing ? "" : "transition-all duration-300 ease-in-out"}`}
           >
-            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-(--color-secondary) dark:bg-gray-900 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-(--color-secondary)">
               <li>
                 <NavLink
                   to="/projects"
                   onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive
-                      ? "block py-2 px-3 text-(--color-button-hover) rounded-sm md:text-(--color-button-hover) md:p-0 md:dark:text-blue-500"
-                      : "block py-2 px-3 text-gray-900 rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                      ? "block py-2 px-3 text-(--color-button) rounded-sm md:text-(--color-button-hover) md:p-0"
+                      : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0"
                   }
                   aria-current="page"
                 >
@@ -99,8 +99,8 @@ export default function NavBar() {
                   onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive
-                      ? "block py-2 px-3 text-(--color-button-hover) rounded-sm md:text-(--color-button-hover) md:p-0 md:dark:text-blue-500"
-                      : "block py-2 px-3 text-gray-900 rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                      ? "block py-2 px-3 text-(--color-button) rounded-sm md:text-(--color-button-hover) md:p-0"
+                      : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0"
                   }
                 >
                   About
@@ -112,8 +112,8 @@ export default function NavBar() {
                   onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive
-                      ? "block py-2 px-3 text-(--color-button-hover) rounded-sm md:text-(--color-button-hover) md:p-0 md:dark:text-blue-500"
-                      : "block py-2 px-3 text-gray-900 rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                      ? "block py-2 px-3 text-(--color-button) rounded-sm md:text-(--color-button-hover) md:p-0"
+                      : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0"
                   }
                 >
                   Contact
@@ -125,9 +125,9 @@ export default function NavBar() {
       </nav>
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
-          <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow dark:bg-gray-800 dark:text-white">
+          <div className="bg-(--color-primary) p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow">
             <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white text-lg font-bold"
+              className="absolute top-2 right-2 text-(--color-font-secondary) hover:text-(--color-font-primary) dark:hover:text-(--color-primary) text-lg font-bold"
               onClick={() => setShowForm(false)}
             >
               ✕

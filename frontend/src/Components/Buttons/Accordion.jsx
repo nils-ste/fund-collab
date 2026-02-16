@@ -4,13 +4,13 @@ export default function Accordion({ title, children, openOnRender = true }) {
   const [open, setOpen] = useState(openOnRender); // 👈 open by default
 
   return (
-    <div className="mb-5 border-gray-200  overflow-hidden">
+    <div className="mb-5 border-(--color-border-primary)  overflow-hidden">
       <h2>
         <button
           type="button"
           onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
-          className="flex border border-gray-200 items-center justify-between w-full p-5 font-medium text-black hover:bg-gray-100 hover:text-black gap-3 dark:text-gray-100"
+          className="flex border border-(--color-border-primary) items-center justify-between w-full p-5 font-medium text-(--color-font-primary) hover:bg-(--color-primary-hover) gap-3"
         >
           <span>{title}</span>
 

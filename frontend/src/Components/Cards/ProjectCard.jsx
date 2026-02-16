@@ -10,14 +10,13 @@ export default function ProjectCard({
   onDelete,
   setModalProject,
 }) {
-
   return (
-    <div className="max-w-sm min-w-sm m-2 p-6 bg-white border border-gray-200 rounded-sm shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div className="max-w-sm min-w-sm m-2 p-6 bg-(--color-primary) border border-(--color-border-primary) rounded-sm shadow-sm">
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1.5 min-w-0">
           <StatusBadge status={project.status} />
-          <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white mr-5">
+          <h5 className="text-xl font-bold tracking-tight text-(--color-font-primary) mr-5">
             {project.project_title}
           </h5>
         </div>
@@ -26,26 +25,26 @@ export default function ProjectCard({
           <button
             onClick={() => setModalProject(project)}
             aria-label="Edit project"
-            className="flex text-blue-700 hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+            className="flex text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-border-primary) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
           >
             <Pencil className="w-4 h-4" />
           </button>
           <button
             onClick={() => onDelete(userId, project.id)}
             aria-label="Delete project"
-            className="flex text-blue-700 hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center mb-2.5 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+            className="flex text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-border-primary) font-medium rounded-lg text-sm px-3 py-2 text-center mb-2.5"
           >
             <Trash2 className="w-4 h-4" />
           </button>
         </div>
       </div>
       {/** Need to implement tagline here, maybe shorten if too long */}
-      <TaglinePreview project={project}/>
+      <TaglinePreview project={project} />
       <UrgencyBadge project={project} />
 
       <Link
         to={`/content/${project.id}`}
-        className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="inline-flex items-center px-3 py-2 text-sm font-medium text-(--color-primary) bg-(--color-button) rounded-lg hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-border-primary) dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         Show Project
         <svg

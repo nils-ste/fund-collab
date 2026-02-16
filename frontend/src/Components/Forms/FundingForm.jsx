@@ -37,7 +37,7 @@ export default function FundingForm({
       }
       const updated = await getFunding(projectId);
       setFunding(updated.length ? [...updated] : []);
-      setSelectedFundingId(null)
+      setSelectedFundingId(null);
       if (!fundingId) {
         setFundingData({
           title: "",
@@ -54,7 +54,7 @@ export default function FundingForm({
 
   return (
     <form
-      className="max-w-md mx-auto p-4 bg-white dark:bg-gray-800 dark:text-white"
+      className="max-w-md mx-auto p-4 bg-(--color-primary)"
       onSubmit={handleSubmit}
     >
       <h3 className="text-xl font-bold mb-4">
@@ -84,13 +84,13 @@ export default function FundingForm({
           type="date"
           name="deadline"
           value={fundingData.deadline}
-          className="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-(--color-secondary) mb-5 border border-(--color-border-primary) text-(--color-font-primary) text-sm rounded-lg focus:ring-(--color-button-focus) focus:border-(--color-button) block w-full p-2.5"
           onChange={handleChange}
         />
       </label>
       <button
         type="submit"
-        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
+        className="mb-2 px-3 py-1 text-sm font-medium text-(--color-primary) bg-(--color-button) rounded-md hover:bg-(--color-button-hover) focus:outline-none focus:ring-2 focus:ring-(--color-button-focus)"
       >
         {fundingId ? "Update" : "Create"}
       </button>

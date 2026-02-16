@@ -6,23 +6,23 @@ export default function FundingCards({
 }) {
   return (
     <div
-      className="mb-4 max-w-sm p-6 bg-white border-t border-gray-300 dark:bg-gray-800 dark:border-gray-500 "
+      className="mb-4 max-w-sm p-6 bg-(--color-primary) border-t border-(--color-border-primary)"
     >
       {" "}
-      <h6 className="mb-2 text-m text-gray-700 dark:text-gray-200">
+      <h6 className="mb-2 text-m text-(--color-font-primary">
         {fund.title}
       </h6>
-      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+      <p className="mb-2 text-sm text-(--color-font-secondary)">
         Deadline: {fund.deadline}
       </p>
-      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+      <p className="mb-2 text-sm text-(--color-font-secondary)">
         Requirements: {fund.requirements}
       </p>
       <a
         href={fund.hyperlink}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-blue-600 underline font-medium hover:no-underline"
+        className="text-(--color-button) underline font-medium hover:no-underline"
       >
         Website
       </a>
@@ -32,14 +32,14 @@ export default function FundingCards({
             setModalFunding(true);
             setSelectedFundingId(fund.id);
           }}
-          className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100"
+          className="px-4 py-2 text-sm font-medium text-(--color-font-primary) bg-(--color-primary) border border-(--color-border-primary) rounded-lg hover:bg-(--color-primary-hover)"
         >
           Edit
         </button>
 
         <button
           onClick={() => handleDelete(fund.id)}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800"
+          className="px-4 py-2 text-sm font-medium text-(--color-primary) bg-(--color-button) rounded-lg hover:bg-(--color-button-hover)"
         >
           Delete
         </button>

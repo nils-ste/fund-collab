@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { getFunding, deleteFunding } from "../API/funding";
 import { useParams } from "react-router";
 import FundingForm from "../Components/Forms/FundingForm";
@@ -65,7 +65,7 @@ export default function Funding() {
       <div className="flex-none px-4 ">
         <button
           onClick={() => setOpen(true)}
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
+          className="text-(--color-primary) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
           aria-label="Open funding drawer"
         >
           Funding
@@ -82,19 +82,19 @@ export default function Funding() {
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 z-40 h-screen w-80 bg-white dark:bg-gray-800 p-4
+        className={`fixed top-0 right-0 z-40 h-screen w-80 bg-(--color-primary) p-4
           transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "translate-x-full"}`}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h5 className="text-base font-semibold text-gray-500 dark:text-gray-100">
+          <h5 className="text-base font-semibold text-(--font-primary)">
             Funding
           </h5>
 
           <button
             onClick={() => setOpen(false)}
-            className="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+            className="text-(--color-font-secondary) hover:text-(--color-font-primary) rounded-lg w-8 h-8 inline-flex items-center justify-center"
           >
             ✕
           </button>
@@ -102,7 +102,7 @@ export default function Funding() {
         {/*Trigger add funding modal inside the Funding drawer*/}
         <button
           onClick={() => setModalFunding(true)}
-          className="mb-2 px-3 py-1 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          className="mb-2 px-3 py-1 text-sm font-medium text-(--color-primary) bg-(--color-button) rounded-md hover:bg-(--color-button-hover) focus:outline-none focus:ring-2 focus:ring-(--color-button-focus)"
           aria-label="Edit project"
         >
           Add funding
@@ -136,14 +136,14 @@ export default function Funding() {
       </div>
       {modalFunding && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
-          <div className="bg-white p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow dark:bg-gray-800 dark:text-white">
+          <div className="bg-(--color-primary) p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow">
             {/* Close Button */}
             <button
               onClick={() => {
                 closeModal();
                 setSelectedFundingId(null);
               }}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white text-lg font-bold"
+              className="absolute top-2 right-2 text-(--color-font-secondary) hover:text-(--color-font-primary) dark:hover:text-(--color-primary) text-lg font-bold"
             >
               ✕
             </button>
