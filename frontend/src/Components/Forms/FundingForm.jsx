@@ -54,7 +54,7 @@ export default function FundingForm({
 
   return (
     <form
-      className="max-w-md mx-auto p-4 bg-(--color-primary)"
+      className="text-(--color-font-primary) max-w-md mx-auto p-4 bg-(--color-primary)"
       onSubmit={handleSubmit}
     >
       <h3 className="text-xl font-bold mb-4">

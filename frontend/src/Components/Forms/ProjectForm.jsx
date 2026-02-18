@@ -51,7 +51,7 @@ export default function ProjectForm({
 
   return (
     <form
-      className="max-w-md mx-auto p-3 bg-(--color-primary)"
+      className="text-(--color-font-primary) max-w-md mx-auto p-3 bg-(--color-primary)"
       onSubmit={handleSubmit}
     >
       <h3 className="text-lg font-bold mb-4">
@@ -93,7 +93,7 @@ export default function ProjectForm({
       </div>
 
       <fieldset>
-        <span className="block mb-2 text-sm text-(--color-font-primary)">
+        <span className="block mb-2 text-sm">
           Set to Public?
         </span>
         <legend className="sr-only">Set to Public?</legend>
@@ -104,7 +104,7 @@ export default function ProjectForm({
             type="radio"
             name="public"
             value="true"
-            className="w-4 h-4 text-(--font-primary) border-default-medium bg-(--color-primary) rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle"
+            className="w-4 h-4 border-default-medium bg-(--color-primary) rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle"
             checked={projectData.public === true}
             onChange={handleChange}
           />

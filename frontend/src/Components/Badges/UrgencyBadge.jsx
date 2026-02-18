@@ -36,24 +36,24 @@ export default function UrgencyBadge({ project }) {
   function getUrgencyStyle(daysLeft) {
     if (daysLeft <= 3) {
       return {
-        containerClass: "bg-red-50 border-red-200",
-        textClass: "text-red-700",
-        iconClass: "text-red-500",
+        containerClass: "bg-(--color-urgent-bg) border-(--color-urgent-border)",
+        textClass: "text-(--color-urgent-text)",
+        iconClass: "text-(--color-urgent-icon)",
         label: "Urgent",
       };
     }
     if (daysLeft <= 7) {
       return {
-        containerClass: "bg-amber-50 border-amber-200",
-        textClass: "text-amber-700",
-        iconClass: "text-amber-500",
+        containerClass: "bg-(--color-soon-bg) border-(--color-soon-badge)",
+        textClass: "text-(--color-soon-text)",
+        iconClass: "text-(--color-soon-icon)",
         label: "Soon",
       };
     }
     return {
-      containerClass: "bg-slate-50 border-slate-200",
-      textClass: "text-slate-600",
-      iconClass: "text-slate-400",
+      containerClass: "bg-(--color-neutral-bg) border-(--color-neutral-border)",
+      textClass: "text-(--color-neutral-text)",
+      iconClass: "text-(--color-neutral-icon)",
       label: "",
     };
   }
@@ -84,14 +84,14 @@ export default function UrgencyBadge({ project }) {
   ) : (
     <div
       className={
-        "flex mb-3 items-center gap-3 p-2 rounded-sm border bg-slate-50 border-slate-200"
+        "flex mb-3 items-center gap-3 p-2 rounded-sm border bg-(--color-neutral-bg) border-(--color-neutral-border)"
       }
     >
       <div className="flex-1 min-w-0">
-        <p className={"text-sm font-medium text-slate-600"}>
+        <p className={"text-sm font-medium text-(--color-neutral-text)"}>
           No upcoming funding
         </p>
-        <p className={`text-xs text-slate-600 opacity-80`}>
+        <p className={"text-xs text-(--color-neutral-text)"}>
           Add funding on the project page
         </p>
       </div>

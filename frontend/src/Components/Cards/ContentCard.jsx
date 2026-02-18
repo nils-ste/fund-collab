@@ -144,7 +144,7 @@ export default function ContentCard({ cont, onDelete, projectId }) {
             id={cont.id}
             name="text_box"
             rows="10"
-            className="w-full min-h-[120px] block p-5 text-sm text-(--color-font-primary) bg-gray-50 border border-(--color-border-primary)"
+            className="w-full min-h-[120px] block p-5 text-sm text-(--color-font-primary) bg-(--color-secondary) border border-(--color-border-primary)"
             placeholder={`Enter your ${contentData.section_type}`}
             value={contentData.text_box}
             readOnly={isReadOnly}

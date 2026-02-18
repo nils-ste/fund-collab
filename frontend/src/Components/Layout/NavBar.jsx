@@ -4,11 +4,12 @@ import { ProjectsContext } from "../../Context/projectContext";
 import ProjectForm from "../Forms/ProjectForm";
 import { AuthContext } from "../../Context/authContext";
 import { ThemeContext } from "../../Context/themeContext";
+import { Moon, Sun } from 'lucide-react'
 
 export default function NavBar() {
   const { setProjects } = useContext(ProjectsContext);
   const { userId } = useContext(AuthContext);
-  const {toggleTheme} = useContext(ThemeContext)
+  const {toggleTheme, theme} = useContext(ThemeContext)
   const [showForm, setShowForm] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [resizing, setResizing] = useState(false);
@@ -46,7 +47,7 @@ export default function NavBar() {
               onClick={() => toggleTheme()}
               className="text-(--color-primary) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
             >
-              Theme
+              {theme === "light" ? <Sun/> : <Moon />}
             </button>
             </div>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
