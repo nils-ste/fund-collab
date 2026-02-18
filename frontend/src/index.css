@@ -37,28 +37,25 @@
   --color-neutral-text: #475569; /* slate-600 */
   --color-neutral-icon: #94a3b8; /* slate-400 */
 
-  /* === StatusBadge Colors (Light) === */
+  --color-development-bg: #f1f5f9; /* slate-100 */
+  --color-development-text: #475569; /* slate-700 */
+  --color-development-border: #e2e8f0; /* slate-200 */
 
---color-development-bg: #f1f5f9;    /* slate-100 */
---color-development-text: #475569;  /* slate-700 */
---color-development-border: #e2e8f0; /* slate-200 */
+  --color-pre-production-bg: #fef3c7; /* amber-100 */
+  --color-pre-production-text: #b45309; /* amber-700 */
+  --color-pre-production-border: #fde68a; /* amber-200 */
 
---color-pre-production-bg: #fef3c7; /* amber-100 */
---color-pre-production-text: #b45309; /* amber-700 */
---color-pre-production-border: #fde68a; /* amber-200 */
+  --color-production-bg: #d1fae5; /* emerald-100 */
+  --color-production-text: #15803d; /* emerald-700 */
+  --color-production-border: #a7f3d0; /* emerald-200 */
 
---color-production-bg: #d1fae5;     /* emerald-100 */
---color-production-text: #15803d;   /* emerald-700 */
---color-production-border: #a7f3d0; /* emerald-200 */
+  --color-post-production-bg: #dbeafe; /* blue-100 */
+  --color-post-production-text: #1d4ed8; /* blue-700 */
+  --color-post-production-border: #bfdbfe; /* blue-200 */
 
---color-post-production-bg: #dbEAFE; /* blue-100 */
---color-post-production-text: #1d4ed8; /* blue-700 */
---color-post-production-border: #bfdbfe; /* blue-200 */
-
---color-distribution-bg: #ede9fe;   /* purple-100 */
---color-distribution-text: #5b21b6; /* purple-700 */
---color-distribution-border: #ddd6fe; /* purple-200 */
-
+  --color-distribution-bg: #ede9fe; /* purple-100 */
+  --color-distribution-text: #5b21b6; /* purple-700 */
+  --color-distribution-border: #ddd6fe; /* purple-200 */
 }
 
 html,
@@ -109,25 +106,23 @@ body {
   --color-neutral-text: #d1d5db; /* gray-300 */
   --color-neutral-icon: #9ca3af; /* gray-400 */
 
-  /* === StatusBadge Colors (Dark) === */
-
-  --color-development-bg: #1f2937;    /* gray-800 / neutral background */
-  --color-development-text: #d1d5db;  /* gray-300 */
+  --color-development-bg: #1f2937; /* gray-800 / neutral background */
+  --color-development-text: #d1d5db; /* gray-300 */
   --color-development-border: #374151; /* gray-700 */
 
   --color-pre-production-bg: rgba(120, 53, 15, 0.25); /* amber-900/25 */
-  --color-pre-production-text: #fbbf24;               /* amber-400 */
-  --color-pre-production-border: #78350f;             /* amber-900 */
+  --color-pre-production-text: #fbbf24; /* amber-400 */
+  --color-pre-production-border: #78350f; /* amber-900 */
 
-  --color-production-bg: rgba(22, 163, 74, 0.25);    /* emerald-900/25 */
-  --color-production-text: #4ade80;                  /* emerald-400 */
-  --color-production-border: #166534;                /* emerald-900 */
+  --color-production-bg: rgba(22, 163, 74, 0.25); /* emerald-900/25 */
+  --color-production-text: #4ade80; /* emerald-400 */
+  --color-production-border: #166534; /* emerald-900 */
 
   --color-post-production-bg: rgba(29, 78, 216, 0.25); /* blue-800/25 */
-  --color-post-production-text: #60a5fa;               /* blue-400 */
-  --color-post-production-border: #1e40af;             /* blue-800 */
+  --color-post-production-text: #60a5fa; /* blue-400 */
+  --color-post-production-border: #1e40af; /* blue-800 */
 
-  --color-distribution-bg: rgba(91, 33, 182, 0.25);   /* purple-900/25 */
-  --color-distribution-text: #c4b5fd;                  /* purple-400 */
-  --color-distribution-border: #5b21b6;                /* purple-700 */
+  --color-distribution-bg: rgba(91, 33, 182, 0.25); /* purple-900/25 */
+  --color-distribution-text: #c4b5fd; /* purple-400 */
+  --color-distribution-border: #5b21b6; /* purple-700 */
 }
