@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
 import { ContContext } from "../Context/contentContext";
@@ -32,14 +32,14 @@ export default function Content() {
   return (
     <div className="md:mx-23">
       <div className="flex items-center justify-between">
-        <h1 className="self-center mb-4 ml-4 text-(--color-primary) text-2xl font-semibold whitespace-nowrap dark:text-white">
+        <h1 className="self-center mb-4 ml-4 text-(--color-primary) text-2xl font-semibold whitespace-nowrap">
           {loadingProjects ? "Loading..." : project.project_title}
         </h1>
         <Funding />
       </div>
       <ContentSelector projectId={fetchId} />
       {sortedContent.length === 0 ? (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl text-gray-400">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl text-(--color-font-secondary)">
           No content yet
         </div>
       ) : (
@@ -52,11 +52,6 @@ export default function Content() {
           />
         ))
       )}
-      {/*<ContentForm
-        projectId={fetchId}
-        setContent={setContent}
-        sectionType={"directors statement"}
-      />*/}
     </div>
   );
 }

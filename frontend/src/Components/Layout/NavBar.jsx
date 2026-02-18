@@ -3,10 +3,12 @@ import { useState, useContext, useEffect } from "react";
 import { ProjectsContext } from "../../Context/projectContext";
 import ProjectForm from "../Forms/ProjectForm";
 import { AuthContext } from "../../Context/authContext";
+import { ThemeContext } from "../../Context/themeContext";
 
 export default function NavBar() {
   const { setProjects } = useContext(ProjectsContext);
   const { userId } = useContext(AuthContext);
+  const {toggleTheme} = useContext(ThemeContext)
   const [showForm, setShowForm] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [resizing, setResizing] = useState(false);
@@ -38,7 +40,15 @@ export default function NavBar() {
               fund-collab
             </span>
           </Link>
-
+            <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <button
+              type="button"
+              onClick={() => toggleTheme()}
+              className="text-(--color-primary) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
+            >
+              Theme
+            </button>
+            </div>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button
               type="button"
@@ -52,7 +62,7 @@ export default function NavBar() {
               data-collapse-toggle="navbar-sticky"
               type="button"
               onClick={() => setIsMenuOpen((prev) => !prev)}
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-(--color-font-secondary) rounded-lg md:hidden focus:outline-none focus:ring-2 hover:ring-(--color-secondary-hover) focus:ring-(--color-secondary-hover)"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-(--color-font-secondary) rounded-lg md:hidden focus:outline-none focus:ring-2 hover:border-(--color-secondary-hover) focus:ring-(--color-secondary-hover)"
               aria-controls="navbar-sticky"
               aria-expanded={isMenuOpen}
             >

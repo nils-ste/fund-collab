@@ -1,34 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: white;
-  --color-primary-hover: #F3F4F6;
-  --color-secondary: #F3F4F6;
-  --color-secondary-hover: #6B7280;
-  --color-font-primary: black;
-  --color-font-secondary: #6b7280;
-  --color-border-primary: #E5E7EB;
-  --color-button: #1D4ED8;
-  --color-button-hover:#1E40AF;
-  --color-button-focus:#93C5FD;
-  --color-symbols: #1976D2;
-  --color-symbols-hover: #F3F4F6;
+  /* === LIGHT THEME === */
+
+  --color-primary: #FFFFFF;               /* white */
+  --color-primary-hover: #F3F4F6;         /* gray-100 */
+
+  --color-secondary: #F3F4F6;             /* gray-100 */
+  --color-secondary-hover: #6B7280;       /* gray-500 */
+
+  --color-font-primary: #000000;          /* black */
+  --color-font-secondary: #6B7280;        /* gray-500 */
+
+  --color-border-primary: #E5E7EB;        /* gray-200 */
+  --color-border-secondary: #374151;      /* gray-700 */
+
+  --color-button: #1D4ED8;                /* blue-700 */
+  --color-button-hover: #1E40AF;          /* blue-800 */
+  --color-button-focus: #93C5FD;          /* blue-300 */
+
+  --color-symbols: #1976D2;               /* custom blue */
+  --color-symbols-hover: #F3F4F6;         /* gray-100 */
 }
 
 html,
 body {
-  background-color: var(--bg-color);
+  background-color: var(--color-primary);
   margin: 0;
   min-height: 100%;
 }
 
 #root {
   min-height: 100dvh;
-  background-color: var(--bg-color);
+  background-color: var(--color-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #111827;
-  }
+/* === DARK THEME (manual toggle) === */
+[data-theme="dark"] {
+  --color-primary: #111827;               /* gray-900 */
+  --color-primary-hover: #1F2937;         /* gray-800 */
+
+  --color-secondary: #1F2937;             /* gray-800 */
+  --color-secondary-hover: #374151;       /* gray-700 */
+
+  --color-font-primary: #F9FAFB;          /* gray-50 */
+  --color-font-secondary: #9CA3AF;        /* gray-400 */
+
+  --color-border-primary: #374151;        /* gray-700 */
+  --color-border-secondary: #6B7280;      /* gray-500 */
+
+  --color-button: #3B82F6;                /* blue-500 */
+  --color-button-hover: #2563EB;          /* blue-600 */
+  --color-button-focus: #1E40AF;          /* blue-800 */
+
+  --color-symbols: #60A5FA;               /* blue-400 */
+  --color-symbols-hover: #1F2937;         /* gray-800 */
 }

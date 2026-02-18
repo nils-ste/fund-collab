@@ -63,13 +63,13 @@ export default function ContentCard({ cont, onDelete, projectId }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-m m-5 rounded-sm bg-white border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700"
+      className="max-w-m m-5 rounded-sm bg-(--color-primary) border border-(--color-border-primary) shadow-sm"
       key={cont.id}
     >
-      <div className="flex border-b border-gray-700 items-center justify-between">
+      <div className="flex border-b border-(--color-border-primary) items-center justify-between">
         <label
           htmlFor="message"
-          className="block m-5 text-m font-medium text-gray-900 dark:text-white"
+          className="block m-5 text-m font-medium text-(--color-font-primary) dark:text-(--color-primary)"
         >
           Your {contentData.section_type}
         </label>
@@ -79,7 +79,7 @@ export default function ContentCard({ cont, onDelete, projectId }) {
               <button
                 type="button"
                 onClick={handleCopy}
-                className="flex text-blue-700 hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+                className="flex text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
                 title={copied ? "Copied!" : "Copy to clipboard"}
               >
                 {copied ? (
@@ -91,14 +91,14 @@ export default function ContentCard({ cont, onDelete, projectId }) {
               <button
                 type="button"
                 onClick={() => toggleEdit()}
-                className="flex text-blue-700 hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+                className="flex text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
               >
                 <Pencil className="w-4 h-4" />
               </button>
               <button
                 type="button"
                 onClick={() => onDelete(cont.id)}
-                className="flex text-blue-700 hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center mb-2.5 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+                className="flex text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -108,20 +108,20 @@ export default function ContentCard({ cont, onDelete, projectId }) {
       </div>
       {isReadOnly ? (
         <div>
-          <div className="w-full min-h-[120px] block mb-3 p-5 text-sm text-gray-900 bg-gray-50 whitespace-pre-wrap dark:bg-gray-800 dark:text-white">
+          <div className="w-full min-h-[120px] block mb-3 p-5 text-sm text-(--color-font-primary) space-pre-wrap ">
             {displayContent || (
-              <span className="text-gray-400 italic">No content yet</span>
+              <span className="text-(--color-font-secondary) italic">No content yet</span>
             )}
           </div>
           <div className="mb-5 flex justify-between">
-            <p className="mt-2 pl-5 text-xs text-gray-400">
+            <p className="mt-2 pl-5 text-xs text-(--color-font-secondary)">
               {contentData.text_box.length} characters
             </p>
             {shouldTruncate && (
               <button
                 type="button"
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="mt-2 pr-5 flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                className="mt-2 pr-5 flex items-center gap-1 text-sm text-(--color-button) hover:text-(--color-button-hover)"
               >
                 {isExpanded ? (
                   <>
@@ -144,14 +144,14 @@ export default function ContentCard({ cont, onDelete, projectId }) {
             id={cont.id}
             name="text_box"
             rows="10"
-            className="w-full min-h-[120px] block p-5 text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="w-full min-h-[120px] block p-5 text-sm text-(--color-font-primary) bg-gray-50 border border-(--color-border-primary)"
             placeholder={`Enter your ${contentData.section_type}`}
             value={contentData.text_box}
             readOnly={isReadOnly}
             onChange={handleChange}
             style={{ fieldSizing: "content" }}
           ></textarea>
-          <p className="mt-2 pl-5 text-xs text-gray-400">
+          <p className="mt-2 pl-5 text-xs text-(--color-font-secondary)">
             {contentData.text_box.length} characters
           </p>
         </div>
@@ -160,7 +160,7 @@ export default function ContentCard({ cont, onDelete, projectId }) {
       {!isReadOnly && (
         <button
           type="submit"
-          className="text-blue-700 hover:text-white m-3 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+          className="text-(--color-button) hover:text-(--color-primary) m-3 border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         >
           Update
         </button>
