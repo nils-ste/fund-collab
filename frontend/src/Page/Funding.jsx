@@ -65,7 +65,7 @@ export default function Funding() {
       <div className="flex-none px-4 ">
         <button
           onClick={() => setOpen(true)}
-          className="text-(--color-primary) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
+          className="text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
           aria-label="Open funding drawer"
         >
           Funding
@@ -87,8 +87,8 @@ export default function Funding() {
           ${open ? "translate-x-0" : "translate-x-full"}`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <h5 className="text-base font-semibold text-(--font-primary)">
+        <div className="flex px-4 text-(--color-font-primary) items-center justify-between my-4">
+          <h5 className="text-base font-semibold text-(--color-font-primary)">
             Funding
           </h5>
 
@@ -100,13 +100,15 @@ export default function Funding() {
           </button>
         </div>
         {/*Trigger add funding modal inside the Funding drawer*/}
+        <div className="px-4">
         <button
           onClick={() => setModalFunding(true)}
-          className="mb-2 px-3 py-1 text-sm font-medium text-(--color-primary) bg-(--color-button) rounded-md hover:bg-(--color-button-hover) focus:outline-none focus:ring-2 focus:ring-(--color-button-focus)"
+          className="mb-2 px-3 py-1 text-sm font-medium text-(--color-button-font) bg-(--color-button) rounded-md hover:bg-(--color-button-hover) focus:outline-none focus:ring-2 focus:ring-(--color-button-focus)"
           aria-label="Edit project"
         >
           Add funding
         </button>
+        </div>
 
         {/* Content */}
         <div className="p-4 overflow-y-auto h-[calc(100vh-64px)]">

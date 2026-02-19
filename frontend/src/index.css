@@ -18,6 +18,7 @@
   --color-button: #1d4ed8; /* blue-700 */
   --color-button-hover: #1e40af; /* blue-800 */
   --color-button-focus: #93c5fd; /* blue-300 */
+  --color-button-font: #ffffff; /* white */
 
   --color-symbols: #1976d2; /* custom blue */
   --color-symbols-hover: #f3f4f6; /* gray-100 */
@@ -87,6 +88,7 @@ body {
   --color-button: #3b82f6; /* blue-500 */
   --color-button-hover: #2563eb; /* blue-600 */
   --color-button-focus: #1e40af; /* blue-800 */
+  --color-button-font: #ffffff; /* white */
 
   --color-symbols: #60a5fa; /* blue-400 */
   --color-symbols-hover: #1f2937; /* gray-800 */

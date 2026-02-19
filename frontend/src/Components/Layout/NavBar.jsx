@@ -45,14 +45,14 @@ export default function NavBar() {
             <button
               type="button"
               onClick={() => toggleTheme()}
-              className="text-(--color-button) mx-2 hover:text-(--color-primary) hover:bg-(--color-button-hover) font-medium rounded-full text-sm px-4 py-2 text-center"
+              className="text-(--color-button) mx-2 hover:text-(--color-button-font) hover:bg-(--color-button-hover) font-medium rounded-full text-sm px-4 py-2 text-center"
             >
               {theme === "light" ? <Sun /> : <Moon />}
             </button>
             <button
               type="button"
               onClick={() => setShowForm(true)}
-              className="text-(--color-primary) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
+              className="text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
             >
               + Project
             </button>

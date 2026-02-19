@@ -25,14 +25,14 @@ export default function ProjectCard({
           <button
             onClick={() => setModalProject(project)}
             aria-label="Edit project"
-            className="flex text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-border-primary) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
+            className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
           >
             <Pencil className="w-4 h-4" />
           </button>
           <button
             onClick={() => onDelete(userId, project.id)}
             aria-label="Delete project"
-            className="flex text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-border-primary) font-medium rounded-lg text-sm px-3 py-2 text-center mb-2.5"
+            className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center mb-2.5"
           >
             <Trash2 className="w-4 h-4" />
           </button>
@@ -44,7 +44,7 @@ export default function ProjectCard({
 
       <Link
         to={`/content/${project.id}`}
-        className="inline-flex items-center px-3 py-2 text-sm font-medium text-(--color-primary) bg-(--color-button) rounded-lg hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-border-primary) dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="inline-flex items-center mt-2 px-3 py-2 text-sm font-medium text-(--color-button-font) bg-(--color-button) rounded-full hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:(--color-button-focus) dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         Show Project
         <svg

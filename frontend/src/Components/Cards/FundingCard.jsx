@@ -6,7 +6,7 @@ export default function FundingCards({
 }) {
   return (
     <div
-      className="mb-4 max-w-sm p-6 bg-(--color-primary) border-t border-(--color-border-primary)"
+      className="mb-4 max-w-sm p-6 text-(--color-font-primary) bg-(--color-primary) border-t border-(--color-border-primary)"
     >
       {" "}
       <h6 className="mb-2 text-m text-(--color-font-primary">
@@ -32,14 +32,14 @@ export default function FundingCards({
             setModalFunding(true);
             setSelectedFundingId(fund.id);
           }}
-          className="px-4 py-2 text-sm font-medium text-(--color-font-primary) bg-(--color-primary) border border-(--color-border-primary) rounded-lg hover:bg-(--color-primary-hover)"
+          className="px-4 py-2 text-sm font-medium text-(--color-button-font) bg-(--color-button) rounded-lg hover:bg-(--color-button-hover)"
         >
           Edit
         </button>
 
         <button
           onClick={() => handleDelete(fund.id)}
-          className="px-4 py-2 text-sm font-medium text-(--color-primary) bg-(--color-button) rounded-lg hover:bg-(--color-button-hover)"
+          className="px-4 py-2 text-sm font-medium text-(--color-button-font) bg-(--color-button) rounded-lg hover:bg-(--color-button-hover)"
         >
           Delete
         </button>

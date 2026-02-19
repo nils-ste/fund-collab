@@ -62,7 +62,7 @@ export default function ContentSelector({ projectId }) {
       </div>
       <button
         type="submit"
-        className="self-end text-(--color-button) hover:text-(--color-primary) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500"
+        className="self-end text-(--color-button-font) bg-(--color-button) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500"
       >
         Submit
       </button>
