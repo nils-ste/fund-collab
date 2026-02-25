@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { Pencil, Trash2 } from "lucide-react";
+import {useState} from "react";
 import StatusBadge from "../Badges/StatusBadge";
 import UrgencyBadge from "../Badges/UrgencyBadge";
 import TaglinePreview from "../Badges/TaglinePreview";
@@ -10,13 +11,14 @@ export default function ProjectCard({
   onDelete,
   setModalProject,
 }) {
+  const [deleteModal, setDeleteModal] = useState(false)
   return (
     <div className="max-w-sm min-w-sm m-2 p-6 bg-(--color-primary) border border-(--color-border-primary) rounded-sm shadow-sm">
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1.5 min-w-0">
           <StatusBadge status={project.status} />
-          <h5 className="text-xl font-bold tracking-tight text-(--color-font-primary) mr-5">
+          <h5 className="flex items-center text-xl font-bold tracking-tight text-(--color-font-primary) mr-5 line-clamp-2 min-h-[3.5rem]">
             {project.project_title}
           </h5>
         </div>
@@ -44,7 +46,7 @@ export default function ProjectCard({
 
       <Link
         to={`/content/${project.id}`}
-        className="inline-flex items-center mt-2 px-3 py-2 text-sm font-medium text-(--color-button-font) bg-(--color-button) rounded-full hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:(--color-button-focus) dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="inline-flex justify-start items-center mt-2 px-2 py-2 text-sm font-medium text-(--color-button) rounded-lg hover:bg-(--color-button-hover) hover:text-(--color-button-font) hover:outline-none focus:ring-4 focus:outline-none focus:(--color-button-focus)"
       >
         Show Project
         <svg

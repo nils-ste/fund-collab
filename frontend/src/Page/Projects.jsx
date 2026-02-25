@@ -1,9 +1,10 @@
 import { getProjects, deleteProject } from "../API/project";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { ProjectsContext } from "../Context/projectContext";
 import ProjectForm from "../Components/Forms/ProjectForm";
 import ProjectCard from "../Components/Cards/ProjectCard";
 import { AuthContext } from "../Context/authContext";
+import { useSearchParams } from "react-router";
 
 /**
  * Projects component
@@ -12,8 +13,10 @@ import { AuthContext } from "../Context/authContext";
  */
 
 export default function Projects() {
-  const { projects, setProjects } = useContext(ProjectsContext);
-  const {userId} = useContext(AuthContext)
+  const { projects, setProjects, loadingProjects } = useContext(ProjectsContext);
+  const { userId } = useContext(AuthContext);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const statusFilter = searchParams.get("status");
 
   async function handleDelete(userId, projectId) {
     try {
@@ -32,7 +35,28 @@ export default function Projects() {
     setModalProject(null);
   }
 
-  const sortedProjects = [...projects].sort((a, b) => b.id - a.id);
+  const filteredProjects = statusFilter ? projects.filter(project => project.status.toLowerCase() === statusFilter.toLowerCase()) : projects;
+  console.log(filteredProjects)
+
+  const sortedProjects = [...filteredProjects].sort((a, b) => b.id - a.id);
+
+  if (loadingProjects) {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <h1 className="flex items-center justify-center min-h-screen text-xl text-(--color-font-secondary)">
+        Loading...
+      </h1>
+    </div>
+  );
+}
+
+if (sortedProjects.length === 0) {
+  return (
+    <div className="flex items-center justify-center min-h-screen text-xl text-(--color-font-secondary)">
+      No projects yet
+    </div>
+  );
+}
 
   return (
     <div className="flex flex-wrap justify-center md:justify-start md:mx-30">

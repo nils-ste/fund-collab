@@ -18,7 +18,7 @@ export default function StatusBadge({ status }) {
     },
     distribution: {
       label: "Distribution",
-      className: "bg-(-color-distribution-bg) text-(--color-distribution-text) border-(--color-distribution-border)",
+      className: "bg-(--color-distribution-bg) text-(--color-distribution-text) border-(--color-distribution-border)",
     },
   };
 

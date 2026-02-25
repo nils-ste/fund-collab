@@ -22,7 +22,7 @@ export default function ContentCard({ cont, onDelete, projectId }) {
   });
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const CONTENT_CHAR_LIMIT = 800;
+  const CONTENT_CHAR_LIMIT = 900;
 
   function toggleEdit() {
     setIsReadOnly((prev) => !prev);

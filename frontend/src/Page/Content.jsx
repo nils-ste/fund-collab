@@ -29,12 +29,20 @@ export default function Content() {
   const sortedContent = [...projectContent].sort((a, b) => b.id - a.id);
   const project = projects.find((obj) => obj.id === fetchId);
 
+  if (loadingProjects) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <h1 className="flex items-center justify-center min-h-screen text-xl text-(--color-font-secondary)">
+          Loading...
+        </h1>
+      </div>
+    );
+  }
+
+
   return (
     <div className="md:mx-23">
-      <div className="flex items-center justify-between">
-        <h1 className="self-center mb-4 ml-4 text-(--color-primary) text-2xl font-semibold whitespace-nowrap">
-          {loadingProjects ? "Loading..." : project.project_title}
-        </h1>
+      <div className="flex items-center justify-end">
         <Funding />
       </div>
       <ContentSelector projectId={fetchId} />
