@@ -9,7 +9,7 @@ bp = Blueprint('users', __name__, url_prefix='/users')
 
 @bp.route('/<int:user_id>', methods=['GET'])
 @jwt_required()
-def get_user(user_id):
+def get_user():
     """
     Get user by id
     :param user_id:
@@ -17,10 +17,7 @@ def get_user(user_id):
     """
     current_user_id = get_jwt_identity()
 
-    if current_user_id != user_id:
-        return jsonify({"error": "Unauthorized"}), 403
-
-    user = Users.query.get_or_404(user_id)
+    user = Users.query.get_or_404(current_user_id)
     return jsonify(user.to_dict()), 200
 
 
