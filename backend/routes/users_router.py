@@ -7,7 +7,7 @@ from models import Users, db
 bp = Blueprint('users', __name__, url_prefix='/users')
 
 
-@bp.route('/<int:user_id>', methods=['GET'])
+@bp.route('', methods=['GET'])
 @jwt_required()
 def get_user():
     """
