@@ -7,7 +7,7 @@ import Projects from "./Page/Projects.jsx";
 import Content from "./Page/Content.jsx";
 import Funding from "./Page/Funding.jsx";
 import Layout from "./Components/Layout/Layout.jsx";
-import Login from "./Page/Login.jsx";
+import Authentication from "./Page/Authentication.jsx";
 import { ProjectsProvider } from "./Context/projectContext.jsx";
 import { ContentProvider } from "./Context/contentContext.jsx";
 import { FundingProvider } from "./Context/fundingContext.jsx";
@@ -24,7 +24,7 @@ createRoot(document.getElementById("root")).render(
               <FundingProvider>
                 <Routes>
                   <Route index element={<App />} />
-                  <Route path="/login" element={<Login />} />
+                  <Route path="/authentication" element={<Authentication />} />
                   <Route path="/" element={<Layout />}>
                     <Route path="projects" element={<Projects />} />
                     <Route path="content/:projectId" element={<Content />} />

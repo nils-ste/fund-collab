@@ -16,7 +16,11 @@ export function AuthProvider({ children }) {
   }
 
 
-  console.log(userId);
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  console.log("Current userId:", userId);
 
   return (
     <AuthContext.Provider value={{ userId, fetchUser }}>{children}</AuthContext.Provider>

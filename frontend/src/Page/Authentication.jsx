@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router";
 import { useState, useContext } from "react";
-import {logIn} from "../API/users"
+import {logIn, signUp} from "../API/users"
 import { AuthContext } from "../Context/authContext";
 
-function Login() {
+export default function Authentication() {
   const [logInInformation, setLogInInformation] = useState({
     email: "",
     password: "",
   });
+  const [register, setRegister] = useState(false)
   const navigate = useNavigate();
   const { fetchUser } = useContext(AuthContext);
 
@@ -16,13 +17,24 @@ function Login() {
     setLogInInformation((prev)=> ({...prev, [name]: value}))
   }
 
-  async function handleSubmit(e) {
+  async function handleLogin(e) {
     e.preventDefault()
     try{
-      const token = await logIn(logInInformation)
-      localStorage.setItem("token", token);
+      await logIn(logInInformation)
       await fetchUser();
       navigate("/projects")
+    }
+    catch (err) {
+      console.error("Error on logIn:", err);
+    }
+  }
+
+  async function handleSignUp(e) {
+    e.preventDefault()
+    try{
+      const user = await signUp(logInInformation)
+      await fetchUser();
+      setRegister(false)
     }
     catch (err) {
       console.error("Error on logIn:", err);
@@ -34,10 +46,10 @@ function Login() {
         <div className="w-full bg-(--color-primary) rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-(--color-font-primary) md:text-2xl">
-              Sign in to your account
+              {register? "Register your Account" : "Sign in to your account"}
             </h1>
 
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-4 md:space-y-6" onSubmit={register? handleSignUp: handleLogin}>
               <div>
                 <label
                   htmlFor="email"
@@ -82,7 +94,6 @@ function Login() {
                       aria-describedby="remember"
                       type="checkbox"
                       className="w-4 h-4 border border-(--color-border-primary) rounded bg-(--color-primary) focus:ring-3 focus:ring-primary-300 "
-                      required
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -107,16 +118,16 @@ function Login() {
                 type="submit"
                 className="w-full text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
-                Sign in
+                {register? "Sign up": "Sign in"}
               </button>
 
               <p className="text-sm font-light text-(--color-font-primary)">
-                Don’t have an account yet?{" "}
+                {register? "Already have an Account? ":"Don’t have an account yet? "}
                 <a
-                  href="#"
+                  onClick={() => setRegister((prev) => !prev)}
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
-                  Sign up
+                  {!register? "Sign up": "Sign in"}
                 </a>
               </p>
             </form>
@@ -126,5 +137,3 @@ function Login() {
     </section>
   );
 }
-
-export default Login;

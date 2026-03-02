@@ -34,15 +34,21 @@ export async function logIn(userData) {
 
 export async function getUser() {
   const token = localStorage.getItem("token");
-  if (!token) return;
+  console.log("Token being used:", token, typeof(token));
+  if (!token) return null;
 
   const res = await fetch(`${BASE_URL}/users`, {
+    method: "GET",
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
 
-  if (!res.ok) throw new Error("Failed to retrieve user");
+  const data = await res.json();
+  console.log("User API response:", data);
 
-  return res.json();
+  if (!res.ok) throw new Error(data.error || "Failed to retrieve user");
+
+  return data;
 }
