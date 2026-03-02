@@ -28,7 +28,7 @@ export function FundingProvider({ children }) {
     }
 
     fetchFunding();
-  }, [projects, loadingProjects]);
+  }, [projects, loadingProjects, funding]);
 
   return (
     <FundingContext.Provider value={{ funding, setFunding }}>

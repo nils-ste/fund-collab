@@ -44,7 +44,7 @@ export default function UrgencyBadge({ project }) {
     }
     if (daysLeft <= 7) {
       return {
-        containerClass: "bg-(--color-soon-bg) border-(--color-soon-badge)",
+        containerClass: "bg-(--color-soon-bg) border-(--color-soon-border)",
         textClass: "text-(--color-soon-text)",
         iconClass: "text-(--color-soon-icon)",
         label: "Soon",

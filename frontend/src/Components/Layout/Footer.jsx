@@ -1,26 +1,26 @@
-import { NavLink } from "react-router"
+import { NavLink } from "react-router";
 
 export default function Footer() {
-    return(
-        <footer className="bg-(--color-primary) rounded-lg shadow-sm m-4">
-  <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-    <span className="text-sm text-(--color-font-secondary) sm:text-center">
-      © 2026 Nils Steinmetz. All Rights Reserved.
-    </span>
+  return (
+    <footer className="bg-(--color-primary) rounded-lg shadow-sm m-4 border border-(--color-border-primary)">
+      <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+        <span className="text-sm text-(--color-font-secondary) sm:text-center">
+          © 2026 Nils Steinmetz. All Rights Reserved.
+        </span>
 
-    <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-(--color-font-secondary) sm:mt-0">
-      <li>
-        <NavLink to="/about" className="hover:underline me-4 md:me-6">
-          About
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/contact" className="hover:underline me-4 md:me-6">
-          Contact
-        </NavLink>
-      </li>
-    </ul>
-  </div>
-</footer>
-    )
+        <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-(--color-font-secondary) sm:mt-0">
+          <li>
+            <NavLink to="/about" className="hover:underline me-4 md:me-6">
+              About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact" className="hover:underline me-4 md:me-6">
+              Contact
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </footer>
+  );
 }

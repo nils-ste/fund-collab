@@ -69,7 +69,7 @@ export default function ContentCard({ cont, onDelete, projectId }) {
       <div className="flex border-b border-(--color-border-primary) items-center justify-between">
         <label
           htmlFor="message"
-          className="block m-5 text-m font-medium text-(--color-font-primary) dark:text-(--color-primary)"
+          className="block m-5 text-m font-medium text-(--color-font-primary)"
         >
           Your {contentData.section_type}
         </label>
