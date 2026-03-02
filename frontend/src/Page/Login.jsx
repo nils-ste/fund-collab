@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {logIn} from "../API/users"
+import { AuthContext } from "../Context/authContext";
 
 function Login() {
   const [logInInformation, setLogInInformation] = useState({
@@ -8,6 +9,7 @@ function Login() {
     password: "",
   });
   const navigate = useNavigate();
+  const { fetchUser } = useContext(AuthContext);
 
   function handleChange(e) {
     const {name, value} = e.target;
@@ -19,6 +21,7 @@ function Login() {
     try{
       const token = await logIn(logInInformation)
       localStorage.setItem("token", token);
+      await fetchUser();
       navigate("/projects")
     }
     catch (err) {

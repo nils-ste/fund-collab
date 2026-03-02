@@ -34,7 +34,7 @@ export async function logIn(userData) {
 
 export async function getUser() {
   const token = localStorage.getItem("token");
-  if (!token) throw new Error("No token found, user not logged in");
+  if (!token) return;
 
   const res = await fetch(`${BASE_URL}/users`, {
     headers: {
