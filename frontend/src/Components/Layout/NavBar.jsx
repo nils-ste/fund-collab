@@ -1,18 +1,18 @@
 import { Link, NavLink } from "react-router";
 import { useState, useContext, useEffect } from "react";
-import { ProjectsContext } from "../../Context/projectContext";
-import ProjectForm from "../Forms/ProjectForm";
-import { AuthContext } from "../../Context/authContext";
+import { useNavigate } from "react-router";
 import { ThemeContext } from "../../Context/themeContext";
 import { Moon, Sun } from "lucide-react";
+import { AuthContext } from "../../Context/authContext";
 
 export default function NavBar() {
-  const { setProjects } = useContext(ProjectsContext);
-  const { userId } = useContext(AuthContext);
+  const navigate = useNavigate();
   const { toggleTheme, theme } = useContext(ThemeContext);
-  const [showForm, setShowForm] = useState(false);
+  const { setUserId } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [resizing, setResizing] = useState(false);
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     let timeout;
@@ -49,13 +49,27 @@ export default function NavBar() {
             >
               {theme === "light" ? <Sun /> : <Moon />}
             </button>
-            <button
-              type="button"
-              onClick={() => setShowForm(true)}
-              className="text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
-            >
-              + Project
-            </button>
+            {token ? (
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  setUserId(null);
+                  navigate("/authentication")
+                }}
+                className="text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
+              >
+                Sign Out
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => navigate("/authentication")}
+                className="text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
+              >
+                Sign In
+              </button>
+            )}
 
             <button
               data-collapse-toggle="navbar-sticky"
@@ -88,20 +102,24 @@ export default function NavBar() {
             className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${!isMenuOpen ? "max-h-0 opacity-0 scale-95 pointer-events-none md:max-h-full md:opacity-100 md:scale-100 md:pointer-events-auto" : "max-h-96 opacity-100 scale-100 pointer-events-auto"} ${resizing ? "" : "transition-all duration-300 ease-in-out"}`}
           >
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-(--color-secondary)">
-              <li>
-                <NavLink
-                  to="/projects"
-                  onClick={() => setIsMenuOpen(false)}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "block py-2 px-3 text-(--color-button) rounded-sm md:text-(--color-button-hover) md:p-0"
-                      : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0"
-                  }
-                  aria-current="page"
-                >
-                  Projects
-                </NavLink>
-              </li>
+              {token ? (
+                <li>
+                  <NavLink
+                    to="/projects"
+                    onClick={() => setIsMenuOpen(false)}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "block py-2 px-3 text-(--color-button) rounded-sm md:text-(--color-button-hover) md:p-0"
+                        : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0"
+                    }
+                    aria-current="page"
+                  >
+                    Projects
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
               <li>
                 <NavLink
                   to="/about"
@@ -132,23 +150,6 @@ export default function NavBar() {
           </div>
         </div>
       </nav>
-      {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
-          <div className="bg-(--color-primary) p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow">
-            <button
-              className="absolute top-2 right-2 text-(--color-font-secondary) hover:text-(--color-font-primary) dark:hover:text-(--color-primary) text-lg font-bold"
-              onClick={() => setShowForm(false)}
-            >
-              ✕
-            </button>
-            <ProjectForm
-              userId={userId}
-              setProjects={setProjects}
-              closeModal={() => setShowForm(false)}
-            />
-          </div>
-        </div>
-      )}
     </>
   );
 }

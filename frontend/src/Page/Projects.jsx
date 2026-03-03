@@ -13,10 +13,12 @@ import { useSearchParams } from "react-router";
  */
 
 export default function Projects() {
-  const { projects, setProjects, loadingProjects } = useContext(ProjectsContext);
+  const { projects, setProjects, loadingProjects } =
+    useContext(ProjectsContext);
   const { userId } = useContext(AuthContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const statusFilter = searchParams.get("status");
+  const [showForm, setShowForm] = useState(false);
 
   async function handleDelete(userId, projectId) {
     try {
@@ -35,62 +37,96 @@ export default function Projects() {
     setModalProject(null);
   }
 
-  const filteredProjects = statusFilter ? projects.filter(project => project.status.toLowerCase() === statusFilter.toLowerCase()) : projects;
-  console.log(filteredProjects)
+  const filteredProjects = statusFilter
+    ? projects.filter(
+        (project) =>
+          project.status.toLowerCase() === statusFilter.toLowerCase(),
+      )
+    : projects;
+  console.log(filteredProjects);
 
   const sortedProjects = [...filteredProjects].sort((a, b) => b.id - a.id);
 
   if (loadingProjects) {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <h1 className="flex items-center justify-center min-h-screen text-xl text-(--color-font-secondary)">
-        Loading...
-      </h1>
-    </div>
-  );
-}
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <h1 className="flex items-center justify-center min-h-screen text-xl text-(--color-font-secondary)">
+          Loading...
+        </h1>
+      </div>
+    );
+  }
 
-if (sortedProjects.length === 0) {
-  return (
-    <div className="flex items-center justify-center min-h-screen text-xl text-(--color-font-secondary)">
-      No projects yet
-    </div>
-  );
-}
+  if (sortedProjects.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-xl text-(--color-font-secondary)">
+        No projects yet
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-wrap justify-center md:justify-start md:mx-30">
-      {sortedProjects.map((project) => (
-        <ProjectCard
-          key={project.id}
-          project={project}
-          userId={userId}
-          onDelete={handleDelete}
-          setModalProject={setModalProject}
-        />
-      ))}
-      {modalProject && (
+    <>
+      <div className="px-4 flex items-center justify-end md:mx-23">
+        <button
+          type="button"
+          onClick={() => setShowForm(true)}
+          className="text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
+          aria-label="Open projects form"
+        >
+          + Project
+        </button>
+      </div>
+      <div className="flex flex-wrap justify-center md:justify-start md:mx-30">
+        {sortedProjects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            userId={userId}
+            onDelete={handleDelete}
+            setModalProject={setModalProject}
+          />
+        ))}
+        {modalProject && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
+            <div className="bg-(--color-primary) p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow">
+              {/* Close Button */}
+              <button
+                onClick={() => closeModal()}
+                className="absolute top-2 right-2 text-(--color-font-secondary) hover:text-(--color-font-primary) text-lg font-bold"
+              >
+                ✕
+              </button>
+
+              {/* Update Form */}
+              <ProjectForm
+                userId={userId}
+                projectId={modalProject.id}
+                projects={projects}
+                setProjects={setProjects}
+                closeModal={closeModal}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+      {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
           <div className="bg-(--color-primary) p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow">
-            {/* Close Button */}
             <button
-              onClick={() => closeModal()}
-              className="absolute top-2 right-2 text-(--color-font-secondary) hover:text-(--color-font-primary) text-lg font-bold"
+              className="absolute top-2 right-2 text-(--color-font-secondary) hover:text-(--color-font-primary) dark:hover:text-(--color-primary) text-lg font-bold"
+              onClick={() => setShowForm(false)}
             >
               ✕
             </button>
-
-            {/* Update Form */}
             <ProjectForm
               userId={userId}
-              projectId={modalProject.id}
-              projects={projects}
               setProjects={setProjects}
-              closeModal={closeModal}
+              closeModal={() => setShowForm(false)}
             />
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

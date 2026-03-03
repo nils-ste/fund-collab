@@ -20,9 +20,7 @@ export function AuthProvider({ children }) {
     fetchUser();
   }, []);
 
-  console.log("Current userId:", userId);
-
   return (
-    <AuthContext.Provider value={{ userId, fetchUser }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ userId, setUserId, fetchUser }}>{children}</AuthContext.Provider>
   );
 }

@@ -23,9 +23,9 @@ createRoot(document.getElementById("root")).render(
             <ContentProvider>
               <FundingProvider>
                 <Routes>
-                  <Route index element={<App />} />
-                  <Route path="/authentication" element={<Authentication />} />
                   <Route path="/" element={<Layout />}>
+                    <Route index element={<App />} />
+                    <Route path="authentication" element={<Authentication />} />
                     <Route path="projects" element={<Projects />} />
                     <Route path="content/:projectId" element={<Content />} />
                     <Route path="funding/:projectId" element={<Funding />} />
