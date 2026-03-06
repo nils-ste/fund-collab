@@ -43,7 +43,6 @@ export default function Projects() {
           project.status.toLowerCase() === statusFilter.toLowerCase(),
       )
     : projects;
-  console.log(filteredProjects);
 
   const sortedProjects = [...filteredProjects].sort((a, b) => b.id - a.id);
 

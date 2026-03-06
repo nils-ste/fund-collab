@@ -5,14 +5,16 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(true)
   async function fetchUser() {
+    setLoading(true)
     try {
       const data = await getUser();
-      console.log(data)
       setUserId(data.id);
     } catch (err) {
       console.error(err);
     }
+    setLoading(false)
   }
 
 
@@ -21,6 +23,6 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userId, setUserId, fetchUser }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ userId,loading, setUserId, fetchUser }}>{children}</AuthContext.Provider>
   );
 }

@@ -39,7 +39,6 @@ export default function Content() {
     );
   }
 
-
   return (
     <div className="md:mx-23">
       <div className="flex items-center justify-end">
@@ -60,6 +59,18 @@ export default function Content() {
           />
         ))
       )}
+
+      <div id="videoContainer">
+        <iframe
+          id="vimeo-player"
+          src="https://player.vimeo.com/video/76979871?h=3f2ab4cd91"
+          width="640"
+          height="360"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {logIn, signUp} from "../API/users"
 import { AuthContext } from "../Context/authContext";
 
@@ -10,7 +10,7 @@ export default function Authentication() {
   });
   const [register, setRegister] = useState(false)
   const navigate = useNavigate();
-  const { fetchUser } = useContext(AuthContext);
+  const { userId, fetchUser } = useContext(AuthContext);
 
   function handleChange(e) {
     const {name, value} = e.target;
@@ -40,6 +40,13 @@ export default function Authentication() {
       console.error("Error on logIn:", err);
     }
   }
+
+  useEffect(() => {
+      if (userId) {
+        navigate("/projects");
+      }
+    }, [userId]);
+
   return (
     <section className="bg-(--color-primary)">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

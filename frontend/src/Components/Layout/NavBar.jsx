@@ -28,6 +28,7 @@ export default function NavBar() {
     };
   }, []);
 
+
   return (
     <>
       <nav className="bg-(--color-secondary) sticky w-full z-20 top-0 start-0 border-b border-gray-200">
