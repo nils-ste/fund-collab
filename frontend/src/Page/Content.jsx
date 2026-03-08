@@ -60,12 +60,10 @@ export default function Content() {
         ))
       )}
 
-      <div id="videoContainer">
+      <div id="videoContainer" className="flex justify-center">
         <iframe
           id="vimeo-player"
           src="https://player.vimeo.com/video/76979871?h=3f2ab4cd91"
-          width="640"
-          height="360"
           frameborder="0"
           allow="autoplay; fullscreen; picture-in-picture"
           allowfullscreen
