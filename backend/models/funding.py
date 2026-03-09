@@ -11,8 +11,8 @@ class Funding(db.Model):
     title = db.Column(db.String(80), nullable=False)
     deadline = db.Column(db.Date, nullable=True)
     hyperlink = db.Column(db.String(120), nullable=True)
-    requirements = db.Column(db.Text, nullable=False)
+    status= db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
     def to_dict(self):
-        return {"id":self.id, "title": self.title, "deadline": self.deadline.isoformat(),"hyperlink": self.hyperlink ,"requirements": self.requirements, "project_id": self.project_id}
+        return {"id":self.id, "title": self.title, "deadline": self.deadline.isoformat(),"hyperlink": self.hyperlink ,"status": self.status, "project_id": self.project_id}
