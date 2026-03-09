@@ -40,8 +40,8 @@ def add_funding(project_id):
         return jsonify({"Error missing:": missing_fields}), 400
 
     new_funding = Funding(project_id=project_id, title=funding_data.get('title'),
-                          deadline=deadline_date, requirements=funding_data.get(
-            'requirements'), hyperlink=funding_data.get('hyperlink'))
+                          deadline=deadline_date, status=funding_data.get(
+            'status'), hyperlink=funding_data.get('hyperlink'))
     try:
         db.session.add(new_funding)
         db.session.commit()
@@ -63,7 +63,7 @@ def update_funding(project_id, id):
     if not funding:
         return jsonify({"Error": "Not found"}), 404
     data = request.get_json()
-    editable_fields = ['title', 'deadline', 'requirements', 'hyperlink']
+    editable_fields = ['title', 'deadline', 'status', 'hyperlink']
     for field in editable_fields:
         if field in data:
             setattr(funding, field, data[field])
