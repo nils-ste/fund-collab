@@ -23,7 +23,7 @@ export function ProjectsProvider({ children }) {
     }
 
     fetchProjects();
-  }, [userId]);
+  }, [userId, loadingProjects]);
 
   return (
     <ProjectsContext.Provider value={{ projects, setProjects, loadingProjects }}>

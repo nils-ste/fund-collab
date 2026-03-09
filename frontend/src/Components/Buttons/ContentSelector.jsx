@@ -34,7 +34,7 @@ export default function ContentSelector({ projectId }) {
   }
 
   return (
-    <form className="flex gap-4 mb-5 max-w-sm mx-auto" onSubmit={handleSubmit}>
+    <form className="flex gap-4 mb-5 max-w-sm mx-5" onSubmit={handleSubmit}>
       <div>
         <label
           htmlFor="Roles"

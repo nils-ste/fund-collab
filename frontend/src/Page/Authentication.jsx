@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useState, useContext, useEffect } from "react";
-import {logIn, signUp} from "../API/users"
+import { logIn, signUp } from "../API/users";
 import { AuthContext } from "../Context/authContext";
 
 export default function Authentication() {
@@ -8,44 +8,42 @@ export default function Authentication() {
     email: "",
     password: "",
   });
-  const [register, setRegister] = useState(false)
+  const [register, setRegister] = useState(false);
   const navigate = useNavigate();
-  const { userId, fetchUser } = useContext(AuthContext);
+  const { userId, fetchUser, loading } = useContext(AuthContext);
 
   function handleChange(e) {
-    const {name, value} = e.target;
-    setLogInInformation((prev)=> ({...prev, [name]: value}))
+    const { name, value } = e.target;
+    setLogInInformation((prev) => ({ ...prev, [name]: value }));
   }
 
   async function handleLogin(e) {
-    e.preventDefault()
-    try{
-      await logIn(logInInformation)
+    e.preventDefault();
+    try {
+      await logIn(logInInformation);
       await fetchUser();
-      navigate("/projects")
-    }
-    catch (err) {
+      navigate("/projects");
+    } catch (err) {
       console.error("Error on logIn:", err);
     }
   }
 
   async function handleSignUp(e) {
-    e.preventDefault()
-    try{
-      const user = await signUp(logInInformation)
+    e.preventDefault();
+    try {
+      const user = await signUp(logInInformation);
       await fetchUser();
-      setRegister(false)
-    }
-    catch (err) {
+      setRegister(false);
+    } catch (err) {
       console.error("Error on logIn:", err);
     }
   }
 
   useEffect(() => {
-      if (userId) {
-        navigate("/projects");
-      }
-    }, [userId]);
+    if (!loading && userId) {
+      navigate("/projects");
+    }
+  }, [userId, loading, navigate]);
 
   return (
     <section className="bg-(--color-primary)">
@@ -53,10 +51,13 @@ export default function Authentication() {
         <div className="w-full bg-(--color-primary) rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-(--color-font-primary) md:text-2xl">
-              {register? "Register your Account" : "Sign in to your account"}
+              {register ? "Register your Account" : "Sign in to your account"}
             </h1>
 
-            <form className="space-y-4 md:space-y-6" onSubmit={register? handleSignUp: handleLogin}>
+            <form
+              className="space-y-4 md:space-y-6"
+              onSubmit={register ? handleSignUp : handleLogin}
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -125,16 +126,18 @@ export default function Authentication() {
                 type="submit"
                 className="w-full text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
-                {register? "Sign up": "Sign in"}
+                {register ? "Sign up" : "Sign in"}
               </button>
 
               <p className="text-sm font-light text-(--color-font-primary)">
-                {register? "Already have an Account? ":"Don’t have an account yet? "}
+                {register
+                  ? "Already have an Account? "
+                  : "Don’t have an account yet? "}
                 <a
                   onClick={() => setRegister((prev) => !prev)}
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
-                  {!register? "Sign up": "Sign in"}
+                  {!register ? "Sign up" : "Sign in"}
                 </a>
               </p>
             </form>

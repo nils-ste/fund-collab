@@ -1,19 +1,15 @@
 export default function StatusFunding({ status }) {
   const statusConfig = {
-    "not applied": {
-      label: "Not Applied",
+    "in application": {
+      label: "In Application",
       className: "bg-(--color-pre-production-bg) text-(--color-pre-production-text) border-(--color-pre-production-border)",
     },
     applied: {
       label: "Applied",
       className: "bg-(--color-production-bg) text-(--color-production-text) border-(--color-production-border)",
     },
-    "in application": {
-      label: "In Application",
-      className: "bg-(--color-post-production-bg) text-(--color-post-production-text) border-(--color-post-production-border)",
-    },
-    "deadline missed": {
-      label: "Missed Deadline",
+    "not applied": {
+      label: "Not Applied",
       className: "bg-(--color-urgent-bg) text-(--color-urgent-text) border-(--color-urgent-border)",
     },
   };

@@ -83,7 +83,7 @@ export default function FundingForm({
         <select
           id="status"
           name="status"
-          defaultValue=""
+          defaultValue={fundingData.status}
           onChange={handleChange}
           className="mb-2 bg-(--color-secondary) border border-(--color-border-primary) text-(--color-font-primary) text-sm rounded-lg
                    focus:ring-(--color-button-focus) focus:border-(--color-button-focus) block w-full p-2.5"
@@ -91,10 +91,9 @@ export default function FundingForm({
           <option value="" disabled>
             Choose Application Status
           </option>
-          <option value="not applied">not applied</option>
-          <option value="in application">in application</option>
-          <option value="applied">applied</option>
-          <option value="deadline missed">deadline missed</option>
+          <option value="not applied">Not Applied</option>
+          <option value="in application">In Application</option>
+          <option value="applied">Applied</option>
         </select>
       </div>
 

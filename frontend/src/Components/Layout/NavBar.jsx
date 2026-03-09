@@ -8,7 +8,7 @@ import { AuthContext } from "../../Context/authContext";
 export default function NavBar() {
   const navigate = useNavigate();
   const { toggleTheme, theme } = useContext(ThemeContext);
-  const { setUserId } = useContext(AuthContext);
+  const { userId, setUserId } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [resizing, setResizing] = useState(false);
 
@@ -50,7 +50,7 @@ export default function NavBar() {
             >
               {theme === "light" ? <Sun /> : <Moon />}
             </button>
-            {token ? (
+            {userId ? (
               <button
                 type="button"
                 onClick={() => {

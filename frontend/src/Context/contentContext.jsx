@@ -31,7 +31,7 @@ export function ContentProvider({ children }) {
   }, [projects, loadingProjects]);
 
   return (
-    <ContContext.Provider value={{ content, setContent }}>
+    <ContContext.Provider value={{ content, setContent, loadingContent }}>
       {children}
     </ContContext.Provider>
   );

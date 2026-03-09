@@ -44,31 +44,47 @@ export default function Content() {
       <div className="flex items-center justify-end">
         <Funding />
       </div>
+      <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
+          {project.project_title}
+        </h2>
       <ContentSelector projectId={fetchId} />
-      {sortedContent.length === 0 ? (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl text-(--color-font-secondary)">
-          No content yet
-        </div>
-      ) : (
-        sortedContent.map((cont) => (
-          <ContentCard
-            key={cont.id}
-            cont={cont}
-            onDelete={handleDelete}
-            projectId={fetchId}
-          />
-        ))
-      )}
+      <div>
+        {sortedContent.length === 0 ? (
+          <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl text-(--color-font-secondary)">
+            No content yet
+          </div>
+        ) : (
+          sortedContent.map((cont) => (
+            <ContentCard
+              key={cont.id}
+              cont={cont}
+              onDelete={handleDelete}
+              projectId={fetchId}
+            />
+          ))
+        )}
+      </div>
 
-      <div id="videoContainer" className="flex justify-center">
-  <iframe
-    id="vimeo-player"
-    src="https://player.vimeo.com/video/76979871?h=3f2ab4cd91"
-    className="border-0"
-    allow="autoplay; fullscreen; picture-in-picture"
-    allowFullScreen
-  />
-</div>
+      <div>
+        <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
+          Videos
+        </h2>
+        <div id="videoContainer" className="flex justify-center items-center">
+          <iframe
+            id="vimeo-player"
+            src="https://player.vimeo.com/video/76979871?h=3f2ab4cd91"
+            className="border-0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      </div>
+
+      <div>
+        <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
+          Documents
+        </h2>
+      </div>
     </div>
   );
 }
