@@ -34,7 +34,7 @@ def add_funding(project_id):
         except ValueError:
             return jsonify({"Error": "Invalid deadline format"}), 400
 
-    required_fields= ['title', 'requirements']
+    required_fields= ['title', 'status']
     missing_fields = [field for field in required_fields if not funding_data.get(field)]
     if missing_fields:
         return jsonify({"Error missing:": missing_fields}), 400
