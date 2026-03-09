@@ -18,7 +18,7 @@ export default function FundingForm({
     title: funding?.title || "",
     deadline: funding?.deadline || "",
     hyperlink: funding?.hyperlink || "",
-    requirements: funding?.requirements || "",
+    status: funding?.status || "",
   });
 
   function handleChange(e) {
@@ -43,12 +43,12 @@ export default function FundingForm({
           title: "",
           deadline: "",
           hyperlink: "",
-          requirements: "",
+          status: "",
         });
       }
       if (closeModal) closeModal();
     } catch (err) {
-      console.error("Error submitting project:", err);
+      console.error("Error submitting funding:", err);
     }
   }
 
@@ -66,18 +66,38 @@ export default function FundingForm({
         data={fundingData.title}
         handleChange={handleChange}
       />
-      <TextInput
-        name="requirements"
-        inputLabel="Enter Requirements:"
-        data={fundingData.requirements}
-        handleChange={handleChange}
-      />
+
       <TextInput
         name="hyperlink"
         inputLabel="Link to Website:"
         data={fundingData.hyperlink}
         handleChange={handleChange}
       />
+      <div>
+        <label
+          htmlFor="status"
+          className="block mb-2 text-sm text-(--color-font-primary)"
+        >
+          Application Status
+        </label>
+        <select
+          id="status"
+          name="status"
+          defaultValue=""
+          onChange={handleChange}
+          className="mb-2 bg-(--color-secondary) border border-(--color-border-primary) text-(--color-font-primary) text-sm rounded-lg
+                   focus:ring-(--color-button-focus) focus:border-(--color-button-focus) block w-full p-2.5"
+        >
+          <option value="" disabled>
+            Choose Application Status
+          </option>
+          <option value="not applied">not applied</option>
+          <option value="in application">in application</option>
+          <option value="applied">applied</option>
+          <option value="deadline missed">deadline missed</option>
+        </select>
+      </div>
+
       <label className="text-sm">
         Enter Deadline
         <input

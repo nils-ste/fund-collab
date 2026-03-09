@@ -1,4 +1,4 @@
-export default function StatusBadge({ status }) {
+export default function StatusProjects({ status }) {
   const statusConfig = {
     development: {
       label: "Development",

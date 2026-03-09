@@ -1,3 +1,5 @@
+import StatusFunding from "../Badges/StatusFunding";
+
 export default function FundingCards({
   fund,
   handleDelete,
@@ -9,14 +11,14 @@ export default function FundingCards({
       className="mb-4 max-w-sm p-6 text-(--color-font-primary) bg-(--color-primary) border-t border-(--color-border-primary)"
     >
       {" "}
-      <h6 className="mb-2 text-m text-(--color-font-primary">
+      <div className="flex justify-between items-center mb-3">
+      <h6 className="text-m text-(--color-font-primary">
         {fund.title}
       </h6>
+      <StatusFunding status={fund.status} />
+      </div>
       <p className="mb-2 text-sm text-(--color-font-secondary)">
         Deadline: {fund.deadline}
-      </p>
-      <p className="mb-2 text-sm text-(--color-font-secondary)">
-        Requirements: {fund.requirements}
       </p>
       <a
         href={fund.hyperlink}
@@ -26,7 +28,7 @@ export default function FundingCards({
       >
         Website
       </a>
-      <div className="mt-2 grid grid-cols-2 gap-4">
+      <div className="mt-4 grid grid-cols-2 gap-4">
         <button
           onClick={() => {
             setModalFunding(true);

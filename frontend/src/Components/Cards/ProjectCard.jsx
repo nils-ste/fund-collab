@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { Pencil, Trash2 } from "lucide-react";
 import {useState} from "react";
-import StatusBadge from "../Badges/StatusBadge";
+import StatusProjects from "../Badges/StatusProjects";
 import UrgencyBadge from "../Badges/UrgencyBadge";
 import TaglinePreview from "../Badges/TaglinePreview";
 
@@ -17,7 +17,7 @@ export default function ProjectCard({
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1.5 min-w-0">
-          <StatusBadge status={project.status} />
+          <StatusProjects status={project.status} />
           <h5 className="flex items-center text-xl font-bold tracking-tight text-(--color-font-primary) mr-5 line-clamp-2 min-h-[3.5rem]">
             {project.project_title}
           </h5>
