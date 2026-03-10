@@ -31,12 +31,16 @@ def projects(user_id):
 
 
 @bp.route('', methods=['POST'])
+@jwt_required()
 def create_project(user_id):
     """
     Create a new project object
     :param user_id:
     :return:
     """
+    current_user_id = int(get_jwt_identity())
+    if current_user_id != user_id:
+        return jsonify({"Error": "Not authorized"}), 403
     project_data = request.get_json()
     new_project = Projects(project_title=project_data.get('project_title'), status=project_data.get('status', 0),
                            user_id=user_id, public=project_data.get('public', 0))
@@ -50,6 +54,7 @@ def create_project(user_id):
 
 
 @bp.route('/<int:id>', methods=['PUT'])
+@jwt_required()
 def update_project(id, user_id):
     """
     Update a project object
@@ -57,6 +62,11 @@ def update_project(id, user_id):
     :param user_id:
     :return:
     """
+    current_user_id = int(get_jwt_identity())
+
+    if current_user_id != user_id:
+        return jsonify({"Error": "Not authorized"}), 403
+
     project_specific = Projects.query.filter_by(user_id=user_id, id=id).first()
     if not project_specific:
         return jsonify({"Error": "Not found"}), 404
@@ -74,6 +84,7 @@ def update_project(id, user_id):
 
 
 @bp.route('/<int:id>', methods=['DELETE'])
+@jwt_required()
 def delete_project(id, user_id):
     """
     Delete a project object
@@ -81,6 +92,11 @@ def delete_project(id, user_id):
     :param user_id:
     :return:
     """
+    current_user_id = int(get_jwt_identity())
+
+    if current_user_id != user_id:
+        return jsonify({"Error": "Not authorized"}), 403
+
     project_specific = Projects.query.filter_by(user_id=user_id, id=id).first()
     if not project_specific:
         return jsonify({"Error": "Project not found"}), 404
