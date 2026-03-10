@@ -13,7 +13,7 @@ def projects(user_id):
     :param user_id:
     :return:
     """
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
     if current_user_id != user_id:
         return jsonify({"Error": "Not authorized"}), 401
     owned_projects = Projects.query.filter_by(user_id=user_id).all()

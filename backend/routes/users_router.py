@@ -15,7 +15,7 @@ def get_user():
     :param user_id:
     :return:
     """
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
 
     user = Users.query.get_or_404(current_user_id)
     return jsonify(user.to_dict()), 200
@@ -30,7 +30,7 @@ def update_user(user_id):
     :param user_id:
     :return:
     """
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
     if current_user_id != user_id:
         return jsonify({"error": "Unauthorized"}), 403
     user = Users.query.get_or_404(user_id)
@@ -58,7 +58,7 @@ def delete_user(user_id):
     :param user_id:
     :return:
     """
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
 
     if current_user_id != user_id:
         return jsonify({"error": "Unauthorized"}), 403

@@ -7,7 +7,7 @@ bp = Blueprint('permissions', __name__, url_prefix='/projects')
 @bp.route('/<int:project_id>/permissions', methods=['GET'])
 @jwt_required()
 def permissions(project_id):
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
     project = Projects.query.get(project_id)
     if current_user_id != project.user_id:
         return jsonify({"Error": "Permission denied"}), 403
@@ -18,7 +18,7 @@ def permissions(project_id):
 
 @bp.route('/<int:project_id>/permissions', methods=['POST'])
 def add_permission(project_id):
-    current_user_id = get_jwt_identity()
+    current_user_id = int(get_jwt_identity())
     project = Projects.query.get(project_id)
     if current_user_id != project.user_id:
         return jsonify({"Error": "Permission denied"}), 403
