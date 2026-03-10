@@ -1,25 +1,36 @@
 const BASE_URL = "https://fund-collab.onrender.com/users";
 
 export async function getProjects(userId) {
-  const res = await fetch(`${BASE_URL}/${userId}/projects`);
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${BASE_URL}/${userId}/projects`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (!res.ok) throw new Error("Failed to load projects");
   const data = await res.json();
   return data;
 }
 
 export async function deleteProject(userId, projectId) {
+  const token = localStorage.getItem("token");
   const res = await fetch(`${BASE_URL}/${userId}/projects/${projectId}`, {
     method: "DELETE",
+    Authorization: `Bearer ${token}`,
   });
   if (!res.ok) throw new Error("Failed to delete project");
   return;
 }
 
 export async function postProject(userId, projectData) {
+  const token = localStorage.getItem("token");
   const data = await fetch(`${BASE_URL}/${userId}/projects`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(projectData),
   });
@@ -28,10 +39,12 @@ export async function postProject(userId, projectData) {
 }
 
 export async function putProject(userId, projectData, projectId) {
+  const token = localStorage.getItem("token");
   const data = await fetch(`${BASE_URL}/${userId}/projects/${projectId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(projectData),
   });

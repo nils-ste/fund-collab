@@ -12,7 +12,7 @@ export default function Layout() {
     if (!loading && !userId) {
       navigate("/authentication");
     }
-  }, [userId, loading, navigate]);
+  }, [userId, loading]);
 
   return (
     <div className="min-h-screen bg-{--color-primary} flex flex-col">

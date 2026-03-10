@@ -20,7 +20,7 @@ export default function TaglinePreview({ project }) {
 
   return (
     <p className="mt-3 mb-5 text-(--color-font-primary) text-muted-foreground text-sm line-clamp-2 min-h-[2.5rem]">
-      {taglineContent.length
+      {taglineContent
         ? taglineContent.text_box
         : "No tagline added. Please add a tagline on the Content Page."}
     </p>
