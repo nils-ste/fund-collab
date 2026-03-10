@@ -8,9 +8,10 @@ export function ProjectsProvider({ children }) {
   const [projects, setProjects] = useState([]);
   const [loadingProjects, setLoadingProjects] = useState(true);
 
-  const {userId} = useContext(AuthContext)
+  const { userId } = useContext(AuthContext);
 
   useEffect(() => {
+    if (!userId) return;
     async function fetchProjects() {
       try {
         const data = await getProjects(userId);
@@ -26,7 +27,9 @@ export function ProjectsProvider({ children }) {
   }, [userId, loadingProjects]);
 
   return (
-    <ProjectsContext.Provider value={{ projects, setProjects, loadingProjects }}>
+    <ProjectsContext.Provider
+      value={{ projects, setProjects, loadingProjects }}
+    >
       {children}
     </ProjectsContext.Provider>
   );

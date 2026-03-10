@@ -29,7 +29,7 @@ export default function StatusProjects({ status }) {
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-lg border ${config.className}`}
+      className={`mr-2 inline-flex items-center px-2 py-1 text-xs font-medium rounded-lg border ${config.className}`}
     >
       {config.label}
     </span>

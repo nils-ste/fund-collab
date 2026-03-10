@@ -4,6 +4,7 @@ import {useState} from "react";
 import StatusProjects from "../Badges/StatusProjects";
 import UrgencyBadge from "../Badges/UrgencyBadge";
 import TaglinePreview from "../Badges/TaglinePreview";
+import UserRole from "../Badges/UserRole";
 
 export default function ProjectCard({
   project,
@@ -13,12 +14,13 @@ export default function ProjectCard({
 }) {
   const [deleteModal, setDeleteModal] = useState(false)
   return (
-    <div className="max-w-sm min-w-sm m-2 p-6 bg-(--color-primary) border border-(--color-border-primary) rounded-sm shadow-sm">
+    <div className="max-w-sm min-w-sm m-2 p-4 bg-(--color-primary) border border-(--color-border-primary) rounded-sm shadow-sm">
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1.5 min-w-0">
           <StatusProjects status={project.status} />
-          <h5 className="flex items-center text-xl font-bold tracking-tight text-(--color-font-primary) mr-5 line-clamp-2 min-h-[3.5rem]">
+          <UserRole role={project.role}/>
+          <h5 className="flex items-center text-xl font-bold tracking-tight text-(--color-font-primary) mr-5 line-clamp-2 min-h-[2.5rem]">
             {project.project_title}
           </h5>
         </div>
