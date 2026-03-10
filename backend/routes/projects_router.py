@@ -1,19 +1,33 @@
 from flask import request, jsonify, Blueprint
-from models import Projects, db
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from models import Projects,Permissions, db
 
 bp = Blueprint('projects', __name__, url_prefix='/users/<int:user_id>/projects')
 
 
 @bp.route('', methods=['GET'])
+@jwt_required()
 def projects(user_id):
     """
     Get all projects objects
     :param user_id:
     :return:
     """
-    projects_user = Projects.query.filter_by(user_id=user_id).all()
-    projects = [project.to_dict() for project in projects_user]
-    return jsonify(projects), 200
+    current_user_id = get_jwt_identity()
+    if current_user_id != user_id:
+        return jsonify({"Error": "Not authorized"}), 401
+    owned_projects = Projects.query.filter_by(user_id=user_id).all()
+    collaborator_projects = Permissions.query.filter_by(user_id=user_id).all()
+    projects_user = []
+    for project in owned_projects:
+        project_admin = project.to_dict()
+        project_admin['role'] = 'admin'
+        projects_user.append(project_admin)
+    for collaborator_project in collaborator_projects:
+        collab = collaborator_project.project.to_dict()
+        collab['role'] = collaborator_project.role
+        projects_user.append(collab)
+    return jsonify(projects_user), 200
 
 
 @bp.route('', methods=['POST'])

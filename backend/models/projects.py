@@ -8,6 +8,12 @@ class Projects(db.Model):
     Projects table
     """
     id = db.Column(db.Integer, primary_key=True)
+    project_title = db.Column(db.String(80), nullable=False)
+    status = db.Column(db.String(80), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    public = db.Column(db.Boolean, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+
     content = relationship(
         "Content",
         cascade="all, delete-orphan"
@@ -16,11 +22,11 @@ class Projects(db.Model):
         "Funding",
         cascade="all, delete-orphan"
     )
-    project_title = db.Column(db.String(80), nullable=False)
-    status = db.Column(db.String(80), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    public = db.Column(db.Boolean, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    permissions = relationship(
+        argument="Permissions",
+        cascade="all, delete-orphan",
+        back_populates="project"
+    )
 
     def to_dict(self):
         return {"id": self.id,"project_title": self.project_title, "status": self.status,
