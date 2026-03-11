@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { getContent, postContent } from "../../API/content";
 import { ContContext } from "../../Context/contentContext";
 
-export default function ContentSelector({ projectId }) {
+export default function ContentSelector({ projectId, setAddContent }) {
   const { setContent } = useContext(ContContext);
   const [contentData, setContentData] = useState({
     section_type: "",
@@ -36,12 +36,20 @@ export default function ContentSelector({ projectId }) {
   return (
     <form className="flex gap-4 mb-5 max-w-sm mx-5" onSubmit={handleSubmit}>
       <div>
-        <label
-          htmlFor="Roles"
-          className="block mb-2 text-sm font-medium text-(--color-font-primary)"
-        >
-          Add new Section
-        </label>
+        <div className="mb-2 flex justify-between items-center">
+          <label
+            htmlFor="Roles"
+            className="block text-m font-medium text-(--color-font-primary)"
+          >
+            Add Section
+          </label>
+          <button
+            onClick={() => setAddContent(false)}
+            className="text-(--color-font-secondary) hover:text-(--color-font-primary) rounded-lg w-8 h-8 inline-flex items-center justify-center"
+          >
+            ✕
+          </button>
+        </div>
 
         <select
           id="Roles"
@@ -59,13 +67,13 @@ export default function ContentSelector({ projectId }) {
           <option value="Production Statement">Production Statement</option>
           <option value="Social Impact">Social Impact</option>
         </select>
-      </div>
-      <button
+        <button
         type="submit"
-        className="self-end text-(--color-button-font) bg-(--color-button) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500"
+        className="mt-3 self-end text-(--color-button-font) bg-(--color-button) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center dark:border-blue-500"
       >
         Submit
       </button>
+      </div>
     </form>
   );
 }

@@ -18,7 +18,7 @@ export async function deleteProject(userId, projectId) {
   const token = localStorage.getItem("token");
   const res = await fetch(`${BASE_URL}/${userId}/projects/${projectId}`, {
     method: "DELETE",
-    Authorization: `Bearer ${token}`,
+    headers: {Authorization: `Bearer ${token}`,}
   });
   if (!res.ok) throw new Error("Failed to delete project");
   return;

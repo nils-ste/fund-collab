@@ -44,6 +44,12 @@ export async function getUser() {
     },
   });
 
+  if (res.status === 401) {
+    localStorage.removeItem("token");
+    setUserId(null);
+    return;
+  }
+
   const data = await res.json();
   console.log(data)
 

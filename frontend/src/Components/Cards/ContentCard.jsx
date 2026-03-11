@@ -71,7 +71,7 @@ export default function ContentCard({ cont, onDelete, projectId }) {
           htmlFor="message"
           className="block m-5 text-m font-medium text-(--color-font-primary)"
         >
-          Your {contentData.section_type}
+          {contentData.section_type}
         </label>
         <div className="flex m-2 gap-2">
           {isReadOnly && (
