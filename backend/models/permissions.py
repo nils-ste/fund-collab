@@ -19,10 +19,10 @@ class Permissions(db.Model):
         back_populates="permissions"
     )
 
-def to_dict(permission):
-    return {
-        'id': permission.id,
-        'project_id': permission.project_id,
-        'user_id': permission.user_id,
-        'role': permission.role,
-    }
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'project_id': self.project_id,
+            'user_id': self.user_id,
+            'role': self.role,
+        }

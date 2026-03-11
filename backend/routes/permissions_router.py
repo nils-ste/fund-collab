@@ -17,6 +17,7 @@ def permissions(project_id):
 
 
 @bp.route('/<int:project_id>/permissions', methods=['POST'])
+@jwt_required()
 def add_permission(project_id):
     current_user_id = int(get_jwt_identity())
     project = Projects.query.get(project_id)
@@ -27,7 +28,7 @@ def add_permission(project_id):
     if not email:
         return jsonify({"Error": "Email is required"}), 403
     role = permissions_data.get("role", "viewer")
-    if role != "viewer" or role != "editor":
+    if role != "viewer" and role != "editor":
         return jsonify({"Error": "Role can only be viewer or editor"}), 403
     user_exists = Users.query.filter_by(email=email).first()
     if not user_exists:
