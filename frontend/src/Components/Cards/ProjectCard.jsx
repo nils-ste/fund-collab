@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Pencil, Trash2 } from "lucide-react";
-import {useState} from "react";
+import { useState } from "react";
 import StatusProjects from "../Badges/StatusProjects";
 import UrgencyBadge from "../Badges/UrgencyBadge";
 import TaglinePreview from "../Badges/TaglinePreview";
@@ -12,35 +12,39 @@ export default function ProjectCard({
   onDelete,
   setModalProject,
 }) {
-  const [deleteModal, setDeleteModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false);
   return (
     <div className="max-w-sm min-w-sm m-2 p-4 bg-(--color-primary) border border-(--color-border-primary) rounded-sm shadow-sm">
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1.5 min-w-0">
           <StatusProjects status={project.status} />
-          <UserRole role={project.role}/>
+          <UserRole role={project.role} />
           <h5 className="flex items-center text-xl font-bold tracking-tight text-(--color-font-primary) mr-5 line-clamp-2 min-h-[2.5rem]">
             {project.project_title}
           </h5>
         </div>
 
-        <div className="flex gap-2">
-          <button
-            onClick={() => setModalProject(project)}
-            aria-label="Edit project"
-            className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
-          >
-            <Pencil className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => onDelete(userId, project.id)}
-            aria-label="Delete project"
-            className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center mb-2.5"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
+        {project.role === "admin" ? (
+          <div className="flex gap-2">
+            <button
+              onClick={() => setModalProject(project)}
+              aria-label="Edit project"
+              className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
+            >
+              <Pencil className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => onDelete(userId, project.id)}
+              aria-label="Delete project"
+              className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center mb-2.5"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       {/** Need to implement tagline here, maybe shorten if too long */}
       <TaglinePreview project={project} />

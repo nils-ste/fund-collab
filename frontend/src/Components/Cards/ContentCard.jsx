@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { getContent, putContent } from "../../API/content";
 import { ContContext } from "../../Context/contentContext";
 import {
@@ -10,9 +10,10 @@ import {
   Copy,
 } from "lucide-react";
 
-export default function ContentCard({ cont, onDelete, projectId }) {
+export default function ContentCard({ cont, onDelete, project }) {
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [hasPermission, setHasPermission] = useState(false);
   const { setContent } = useContext(ContContext);
   const [contentData, setContentData] = useState({
     section_type: cont.section_type,
@@ -23,6 +24,12 @@ export default function ContentCard({ cont, onDelete, projectId }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const CONTENT_CHAR_LIMIT = 900;
+
+  useEffect(() => {
+  if (["admin", "editor"].includes(project.role)) {
+    setHasPermission(true);
+  }
+}, [project.role]);
 
   function toggleEdit() {
     setIsReadOnly((prev) => !prev);
@@ -52,8 +59,8 @@ export default function ContentCard({ cont, onDelete, projectId }) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await putContent(projectId, contentData, cont.id);
-      const updated = await getContent(projectId);
+      await putContent(project.id, contentData, cont.id);
+      const updated = await getContent(project.id);
       setContent(updated.length ? [...updated] : []);
     } catch (err) {
       console.log("Error updating content", err);
@@ -88,20 +95,26 @@ export default function ContentCard({ cont, onDelete, projectId }) {
                   <Copy className="w-4 h-4" />
                 )}
               </button>
-              <button
-                type="button"
-                onClick={() => toggleEdit()}
-                className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
-              >
-                <Pencil className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => onDelete(cont.id)}
-                className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
+              {hasPermission ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => toggleEdit()}
+                    className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
+                  >
+                    <Pencil className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onDelete(cont.id)}
+                    className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </>
+              ) : (
+                ""
+              )}
             </>
           )}
         </div>
@@ -110,7 +123,9 @@ export default function ContentCard({ cont, onDelete, projectId }) {
         <div>
           <div className="w-full min-h-[120px] block mb-3 p-5 text-sm text-(--color-font-primary) space-pre-wrap ">
             {displayContent || (
-              <span className="text-(--color-font-secondary) italic">No content yet</span>
+              <span className="text-(--color-font-secondary) italic">
+                No content yet
+              </span>
             )}
           </div>
           <div className="mb-5 flex justify-between">
