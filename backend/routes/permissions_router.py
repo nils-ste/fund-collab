@@ -48,4 +48,6 @@ def add_permission(project_id):
 
 @bp.route('/<int:project_id>/permissions/<int:user_id>', methods=['DELETE'])
 def delete_permission():
+    """check owner first
+    later on add editor and viewer"""
     pass
