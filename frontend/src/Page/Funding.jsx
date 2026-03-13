@@ -145,7 +145,7 @@ export default function Funding() {
                 closeModal();
                 setSelectedFundingId(null);
               }}
-              className="absolute top-2 right-2 text-(--color-font-secondary) hover:text-(--color-font-primary) dark:hover:text-(--color-primary) text-lg font-bold"
+              className="absolute top-2 right-2 text-(--color-font-secondary) hover:text-(--color-font-primary) text-lg font-bold"
             >
               ✕
             </button>

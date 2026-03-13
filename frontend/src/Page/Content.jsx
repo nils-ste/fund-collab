@@ -34,10 +34,10 @@ export default function Content() {
   const project = projects.find((obj) => obj.id === fetchId);
 
   useEffect(() => {
-    if (["admin", "editor"].includes(project.role)) {
+    if (project && ["admin", "editor"].includes(project?.role)) {
       setHasPermission(true);
     }
-  }, [project.role]);
+  }, [project?.role]);
 
   if (loadingProjects) {
     return (
@@ -51,40 +51,44 @@ export default function Content() {
 
   return (
     <div className="md:mx-23">
-      <div className="flex justify-end items-center">
-        {addCollaborator ? (
-          <CollaboratorForm
-            projectId={fetchId}
-            setAddCollaborator={setAddColaborator}
-          />
-        ) : hasPermission ? (
-          <div className="flex justify-start">
-            <button
-              onClick={() => setAddColaborator((prev) => !prev)}
-              className="mx-2 self-end text-(--color-button-font) bg-(--color-button) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center dark:border-blue-500"
-            >
-              + Collaborator
-            </button>
+      <div className="flex justify-between items-center mb-5">
+        <h2 className="mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-2xl font-medium text-(--color-font-primary)">
+          {project?.project_title}
+        </h2>
+        <div className="flex">
+          {addCollaborator ? (
+            <CollaboratorForm
+              projectId={fetchId}
+              setAddCollaborator={setAddColaborator}
+              addCollaborator={addCollaborator}
+            />
+          ) : hasPermission ? (
+            <div className="flex justify-start">
+              <button
+                onClick={() => setAddColaborator((prev) => !prev)}
+                className="text-(--color-button) hover:text-(--color-font-primary) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
+              >
+                Share
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex items-center justify-end">
+            <Funding />
           </div>
-        ) : (
-          ""
-        )}
-        <div className="flex items-center justify-end">
-          <Funding />
         </div>
       </div>
-      <h2 className="mb-5 mx-5 items-center justify-start border-b border-(--color-border-primary) text-xl font-medium text-(--color-font-primary) pb-5">
-        {project.project_title}
-      </h2>
+      <div>{/**funding overview */}</div>
       {addContent ? (
         <div className="flex justify-center">
-          <ContentSelector projectId={fetchId} setAddContent={setAddContent} />
+          <ContentSelector projectId={fetchId} setAddContent={setAddContent} addContent={addContent} />
         </div>
       ) : hasPermission ? (
         <div className="flex justify-start">
           <button
             onClick={() => setAddContent((prev) => !prev)}
-            className="mx-5 self-end text-(--color-button-font) bg-(--color-button) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center dark:border-blue-500"
+            className=" mx-5 md:mx-0 mb-5 text-(--color-button) hover:text-(--color-font-primary) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
           >
             Add Section
           </button>
@@ -93,6 +97,9 @@ export default function Content() {
         ""
       )}
       <div>
+        <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
+          Text
+        </h2>
         {sortedContent.length === 0 ? (
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl text-(--color-font-secondary)">
             No content yet

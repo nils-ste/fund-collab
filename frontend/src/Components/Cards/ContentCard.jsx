@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { getContent, putContent } from "../../API/content";
 import { ContContext } from "../../Context/contentContext";
 import {
@@ -10,10 +10,9 @@ import {
   Copy,
 } from "lucide-react";
 
-export default function ContentCard({ cont, onDelete, project }) {
+export default function ContentCard({ cont, onDelete, project, hasPermission }) {
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [copied, setCopied] = useState(false);
-  const [hasPermission, setHasPermission] = useState(false);
   const { setContent } = useContext(ContContext);
   const [contentData, setContentData] = useState({
     section_type: cont.section_type,
@@ -24,12 +23,6 @@ export default function ContentCard({ cont, onDelete, project }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const CONTENT_CHAR_LIMIT = 900;
-
-  useEffect(() => {
-  if (["admin", "editor"].includes(project.role)) {
-    setHasPermission(true);
-  }
-}, [project.role]);
 
   function toggleEdit() {
     setIsReadOnly((prev) => !prev);
