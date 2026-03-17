@@ -53,12 +53,12 @@ export default function App() {
     <>
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 text-(--color-font-primary) bg-(--color-secondary)">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight text-balance">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance">
             Funding proposals made simple for{" "}
             <span className="text-accent">creatives</span>
           </h1>
 
-          <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
+          <p className="mt-6 text-lg sm:text-xl  max-w-2xl mx-auto text-pretty">
             Create compelling proposals, track deadlines, upload media, and
             collaborate with your team. All in one place designed for creative
             professionals.
@@ -67,14 +67,14 @@ export default function App() {
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/authentication"
-              className="w-full sm:w-auto text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) inline-flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-colors"
+              className="w-full sm:w-auto text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) inline-flex items-center justify-center gap-2 px-4 py-3 bg-primary font-medium rounded-full"
             >
               Start Your First Proposal
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               to="#how-it-works"
-              className="w-full sm:w-auto text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) inline-flex items-center justify-center px-8 py-3 border text-foreground font-medium rounded-full hover:bg-secondary transition-colors"
+              className="w-full sm:w-auto text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) inline-flex items-center justify-center px-8 py-3 border font-medium rounded-full"
             >
               See How It Works
             </Link>
@@ -82,13 +82,15 @@ export default function App() {
         </div>
       </section>
 
-      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-(--color-primary)">
+      <section
+        className="py-20 px-4 sm:px-6 lg:px-8 text-(--color-font-primary) bg-(--color-primary)"
+      >
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            <h2 className="text-3xl sm:text-4xl font-bold">
               Everything you need to win funding
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-4 text-lg  max-w-2xl mx-auto">
               Built specifically for filmmakers and artists who are serious
               about securing grants and funding for their creative projects.
             </p>
@@ -98,15 +100,13 @@ export default function App() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="p-6 bg-background rounded-xl border border-border hover:border-accent/50 transition-colors"
+                className="p-6 rounded-xl border"
               >
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                  <feature.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                <p className="">{feature.description}</p>
               </div>
             ))}
           </div>
