@@ -28,7 +28,6 @@ export default function NavBar() {
     };
   }, []);
 
-
   return (
     <>
       <nav className="bg-(--color-secondary) sticky w-full z-20 top-0 start-0 border-b border-gray-200">
@@ -56,7 +55,7 @@ export default function NavBar() {
                 onClick={() => {
                   localStorage.removeItem("token");
                   setUserId(null);
-                  navigate("/authentication")
+                  navigate("/authentication");
                 }}
                 className="text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
               >
@@ -102,7 +101,7 @@ export default function NavBar() {
           <div
             className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${!isMenuOpen ? "max-h-0 opacity-0 scale-95 pointer-events-none md:max-h-full md:opacity-100 md:scale-100 md:pointer-events-auto" : "max-h-96 opacity-100 scale-100 pointer-events-auto"} ${resizing ? "" : "transition-all duration-300 ease-in-out"}`}
           >
-            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-(--color-secondary)">
+            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
               {userId ? (
                 <li>
                   <NavLink
@@ -110,8 +109,8 @@ export default function NavBar() {
                     onClick={() => setIsMenuOpen(false)}
                     className={({ isActive }) =>
                       isActive
-                        ? "block py-2 px-3 text-(--color-button) rounded-sm md:text-(--color-button-hover) md:p-0"
-                        : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0"
+                        ? "block py-2 px-3 text-(--color-button) hover:text-(--color-button-hover) rounded-sm md:p-0"
+                        : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:p-0"
                     }
                     aria-current="page"
                   >
@@ -127,8 +126,8 @@ export default function NavBar() {
                   onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive
-                      ? "block py-2 px-3 text-(--color-button) rounded-sm md:text-(--color-button-hover) md:p-0"
-                      : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0"
+                      ? "block py-2 px-3 text-(--color-button) hover:text-(--color-button-hover) rounded-sm md:p-0"
+                      : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:p-0"
                   }
                 >
                   About
@@ -140,8 +139,8 @@ export default function NavBar() {
                   onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive
-                      ? "block py-2 px-3 text-(--color-button) rounded-sm md:text-(--color-button-hover) md:p-0"
-                      : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:hover:text-(--color-button-hover) md:p-0"
+                      ? "block py-2 px-3 text-(--color-button) hover:text-(--color-button-hover) rounded-sm md:p-0"
+                      : "block py-2 px-3 text-(--color-font-primary) rounded-sm hover:text-(--color-button-hover) md:hover:bg-transparent md:p-0"
                   }
                 >
                   Contact

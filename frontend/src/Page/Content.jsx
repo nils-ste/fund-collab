@@ -79,10 +79,18 @@ export default function Content() {
           </div>
         </div>
       </div>
+      <h2 className="mx-5 md:mx-0 mb-5 items-center justify-start  text-l font-medium text-(--color-font-primary)">
+        Active funding counter (keeps track of urgent and active fundings)
+      </h2>
+
       <div>{/**funding overview */}</div>
       {addContent ? (
         <div className="flex justify-center">
-          <ContentSelector projectId={fetchId} setAddContent={setAddContent} addContent={addContent} />
+          <ContentSelector
+            projectId={fetchId}
+            setAddContent={setAddContent}
+            addContent={addContent}
+          />
         </div>
       ) : hasPermission ? (
         <div className="flex justify-start">

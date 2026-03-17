@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { getFunding, deleteFunding } from "../API/funding";
+import { deleteFunding } from "../API/funding";
 import { useParams } from "react-router";
 import FundingForm from "../Components/Forms/FundingForm";
 import { FundingContext } from "../Context/fundingContext";
@@ -58,6 +58,7 @@ export default function Funding() {
 
   const upcoming = sortedFunding.filter((f) => isSameOrAfterToday(f.deadline));
   const past = sortedFunding.filter((f) => isBeforeToday(f.deadline));
+  
 
   return (
     <>

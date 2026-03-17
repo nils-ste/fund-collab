@@ -10,14 +10,14 @@ export default function Layout() {
 
   useEffect(() => {
     if (!loading && !userId) {
-      navigate("/authentication");
+      navigate("/");
     }
   }, [userId, loading]);
 
   return (
     <div className="min-h-screen bg-{--color-primary} flex flex-col">
       <NavBar />
-      <main className="flex-1 mt-7 mb-7">
+      <main className="flex-1">
         {loading ? (
           <div className="flex items-center justify-center min-h-screen">
             <h1 className="flex items-center justify-center min-h-screen text-xl text-(--color-font-secondary)">
