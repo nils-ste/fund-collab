@@ -52,14 +52,14 @@ def add_permission(project_id):
 
 
 
-@bp.route('/<int:project_id>/permissions', methods=['DELETE'])
+@bp.route('/<int:project_id>/permissions/<int:id>', methods=['DELETE'])
 @jwt_required()
-def delete_permission(project_id):
+def delete_permission(project_id, id):
     """check owner first
     later on add editor and viewer"""
     current_user_id = int(get_jwt_identity())
     project = Projects.query.get(project_id)
-    permissions_data = Permissions.query.filter_by(user_id=current_user_id).first()
+    permissions_data = Permissions.query.filter_by(user_id=current_user_id, id=id).first()
     if current_user_id != project.user_id or current_user_id != permissions_data.user_id:
         return jsonify({"Error": "Permission denied"}), 403
     try:
