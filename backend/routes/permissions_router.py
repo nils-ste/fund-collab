@@ -12,9 +12,7 @@ def permissions(project_id):
     if current_user_id != project.user_id:
         return jsonify({"Error": "Permission denied"}), 403
     permissions_data = Permissions.query.filter_by(project_id=project_id).all()
-    return jsonify(permissions_data.to_dict()), 200
-
-
+    return jsonify([p.to_dict() for p in permissions_data]), 200
 
 
 @bp.route('/<int:project_id>/permissions', methods=['POST'])
