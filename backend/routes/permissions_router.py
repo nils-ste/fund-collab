@@ -9,10 +9,17 @@ bp = Blueprint('permissions', __name__, url_prefix='/projects')
 def permissions(project_id):
     current_user_id = int(get_jwt_identity())
     project = Projects.query.get(project_id)
+    permissions_project = []
+    if not project:
+        return jsonify({"Error": "Project not found"}), 404
     if current_user_id != project.user_id:
         return jsonify({"Error": "Permission denied"}), 403
     permissions_data = Permissions.query.filter_by(project_id=project_id).all()
-    return jsonify([p.to_dict() for p in permissions_data]), 200
+    for permission in permissions_data:
+        permission_project = permission.to_dict()
+        permission_project['email'] = permission.user.email
+        permissions_project.append(permission_project)
+    return jsonify(permissions_project), 200
 
 
 @bp.route('/<int:project_id>/permissions', methods=['POST'])
@@ -45,7 +52,7 @@ def add_permission(project_id):
 
 
 
-@bp.route('/<int:project_id>/permissions/<int:user_id>', methods=['DELETE'])
+@bp.route('/<int:project_id>/permissions', methods=['DELETE'])
 @jwt_required()
 def delete_permission(project_id):
     """check owner first
