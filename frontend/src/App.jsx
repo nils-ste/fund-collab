@@ -15,7 +15,7 @@ export default function App() {
       icon: FileText,
       title: "Rich Proposal Editor",
       description:
-        "Editable text fields with formatting options. Structure your narrative, budget, and timeline exactly how funders want to see it.",
+        "Editable text fields that cover all necessities. Structure your narrative, treatments, and timeline exactly how funders want to see it.",
     },
     {
       icon: Video,
@@ -33,19 +33,19 @@ export default function App() {
       icon: Clock,
       title: "Deadline Tracking",
       description:
-        "Never miss a submission. Visual timelines show urgency and help you prioritize which opportunities to pursue.",
+        "Never miss a submission. Visual reminders show urgency and help you prioritize which opportunities to pursue.",
     },
     {
       icon: Users,
       title: "Team Collaboration",
       description:
-        "Invite producers, writers, and collaborators with custom permissions. Work together in real-time on proposals.",
+        "Invite producers, writers, and collaborators with custom permissions. Work together on proposals without the mess of using different plattforms.",
     },
     {
       icon: Bell,
       title: "Funding Alerts",
       description:
-        "Curated sidebar with relevant funding opportunities. Get notified about grants that match your project type.",
+        "Editable sidebar to keep track of funding opportunities. Never miss a deadline again because of a lack of overview.",
     },
   ];
 

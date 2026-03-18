@@ -17,8 +17,6 @@ export default function ContentCard({ cont, onDelete, project, hasPermission }) 
   const [contentData, setContentData] = useState({
     section_type: cont.section_type,
     text_box: cont.text_box,
-    permission_editing: null,
-    permission_reading: null,
   });
   const [isExpanded, setIsExpanded] = useState(false);
 

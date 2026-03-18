@@ -7,8 +7,6 @@ export default function ContentSelector({ projectId, setAddContent, addContent }
   const [contentData, setContentData] = useState({
     section_type: "",
     text_box: "",
-    permission_editing: null,
-    permission_reading: null,
   });
 
   function handleChange(e) {
