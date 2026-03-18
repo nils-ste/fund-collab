@@ -70,8 +70,6 @@ def create_content(project_id):
         project_id=project_id,
         section_type=content_data.get('section_type'),
         text_box=content_data.get('text_box'),
-        permission_editing=content_data.get('permission_editing', 0),
-        permission_reading=content_data.get('permission_reading', 0)
     )
 
     try:
