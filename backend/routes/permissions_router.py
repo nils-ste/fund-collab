@@ -50,7 +50,38 @@ def add_permission(project_id):
         db.session.rollback()
         return jsonify({"Error": str(e)}), 500
 
+@bp.route('/<int:project_id>/permissions/<int:permission_id>', methods=['PUT'])
+@jwt_required()
+def update_permission(project_id, permission_id):
+    current_user_id = int(get_jwt_identity())
 
+    project = Projects.query.get(project_id)
+    if not project:
+        return jsonify({"Error": "Project not found"}), 404
+
+    if current_user_id != project.user_id:
+        return jsonify({"Error": "Permission denied"}), 403
+
+    permission = Permissions.query.get(permission_id)
+    if not permission or permission.project_id != project_id:
+        return jsonify({"Error": "Permission not found"}), 404
+
+    data = request.get_json()
+    role = data.get("role")
+
+    if not role:
+        return jsonify({"Error": "Role is required"}), 400
+
+    if role not in ["viewer", "editor"]:
+        return jsonify({"Error": "Role can only be viewer or editor"}), 400
+
+    try:
+        permission.role = role
+        db.session.commit()
+        return jsonify(permission.to_dict()), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"Error": str(e)}), 500
 
 @bp.route('/<int:project_id>/permissions/<int:id>', methods=['DELETE'])
 @jwt_required()
