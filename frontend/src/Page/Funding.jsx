@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { deleteFunding } from "../API/funding";
 import { useParams } from "react-router";
 import FundingForm from "../Components/Forms/FundingForm";
@@ -6,7 +6,7 @@ import { FundingContext } from "../Context/fundingContext";
 import FundingCard from "../Components/Cards/FundingCard";
 import Accordion from "../Components/Buttons/Accordion";
 
-export default function Funding() {
+export default function Funding({ setActiveFunding }) {
   const { projectId } = useParams();
   const { funding, setFunding } = useContext(FundingContext);
   const [selectedFundingId, setSelectedFundingId] = useState(null);
@@ -58,7 +58,8 @@ export default function Funding() {
 
   const upcoming = sortedFunding.filter((f) => isSameOrAfterToday(f.deadline));
   const past = sortedFunding.filter((f) => isBeforeToday(f.deadline));
-  
+
+  useEffect(() => {funding && setActiveFunding(upcoming.length)}, [funding]);
 
   return (
     <>
@@ -102,13 +103,13 @@ export default function Funding() {
         </div>
         {/*Trigger add funding modal inside the Funding drawer*/}
         <div className="px-4">
-        <button
-          onClick={() => setModalFunding(true)}
-          className="mb-2 px-3 py-1 text-sm font-medium text-(--color-button-font) bg-(--color-button) rounded-md hover:bg-(--color-button-hover) focus:outline-none focus:ring-2 focus:ring-(--color-button-focus)"
-          aria-label="Edit project"
-        >
-          Add funding
-        </button>
+          <button
+            onClick={() => setModalFunding(true)}
+            className="mb-2 px-3 py-1 text-sm font-medium text-(--color-button-font) bg-(--color-button) rounded-md hover:bg-(--color-button-hover) focus:outline-none focus:ring-2 focus:ring-(--color-button-focus)"
+            aria-label="Edit project"
+          >
+            Add funding
+          </button>
         </div>
 
         {/* Content */}

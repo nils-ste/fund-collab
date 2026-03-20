@@ -88,7 +88,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold">
-              Everything you need to win funding
+              Everything you need to win in funding
             </h2>
             <p className="mt-4 text-lg  max-w-2xl mx-auto">
               Built specifically for filmmakers and artists who are serious

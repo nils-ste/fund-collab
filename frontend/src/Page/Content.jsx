@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
+import { getPermissions, deletePermission } from "../API/permissions";
 import { ContContext } from "../Context/contentContext";
 import { ProjectsContext } from "../Context/projectContext";
 import ContentSelector from "../Components/Buttons/ContentSelector";
@@ -16,6 +17,7 @@ export default function Content() {
   const [hasPermission, setHasPermission] = useState(false);
   const { content, setContent } = useContext(ContContext);
   const { projects, loadingProjects } = useContext(ProjectsContext);
+  const [activeFunding, setActiveFunding] = useState(null)
 
   const projectContent = content.filter(
     (c) => c.project_id === Number(projectId),
@@ -30,6 +32,7 @@ export default function Content() {
       console.log("Error deleting project:", err);
     }
   }
+
   const sortedContent = [...projectContent].sort((a, b) => b.id - a.id);
   const project = projects.find((obj) => obj.id === fetchId);
 
@@ -56,17 +59,11 @@ export default function Content() {
           {project?.project_title}
         </h2>
         <div className="flex">
-          {addCollaborator ? (
-            <CollaboratorForm
-              projectId={fetchId}
-              setAddCollaborator={setAddColaborator}
-              addCollaborator={addCollaborator}
-            />
-          ) : hasPermission ? (
+          {hasPermission ? (
             <div className="flex justify-start">
               <button
                 onClick={() => setAddColaborator((prev) => !prev)}
-                className="text-(--color-button) hover:text-(--color-font-primary) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
+                className="text-(--color-button) hover:text-(--color-button-font) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
               >
                 Share
               </button>
@@ -74,13 +71,20 @@ export default function Content() {
           ) : (
             ""
           )}
+          {addCollaborator ? (
+            <CollaboratorForm
+              projectId={fetchId}
+              setAddCollaborator={setAddColaborator}
+              addCollaborator={addCollaborator}
+            />
+          ) : ""}
           <div className="flex items-center justify-end">
-            <Funding />
+            <Funding setActiveFunding={setActiveFunding}/>
           </div>
         </div>
       </div>
       <h2 className="mx-5 md:mx-0 mb-5 items-center justify-start  text-l font-medium text-(--color-font-primary)">
-        Active funding counter (keeps track of urgent and active fundings)
+        Active funding counter {activeFunding}
       </h2>
 
       <div>{/**funding overview */}</div>
@@ -96,7 +100,7 @@ export default function Content() {
         <div className="flex justify-start">
           <button
             onClick={() => setAddContent((prev) => !prev)}
-            className=" mx-5 md:mx-0 mb-5 text-(--color-button) hover:text-(--color-font-primary) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
+            className=" mx-5 md:mx-0 mb-5 text-(--color-button) hover:text-(--color-button-font) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
           >
             Add Section
           </button>
@@ -130,15 +134,7 @@ export default function Content() {
         <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
           Videos
         </h2>
-        <div id="videoContainer" className="flex justify-center items-center">
-          <iframe
-            id="vimeo-player"
-            src="https://player.vimeo.com/video/76979871?h=3f2ab4cd91"
-            className="border-0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-          />
-        </div>
+        
       </div>
 
       <div>

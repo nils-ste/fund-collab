@@ -13,6 +13,7 @@ import { ContentProvider } from "./Context/contentContext.jsx";
 import { FundingProvider } from "./Context/fundingContext.jsx";
 import { AuthProvider } from "./Context/authContext.jsx";
 import { ThemeProvider } from "./Context/themeContext.jsx";
+import { PermissionsProvider } from "./Context/permissionsContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -22,17 +23,22 @@ createRoot(document.getElementById("root")).render(
           <ProjectsProvider>
             <ContentProvider>
               <FundingProvider>
-                <Routes>
-                  <Route path="/" element={<Layout />}>
-                    <Route index element={<App />} />
-                    <Route path="authentication" element={<Authentication />} />
-                    <Route path="projects" element={<Projects />} />
-                    <Route path="content/:projectId" element={<Content />} />
-                    <Route path="funding/:projectId" element={<Funding />} />
-                    <Route path="about" />
-                    <Route path="contact" />
-                  </Route>
-                </Routes>
+                <PermissionsProvider>
+                  <Routes>
+                    <Route path="/" element={<Layout />}>
+                      <Route index element={<App />} />
+                      <Route
+                        path="authentication"
+                        element={<Authentication />}
+                      />
+                      <Route path="projects" element={<Projects />} />
+                      <Route path="content/:projectId" element={<Content />} />
+                      <Route path="funding/:projectId" element={<Funding />} />
+                      <Route path="about" />
+                      <Route path="contact" />
+                    </Route>
+                  </Routes>
+                </PermissionsProvider>
               </FundingProvider>
             </ContentProvider>
           </ProjectsProvider>

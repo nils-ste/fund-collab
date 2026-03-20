@@ -27,3 +27,36 @@ export async function postPermissions(projectId, permissionsData) {
   if (!data.ok) throw new Error("Failed to set new Collaborator");
   return data.json();
 }
+
+export async function deletePermission(projectId, permissionId) {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${BASE_URL}/${projectId}/permissions/${permissionId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to delete project");
+  return true;
+}
+
+export async function putPermission(projectId, permissionId, role) {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(
+    `${BASE_URL}/${projectId}/permissions/${permissionId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({role}),
+    }
+  );
+
+  if (!res.ok) throw new Error("Failed to update permission");
+
+  return res.json();
+}
