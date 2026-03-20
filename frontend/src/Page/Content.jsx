@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
-import { getPermissions, deletePermission } from "../API/permissions";
 import { ContContext } from "../Context/contentContext";
 import { ProjectsContext } from "../Context/projectContext";
+import { Circle } from "lucide-react";
 import ContentSelector from "../Components/Buttons/ContentSelector";
 import ContentCard from "../Components/Cards/ContentCard";
 import Funding from "./Funding";
@@ -17,7 +17,7 @@ export default function Content() {
   const [hasPermission, setHasPermission] = useState(false);
   const { content, setContent } = useContext(ContContext);
   const { projects, loadingProjects } = useContext(ProjectsContext);
-  const [activeFunding, setActiveFunding] = useState(null)
+  const [activeFunding, setActiveFunding] = useState(null);
 
   const projectContent = content.filter(
     (c) => c.project_id === Number(projectId),
@@ -53,7 +53,7 @@ export default function Content() {
   }
 
   return (
-    <div className="md:mx-23">
+    <div className="md:mx-23 mt-5">
       <div className="flex justify-between items-center mb-5">
         <h2 className="mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-2xl font-medium text-(--color-font-primary)">
           {project?.project_title}
@@ -77,41 +77,52 @@ export default function Content() {
               setAddCollaborator={setAddColaborator}
               addCollaborator={addCollaborator}
             />
-          ) : ""}
+          ) : (
+            ""
+          )}
           <div className="flex items-center justify-end">
-            <Funding setActiveFunding={setActiveFunding}/>
+            <Funding setActiveFunding={setActiveFunding} />
           </div>
         </div>
       </div>
-      <h2 className="mx-5 md:mx-0 mb-5 items-center justify-start  text-l font-medium text-(--color-font-primary)">
-        Active funding counter {activeFunding}
+      <div className="ml-4 md:ml-0 flex items-center justify-start mb-5 ">
+      <Circle
+          className={`w-2 h-2 mx-2 ${
+            activeFunding
+              ? "fill-green-500 text-green-500"
+              : "fill-red-500 text-red-500"
+          }`}
+        />
+      <h2 className="mx-0 items-center justify-start  text-l font-medium text-(--color-font-primary)">
+        {activeFunding ? activeFunding: ""} {activeFunding === 0 ? "No active Funding": activeFunding === 1 ? " active Funding" : "active Fundings"}
       </h2>
-
-      <div>{/**funding overview */}</div>
-      {addContent ? (
-        <div className="flex justify-center">
-          <ContentSelector
-            projectId={fetchId}
-            setAddContent={setAddContent}
-            addContent={addContent}
-          />
-        </div>
-      ) : hasPermission ? (
-        <div className="flex justify-start">
-          <button
-            onClick={() => setAddContent((prev) => !prev)}
-            className=" mx-5 md:mx-0 mb-5 text-(--color-button) hover:text-(--color-button-font) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
-          >
-            Add Section
-          </button>
-        </div>
-      ) : (
-        ""
-      )}
-      <div>
-        <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
+      </div>
+      <div className="flex justify-between items-center border-b border-(--color-border-primary)">
+        <h2 className="mx-5  md:mx-0 items-center justify-start text-lg font-medium text-(--color-font-primary)">
           Text
         </h2>
+        {addContent ? (
+          <div className="flex justify-center">
+            <ContentSelector
+              projectId={fetchId}
+              setAddContent={setAddContent}
+              addContent={addContent}
+            />
+          </div>
+        ) : hasPermission ? (
+          <div className="flex justify-start">
+            <button
+              onClick={() => setAddContent((prev) => !prev)}
+              className=" mx-5 mb-3 md:mx-0 text-(--color-button) hover:text-(--color-button-font) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
+            >
+              Add Section
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+      <div>
         {sortedContent.length === 0 ? (
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl text-(--color-font-secondary)">
             No content yet
@@ -134,7 +145,6 @@ export default function Content() {
         <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
           Videos
         </h2>
-        
       </div>
 
       <div>

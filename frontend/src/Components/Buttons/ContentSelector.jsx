@@ -20,6 +20,7 @@ export default function ContentSelector({ projectId, setAddContent, addContent }
       await postContent(projectId, contentData);
       const updated = await getContent(projectId);
       setContent(updated.length ? [...updated] : []);
+      setAddContent(false)
     } catch (err) {
       ("Error creating content:", err);
     }
