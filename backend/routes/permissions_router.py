@@ -26,10 +26,6 @@ def permissions(project_id):
 def add_permission(project_id):
     current_user_id = int(get_jwt_identity())
     project = Projects.query.get(project_id)
-    existing_permission = Permissions.query.filter_by(
-        project_id=project_id,
-        user_id=user_exists.id
-    ).first()
     if current_user_id != project.user_id:
         return jsonify({"Error": "Permission denied"}), 403
     permissions_data = request.get_json()
@@ -44,6 +40,10 @@ def add_permission(project_id):
         return jsonify({"Error": "User does not exist"}), 403
     if user_exists.id == project.user_id:
         return jsonify({"Error": "Cannot add admin as collaborator"}), 403
+    existing_permission = Permissions.query.filter_by(
+        project_id=project_id,
+        user_id=user_exists.id
+    ).first()
     if existing_permission:
         return jsonify({"Error": "User already exists"}), 403
     new_permission = Permissions(role=role, user_id=user_exists.id, project_id=project_id)
