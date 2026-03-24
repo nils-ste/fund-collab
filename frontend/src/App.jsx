@@ -67,14 +67,14 @@ export default function App() {
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/authentication"
-              className="w-full sm:w-auto text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) inline-flex items-center justify-center gap-2 px-4 py-3 bg-primary font-medium rounded-full"
+              className="w-full sm:w-auto text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) inline-flex items-center justify-center gap-2 px-4 py-3 bg-primary font-medium rounded-full"
             >
               Start Your First Proposal
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               to="#how-it-works"
-              className="w-full sm:w-auto text-(--color-button) hover:text-(--color-primary) hover:bg-(--color-button-hover) inline-flex items-center justify-center px-8 py-3 border font-medium rounded-full"
+              className="w-full sm:w-auto text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) hover:border-transparent inline-flex items-center justify-center px-8 py-3 border font-medium rounded-full"
             >
               See How It Works
             </Link>

@@ -58,7 +58,7 @@ export default function Projects() {
 
   if (sortedProjects.length === 0) {
     return (
-      <div>
+      <div className="mt-5">
         <div className="px-4 flex items-center justify-end md:mx-23">
           <button
             type="button"
@@ -95,7 +95,7 @@ export default function Projects() {
 
   return (
     <>
-      <div className="px-4 flex items-center justify-end md:mx-23">
+      <div className="mt-5 px-4 flex items-center justify-end md:mx-23">
         <button
           type="button"
           onClick={() => setShowForm(true)}

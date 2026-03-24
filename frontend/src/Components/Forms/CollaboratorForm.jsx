@@ -136,7 +136,7 @@ export default function CollaboratorForm({
                     key={p.id}
                     className="flex items-center justify-between mt-2"
                   >
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-sm font-medium text-(--color-font-primary)">
                       {p.email}
                     </span>
 

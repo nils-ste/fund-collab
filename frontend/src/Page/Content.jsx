@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
 import { ContContext } from "../Context/contentContext";
 import { ProjectsContext } from "../Context/projectContext";
-import { Circle } from "lucide-react";
+import { Circle, Share } from "lucide-react";
 import ContentSelector from "../Components/Buttons/ContentSelector";
 import ContentCard from "../Components/Cards/ContentCard";
 import Funding from "./Funding";
@@ -55,7 +55,7 @@ export default function Content() {
   return (
     <div className="md:mx-23 mt-5">
       <div className="flex justify-between items-center mb-5">
-        <h2 className="mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-2xl font-medium text-(--color-font-primary)">
+        <h2 className="mx-5 md:mx-0 items-center justify-start text-4xl font-medium text-(--color-font-primary)">
           {project?.project_title}
         </h2>
         <div className="flex">
@@ -65,7 +65,7 @@ export default function Content() {
                 onClick={() => setAddColaborator((prev) => !prev)}
                 className="text-(--color-button) hover:text-(--color-button-font) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
               >
-                Share
+                <Share className="w-4 h-4"/> 
               </button>
             </div>
           ) : (
@@ -101,18 +101,10 @@ export default function Content() {
         <h2 className="mx-5  md:mx-0 items-center justify-start text-lg font-medium text-(--color-font-primary)">
           Text
         </h2>
-        {addContent ? (
-          <div className="flex justify-center">
-            <ContentSelector
-              projectId={fetchId}
-              setAddContent={setAddContent}
-              addContent={addContent}
-            />
-          </div>
-        ) : hasPermission ? (
+        {hasPermission ? (
           <div className="flex justify-start">
             <button
-              onClick={() => setAddContent((prev) => !prev)}
+              onClick={() => setAddContent(prev => !prev)}
               className=" mx-5 mb-3 md:mx-0 text-(--color-button) hover:text-(--color-button-font) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
             >
               Add Section
@@ -122,6 +114,15 @@ export default function Content() {
           ""
         )}
       </div>
+      {addContent && (
+          <div className="flex justify-center">
+            <ContentSelector
+              projectId={fetchId}
+              setAddContent={setAddContent}
+              addContent={addContent}
+            />
+          </div>
+        ) }
       <div>
         {sortedContent.length === 0 ? (
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl text-(--color-font-secondary)">

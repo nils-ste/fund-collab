@@ -65,7 +65,7 @@ export default function ContentSelector({ projectId, setAddContent, addContent }
             <option value="Production Statement">Production Statement</option>
             <option value="Social Impact">Social Impact</option>
           </select>
-
+          <div>
           <button
             type="submit"
             className="mt-2 text-(--color-button-font) bg-(--color-button) border border-(--color-button) hover:bg-(--color-button-hover)
@@ -73,6 +73,7 @@ export default function ContentSelector({ projectId, setAddContent, addContent }
           >
             Submit
           </button>
+          </div>
         </form>
 
       </div>
