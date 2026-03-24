@@ -45,6 +45,7 @@ def add_permission(project_id):
     try:
         db.session.add(new_permission)
         db.session.commit()
+        new_permission['email'] = email
         return jsonify(new_permission.to_dict()), 201
     except Exception as e:
         db.session.rollback()
