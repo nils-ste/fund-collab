@@ -9,16 +9,15 @@ bp = Blueprint('permissions', __name__, url_prefix='/projects')
 def permissions(project_id):
     current_user_id = int(get_jwt_identity())
     project = Projects.query.get(project_id)
-    permissions_project = []
     if not project:
         return jsonify({"Error": "Project not found"}), 404
     if current_user_id != project.user_id:
         return jsonify({"Error": "Permission denied"}), 403
     permissions_data = Permissions.query.filter_by(project_id=project_id).all()
-    for permission in permissions_data:
-        permission_project = permission.to_dict()
-        permission_project['email'] = permission.user.email
-        permissions_project.append(permission_project)
+    permissions_project = [
+        permission.to_dict()
+        for permission in permissions_data
+    ]
     return jsonify(permissions_project), 200
 
 
@@ -45,7 +44,6 @@ def add_permission(project_id):
     try:
         db.session.add(new_permission)
         db.session.commit()
-        new_permission['email'] = email
         return jsonify(new_permission.to_dict()), 201
     except Exception as e:
         db.session.rollback()

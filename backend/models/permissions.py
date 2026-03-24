@@ -25,4 +25,5 @@ class Permissions(db.Model):
             'project_id': self.project_id,
             'user_id': self.user_id,
             'role': self.role,
+            'email':self.user.email if self.user else None,
         }
