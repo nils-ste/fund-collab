@@ -10,7 +10,8 @@ class Content(db.Model):
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
     section_type = db.Column(db.String(80), nullable=False)
     text_box = db.Column(db.Text, nullable=True)
+    order = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
     def to_dict(self):
-        return {"id": self.id, "section_type": self.section_type, "text_box": self.text_box, "project_id": self.project_id}
+        return {"id": self.id, "section_type": self.section_type, "text_box": self.text_box, "project_id": self.project_id, "order": self.order}

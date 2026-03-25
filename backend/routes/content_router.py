@@ -70,6 +70,7 @@ def create_content(project_id):
         project_id=project_id,
         section_type=content_data.get('section_type'),
         text_box=content_data.get('text_box'),
+        order=content_data.get('order'),
     )
 
     try:
