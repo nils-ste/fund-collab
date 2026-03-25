@@ -25,7 +25,8 @@ export async function postPermissions(projectId, permissionsData) {
     body: JSON.stringify(permissionsData),
   });
   if (!data.ok) throw new Error("Failed to set new Collaborator");
-  return data.json();
+  const json = await data.json();
+  return json
 }
 
 export async function deletePermission(projectId, permissionId) {

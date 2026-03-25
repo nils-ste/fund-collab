@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import StatusProjects from "../Badges/StatusProjects";
 import UrgencyBadge from "../Badges/UrgencyBadge";
@@ -55,21 +55,7 @@ export default function ProjectCard({
         className="inline-flex justify-start items-center mt-2 px-2 py-2 text-sm font-medium text-(--color-button) rounded-lg hover:bg-(--color-button-hover) hover:text-(--color-button-font) hover:outline-none focus:ring-4 focus:outline-none focus:(--color-button-focus)"
       >
         Show Project
-        <svg
-          className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 10"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M1 5h12m0 0L9 1m4 4L9 9"
-          />
-        </svg>
+        <ArrowRight className="ml-1 w-4 h-4" strokeWidth={3}/>
       </Link>
     </div>
   );

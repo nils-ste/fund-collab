@@ -30,8 +30,9 @@ export default function CollaboratorForm({
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await postPermissions(projectId, permissionsData);
-
+      const newPermission = await postPermissions(projectId, permissionsData);
+      
+      setPermissions((prev) => [...prev, newPermission]);
       setPermissionsData({
         email: "",
         role: "",
@@ -48,9 +49,7 @@ export default function CollaboratorForm({
       await putPermission(projectId, permissionId, value);
 
       setPermissions((prev) =>
-        prev.map((p) =>
-          p.id === permissionId ? { ...p, role: value } : p
-        )
+        prev.map((p) => (p.id === permissionId ? { ...p, role: value } : p)),
       );
     } catch (err) {
       console.error("Error updating permission:", err);
@@ -58,7 +57,7 @@ export default function CollaboratorForm({
   }
 
   const projectPermissions = permissions.filter(
-    (p) => p.project_id === Number(projectId)
+    (p) => p.project_id === Number(projectId),
   );
 
   async function handleDeletePermission(permissionId) {
