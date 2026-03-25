@@ -121,7 +121,7 @@ export default function ContentCard({ cont, onDelete, project, hasPermission }) 
           </div>
           <div className="mb-5 flex justify-between">
             <p className="mt-2 pl-5 text-xs text-(--color-font-secondary)">
-              {contentData.text_box.length} characters
+              {contentData.text_box?.length ? `${contentData.text_box.length} characters` : "0 characters"}
             </p>
             {shouldTruncate && (
               <button
@@ -158,7 +158,7 @@ export default function ContentCard({ cont, onDelete, project, hasPermission }) 
             style={{ fieldSizing: "content" }}
           ></textarea>
           <p className="mt-2 pl-5 text-xs text-(--color-font-secondary)">
-            {contentData.text_box.length} characters
+            {contentData.text_box?.length ? `${contentData.text_box.length} characters` : "0 characters"}
           </p>
         </div>
       )}
