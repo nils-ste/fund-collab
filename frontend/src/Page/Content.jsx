@@ -4,8 +4,10 @@ import { getContent, deleteContent } from "../API/content";
 import { ContContext } from "../Context/contentContext";
 import { ProjectsContext } from "../Context/projectContext";
 import { Circle, Share, ArrowUpDown } from "lucide-react";
-import ContentSelector from "../Components/Buttons/ContentSelector";
+import ContentSelector from "../Components/Forms/ContentSelector";
+import VideoForm from "../Components/Forms/VideoForm";
 import ContentCard from "../Components/Cards/ContentCard";
+import VideoCard from "../Components/Cards/VideoCard";
 import Funding from "./Funding";
 import CollaboratorForm from "../Components/Forms/CollaboratorForm";
 
@@ -13,6 +15,7 @@ export default function Content() {
   const { projectId } = useParams();
   const fetchId = Number(projectId);
   const [addContent, setAddContent] = useState(false);
+  const [addVideo, setAddVideo] = useState(false);
   const [addCollaborator, setAddColaborator] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
   const [sorting, setSorting] = useState("default");
@@ -22,7 +25,11 @@ export default function Content() {
   const [activeFunding, setActiveFunding] = useState(null);
 
   const projectContent = content.filter(
-    (c) => c.project_id === Number(projectId),
+    (c) => c.project_id === Number(projectId) && c.category === "text",
+  );
+
+  const projectVideos = content.filter(
+    (c) => c.project_id === Number(projectId) && c.category === "video",
   );
 
   async function handleDelete(contentId) {
@@ -135,6 +142,16 @@ export default function Content() {
         )}
       </div>
 
+      {addContent && (
+        <div className="flex justify-center">
+          <ContentSelector
+            projectId={fetchId}
+            setAddContent={setAddContent}
+            addContent={addContent}
+          />
+        </div>
+      )}
+
       <div className="flex justify-end">
         {openSorting ? (
           <select
@@ -142,7 +159,7 @@ export default function Content() {
             onChange={(e) => setSorting(e.target.value)}
             className="bg-(--color-primary) border border-(--color-border-primary) text-(--color-font-primary) text-sm rounded-lg
                focus:ring-(--color-button-focus) focus:border-(--color-button-focus)
-               px-2 py-1 me-1 mb-2.5"
+               px-2 py-1 mx-2 mt-2"
           >
             <option value="default">Default</option>
             <option value="newest">Newest → Oldest</option>
@@ -153,25 +170,16 @@ export default function Content() {
         )}
         <button
           onClick={() => setOpenSorting((prev) => !prev)}
-          className="text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mb-2.5"
+          className="text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2 text-center me-1 mt-2"
         >
           {" "}
           <ArrowUpDown className="w-4 h-4" />{" "}
         </button>
       </div>
 
-      {addContent && (
-        <div className="flex justify-center">
-          <ContentSelector
-            projectId={fetchId}
-            setAddContent={setAddContent}
-            addContent={addContent}
-          />
-        </div>
-      )}
       <div>
         {sortedContent.length === 0 ? (
-          <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl text-(--color-font-secondary)">
+          <div className="flex flex-col items-center justify-center min-h-[10vh] mb-10 text-xl text-(--color-font-secondary)">
             No content yet
           </div>
         ) : (
@@ -188,10 +196,50 @@ export default function Content() {
         )}
       </div>
 
-      <div>
-        <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
+      <div className="flex justify-between items-center border-b border-(--color-border-primary)">
+        <h2 className="mx-5  md:mx-0 items-center justify-start text-lg font-medium text-(--color-font-primary)">
           Videos
         </h2>
+        {hasPermission ? (
+          <div className="flex justify-start">
+            <button
+              onClick={() => setAddVideo((prev) => !prev)}
+              className=" mx-5 mb-3 md:mx-0 text-(--color-button) hover:text-(--color-button-font) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-4 py-2 text-center"
+            >
+              Add Video
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+
+      {addVideo && (
+        <div className="flex justify-center">
+          <VideoForm
+            projectId={fetchId}
+            setAddVideo={setAddVideo}
+            addVideo={addVideo}
+          />
+        </div>
+      )}
+
+      <div className="flex flex-col justify-center items-center md:flex-row md:justify-start gap-4 mt-4 mb-5 p-5">
+        {projectVideos.length === 0 ? (
+          <div className="flex flex-col items-center justify-center min-h-[20vh] mb-10 text-xl text-(--color-font-secondary)">
+            No videos yet
+          </div>
+        ) : (
+          projectVideos.map((cont) => (
+            <VideoCard
+              key={cont.id}
+              id={cont.id}
+              title={cont.section_type}
+              videoUrl={cont.text_box}
+              onDelete={handleDelete}
+            />
+          ))
+        )}
       </div>
 
       <div>
