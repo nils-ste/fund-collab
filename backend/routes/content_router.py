@@ -71,6 +71,7 @@ def create_content(project_id):
         section_type=content_data.get('section_type'),
         text_box=content_data.get('text_box'),
         order=content_data.get('order'),
+        type=content_data.get('type'),
     )
 
     try:
@@ -114,7 +115,7 @@ def update_content(project_id, id):
 
     data = request.get_json()
 
-    editable_fields = ['section_type', 'text_box', 'permission_reading', 'permission_editing']
+    editable_fields = ['section_type', 'text_box', 'permission_reading', 'permission_editing', 'type']
 
     for field in editable_fields:
         if field in data:
