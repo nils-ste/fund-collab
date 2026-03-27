@@ -5,10 +5,12 @@ def register_routes(app):
     from .content_router import bp as content_bp
     from .auth import bp as auth_bp
     from .permissions_router import bp as permissions_bp
+    from .health_router import bp as health_bp
     app.register_blueprint(projects_bp)
     app.register_blueprint(funding_bp)
     app.register_blueprint(users_bp)
     app.register_blueprint(content_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(permissions_bp)
+    app.register_blueprint(health_bp)
     return app
