@@ -1,8 +1,8 @@
-from flask import request, jsonify, Blueprint, current_app
+from flask import request, jsonify, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import Files, Users, Projects, db
 from werkzeug.utils import secure_filename
-from supabase_client import get_supabase
+from backend.supabase_client import get_supabase
 import uuid
 
 
