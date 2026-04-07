@@ -11,20 +11,21 @@ export default function ContentSelector({
   const [contentData, setContentData] = useState({
     section_type: "",
     text_box: "",
-    category: "text"
+    category: "text",
   });
 
   function handleChange(e) {
-  const value = e.target.value;
+    const value = e.target.value;
 
-  const selected = sectionOptions.find(opt => opt.value === value);
+    const selected = sectionOptions.find((opt) => opt.value === value);
 
-  setContentData({
-    section_type: value,
-    order: selected.order,
-    category: "text",
-  });
-}
+    setContentData((prev) => ({
+      ...prev,
+      section_type: value,
+      order: selected.order,
+      category: "text",
+    }));
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();

@@ -16,11 +16,12 @@ export default function VideoForm({ projectId, setAddVideo, addVideo }) {
 
     const selected = sectionOptions.find((opt) => opt.value === value);
 
-    setContentData({
+    setContentData((prev) => ({
+      ...prev,
       section_type: value,
       order: selected.order,
       category: "video",
-    });
+    }));
   }
 
   function handleChangeLink(e) {
