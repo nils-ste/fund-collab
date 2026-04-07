@@ -5,3 +5,4 @@ from .projects import Projects
 from .users import Users
 from .content import Content
 from .permissions import Permissions
+from .files import Files
