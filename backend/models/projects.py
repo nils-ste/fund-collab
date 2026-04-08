@@ -22,12 +22,8 @@ class Projects(db.Model):
         "Funding",
         cascade="all, delete-orphan"
     )
-    permissions = relationship(
-        argument="Permissions",
-        cascade="all, delete-orphan",
-        back_populates="project"
-    )
-    files = relationship(argument="Files", cascade="all, delete-orphan", back_populates="project")
+    files = relationship("Files", back_populates="project", cascade="all, delete-orphan")
+    permissions = relationship("Permissions", back_populates="project", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {"id": self.id,"project_title": self.project_title, "status": self.status,

@@ -11,14 +11,9 @@ class Users(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
-    permissions = relationship(
-        argument="Permissions",
-        cascade="all, delete-orphan",
-        back_populates="user"
-    )
-
-    projects = relationship(argument="Projects", cascade="all, delete-orphan")
-    files = relationship("Files", back_populates="user")
+    permissions = relationship("Permissions", back_populates="user", cascade="all, delete-orphan")
+    files = relationship("Files", back_populates="user", cascade="all, delete-orphan")
+    projects = relationship("Projects", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {"id": self.id, "email": self.email,

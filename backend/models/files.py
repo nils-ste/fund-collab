@@ -10,12 +10,5 @@ class Files(db.Model):
     file_name = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.datetime.now)
 
-    user = relationship(
-        argument="Users",
-        back_populates="files"
-    )
-
-    project = relationship(
-        argument="Projects",
-        back_populates="files"
-    )
+    user = relationship("Users", back_populates="files")
+    project = relationship("Projects", back_populates="files")

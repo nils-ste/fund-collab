@@ -9,15 +9,8 @@ class Permissions(db.Model):
     role =db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.datetime.now)
 
-    user = relationship(
-        argument="Users",
-        back_populates="permissions"
-    )
-
-    project = relationship(
-        argument="Projects",
-        back_populates="permissions"
-    )
+    user = relationship("Users", back_populates="permissions")
+    project = relationship("Projects", back_populates="permissions")
 
     def to_dict(self):
         return {
