@@ -18,6 +18,7 @@ class Users(db.Model):
     )
 
     projects = relationship(argument="Projects", cascade="all, delete-orphan")
+    files = relationship("Files", back_populates="user")
 
     def to_dict(self):
         return {"id": self.id, "email": self.email,

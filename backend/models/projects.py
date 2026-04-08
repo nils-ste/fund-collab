@@ -27,6 +27,7 @@ class Projects(db.Model):
         cascade="all, delete-orphan",
         back_populates="project"
     )
+    files = relationship(argument="Files", cascade="all, delete-orphan", back_populates="project")
 
     def to_dict(self):
         return {"id": self.id,"project_title": self.project_title, "status": self.status,

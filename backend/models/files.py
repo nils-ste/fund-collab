@@ -12,10 +12,10 @@ class Files(db.Model):
 
     user = relationship(
         argument="Users",
-        back_populates="permissions"
+        back_populates="files"
     )
 
     project = relationship(
         argument="Projects",
-        back_populates="permissions"
+        back_populates="files"
     )
