@@ -7,22 +7,22 @@ export function AuthProvider({ children }) {
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(true);
   async function fetchUser() {
-    setLoading(true);
-    try {
-      const data = await getUser();
+  setLoading(true);
+  try {
+    const data = await getUser();
 
-      if (!data) {
-        setUserId(null);
-        return;
-      }
-
-      setUserId(data.id);
-    } catch (err) {
-      console.error(err);
+    if (!data) {
       setUserId(null);
+    } else {
+      setUserId(data.id);
     }
+  } catch (err) {
+    console.error(err);
+    setUserId(null);
+  } finally {
     setLoading(false);
   }
+}
 
   useEffect(() => {
     fetchUser();
