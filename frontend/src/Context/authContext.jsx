@@ -22,9 +22,6 @@ export function AuthProvider({ children }) {
     fetchUser();
   }, []);
 
-  useEffect(() => {
-  console.log(userId);
-}, [userId]);
 
   return (
     <AuthContext.Provider value={{ userId,loading, setUserId, fetchUser }}>{children}</AuthContext.Provider>

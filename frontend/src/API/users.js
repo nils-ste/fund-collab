@@ -1,15 +1,22 @@
 const BASE_URL = "https://fund-collab.onrender.com";
 
 export async function signUp(userData) {
-  const data = await fetch(`${BASE_URL}/auth/signup`, {
+  const res = await fetch(`${BASE_URL}/auth/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
   });
-  if (!data.ok) throw new Error("Failed to create user");
-  return data.json();
+
+  const text = await res.text();
+
+  if (!res.ok) {
+    console.error("Signup error response:", text);
+    throw new Error(text || "Failed to create user");
+  }
+
+  return JSON.parse(text);
 }
 
 export async function logIn(userData) {
