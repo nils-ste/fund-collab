@@ -22,7 +22,7 @@ class Projects(db.Model):
         "Funding",
         cascade="all, delete-orphan"
     )
-    files = relationship("Files", back_populates="project", cascade="all, delete-orphan")
+    files = relationship("File", back_populates="project", cascade="all, delete-orphan")
     permissions = relationship("Permissions", back_populates="project", cascade="all, delete-orphan")
 
     def to_dict(self):

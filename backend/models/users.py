@@ -12,7 +12,7 @@ class Users(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
     permissions = relationship("Permissions", back_populates="user", cascade="all, delete-orphan")
-    files = relationship("Files", back_populates="user", cascade="all, delete-orphan")
+    files = relationship("File", back_populates="user", cascade="all, delete-orphan")
     projects = relationship("Projects", cascade="all, delete-orphan")
 
     def to_dict(self):
