@@ -49,16 +49,23 @@ def file_upload(project_id):
 
         supabase.storage.from_(bucket).upload(
             path=file_path,
-            file=file_bytes,  # raw bytes, not BytesIO
-            file_options={"content-type": file.content_type}
+            file=file_bytes,
+            file_options={
+                "content-type": file.content_type or "application/octet-stream",
+                "upsert": "true"
+            }
         )
 
-
     except Exception as e:
-
-        traceback.print_exc()  # this will show in Render logs
-
-        return jsonify({"error": "Upload failed", "details": str(e)}), 500
+        resp_text = ""
+        if hasattr(e, "response"):
+            resp_text = e.response.text
+        print(f"Supabase upload error: {e} | Response body: {resp_text}")
+        return jsonify({
+            "error": "Upload failed",
+            "details": str(e),
+            "supabase_response": resp_text
+        }), 500
 
     new_file = File(
         user_id=current_user_id,
