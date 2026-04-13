@@ -1,5 +1,5 @@
 import uuid
-import io
+import traceback
 
 from flask import request, jsonify, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -46,21 +46,19 @@ def file_upload(project_id):
 
     try:
         file_bytes = file.read()
-        file_obj = io.BytesIO(file_bytes)
 
         supabase.storage.from_(bucket).upload(
             path=file_path,
-            file=file_obj,
-            file_options={
-                "content-type": file.content_type
-            }
+            file=file_bytes,  # raw bytes, not BytesIO
+            file_options={"content-type": file.content_type}
         )
 
+
     except Exception as e:
-        return jsonify({
-            "error": "Upload failed",
-            "details": str(e)
-        }), 500
+
+        traceback.print_exc()  # this will show in Render logs
+
+        return jsonify({"error": "Upload failed", "details": str(e)}), 500
 
     new_file = File(
         user_id=current_user_id,
@@ -119,7 +117,7 @@ def get_project_files(project_id):
 
 @bp.route('/<int:project_id>/files/<int:upload_id>', methods=['GET'])
 @jwt_required()
-def get_file(upload_id):
+def get_file(project_id, upload_id):
     current_user_id = int(get_jwt_identity())
     supabase = get_supabase()
     bucket = "project-files"
@@ -129,13 +127,13 @@ def get_file(upload_id):
     if not user_file:
         return jsonify({"error": "File not found"}), 404
 
-    project = Projects.query.get(user_file.project_id)
+    project = Projects.query.get(project_id)
 
     if not project:
         return jsonify({"error": "Project not found"}), 404
 
     permission = Permissions.query.filter_by(
-        project_id=user_file.project_id,
+        project_id=project_id,
         user_id=current_user_id
     ).first()
 
