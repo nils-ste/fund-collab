@@ -15,6 +15,19 @@ export async function getFiles(projectId) {
   return data;
 }
 
+export async function getFile(projectId, fileId) {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${BASE_URL}/${projectId}/files/${fileId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to get file");
+  const data = await res.json();
+  return data;
+}
+
 export async function deleteFile(projectId, fileId) {
   const token = localStorage.getItem("token");
   const res = await fetch(`${BASE_URL}/${projectId}/files/${fileId}`, {
