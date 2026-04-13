@@ -10,7 +10,7 @@ import uuid
 bp = Blueprint('files', __name__, url_prefix='/projects')
 
 
-@bp.route('/upload', methods=['POST'])
+@bp.route('/<int:project_id>/files/upload', methods=['POST'])
 @jwt_required()
 def file_upload(project_id):
     current_user_id = int(get_jwt_identity())
