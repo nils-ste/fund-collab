@@ -6,13 +6,17 @@ from werkzeug.utils import secure_filename
 from backend.supabase_client import get_supabase
 import uuid
 
-
 bp = Blueprint('files', __name__, url_prefix='/projects')
 
 
 @bp.route('/<int:project_id>/files/upload', methods=['POST'])
 @jwt_required()
 def file_upload(project_id):
+    """
+    upload file to supabase
+    :param project_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     project_user = Projects.query.filter_by(id=project_id).first()
 
@@ -78,9 +82,15 @@ def file_upload(project_id):
         }
     }), 201
 
+
 @bp.route('/<int:project_id>/files', methods=['GET'])
 @jwt_required()
 def get_project_files(project_id):
+    """
+    get all files connected to a project, for display purpose only
+    :param project_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
 
     project = Projects.query.get(project_id)
@@ -116,6 +126,11 @@ def get_project_files(project_id):
 @bp.route('/<int:project_id>/files/<int:upload_id>', methods=['GET'])
 @jwt_required()
 def get_file(upload_id):
+    """
+    get a signed url for a single file. for download and display purposes
+    :param upload_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     supabase = get_supabase()
     bucket = "private_uploads"
@@ -145,9 +160,15 @@ def get_file(upload_id):
         "url": signed["signedURL"]
     }), 200
 
-@bp.route('/<int:file_id>', methods=['DELETE'])
+
+@bp.route('/<int:project_id>/files/<int:file_id>', methods=['DELETE'])
 @jwt_required()
 def delete_file(file_id):
+    """
+    delete a file from supabase
+    :param file_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     supabase = get_supabase()
     bucket = "private_uploads"
