@@ -24,7 +24,7 @@ export async function deleteContent(projectId, contentId) {
       Authorization: `Bearer ${token}`,
     },
   });
-  if (!res.ok) throw new Error("Failed to delete project");
+  if (!res.ok) throw new Error("Failed to delete content");
   return true;
 }
 

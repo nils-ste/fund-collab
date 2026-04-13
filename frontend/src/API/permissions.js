@@ -38,7 +38,7 @@ export async function deletePermission(projectId, permissionId) {
       Authorization: `Bearer ${token}`,
     },
   });
-  if (!res.ok) throw new Error("Failed to delete project");
+  if (!res.ok) throw new Error("Failed to delete permission");
   return true;
 }
 
