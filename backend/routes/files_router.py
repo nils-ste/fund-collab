@@ -48,7 +48,7 @@ def file_upload(project_id):
     file_id = str(uuid.uuid4())
     file_path = f"{current_user_id}/{file_id}_{original_filename}"
 
-    file_bytes = file.read()
+    file_bytes = file.stream
 
     try:
         response = supabase.storage.from_(bucket).upload(
