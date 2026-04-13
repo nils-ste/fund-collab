@@ -80,7 +80,7 @@ export default function CollaboratorForm({
                 htmlFor="Roles"
                 className="block text-m font-medium text-(--color-font-primary)"
               >
-                Add Section
+                Add Collaborator
               </label>
 
               <button
