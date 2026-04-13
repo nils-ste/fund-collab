@@ -60,11 +60,14 @@ def file_upload(project_id):
         )
         print("SUPABASE RESPONSE:", response)
 
+
     except Exception as e:
-        return jsonify({
-            "error": "Upload failed",
-            "details": str(e)
-        }), 500
+
+        import traceback
+
+        print("UPLOAD ERROR:", e)
+
+        print(traceback.format_exc())
 
     new_file = File(
         user_id=current_user_id,
