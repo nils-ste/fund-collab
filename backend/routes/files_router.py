@@ -1,10 +1,10 @@
 import uuid
+import io
 
 from flask import request, jsonify, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import File, Users, Projects, Permissions, db
 from werkzeug.utils import secure_filename
-import io
 
 from backend.supabase_client import get_supabase
 
@@ -14,11 +14,6 @@ bp = Blueprint('files', __name__, url_prefix='/projects')
 @bp.route('/<int:project_id>/files/upload', methods=['POST'])
 @jwt_required()
 def file_upload(project_id):
-    """
-    upload file to supabase
-    :param project_id:
-    :return:
-    """
     current_user_id = int(get_jwt_identity())
     project_user = Projects.query.filter_by(id=project_id).first()
 
@@ -49,22 +44,23 @@ def file_upload(project_id):
     file_id = str(uuid.uuid4())
     file_path = f"{current_user_id}/{file_id}_{original_filename}"
 
-    file_bytes = file.read()
-    file_obj = io.BytesIO(file_bytes)
-
     try:
-        response = supabase.storage.from_(bucket).upload(
+        file_bytes = file.read()
+        file_obj = io.BytesIO(file_bytes)
+
+        supabase.storage.from_(bucket).upload(
             path=file_path,
             file=file_obj,
             file_options={
                 "content-type": file.content_type
             }
         )
-        if hasattr(response, "error") and response.error:
-            return jsonify({"error": response.error}), 500
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({
+            "error": "Upload failed",
+            "details": str(e)
+        }), 500
 
     new_file = File(
         user_id=current_user_id,
@@ -89,11 +85,6 @@ def file_upload(project_id):
 @bp.route('/<int:project_id>/files', methods=['GET'])
 @jwt_required()
 def get_project_files(project_id):
-    """
-    get all files connected to a project, for display purpose only
-    :param project_id:
-    :return:
-    """
     current_user_id = int(get_jwt_identity())
 
     project = Projects.query.get(project_id)
@@ -129,11 +120,6 @@ def get_project_files(project_id):
 @bp.route('/<int:project_id>/files/<int:upload_id>', methods=['GET'])
 @jwt_required()
 def get_file(upload_id):
-    """
-    get a signed url for a single file. for download and display purposes
-    :param upload_id:
-    :return:
-    """
     current_user_id = int(get_jwt_identity())
     supabase = get_supabase()
     bucket = "project-files"
@@ -143,46 +129,59 @@ def get_file(upload_id):
     if not user_file:
         return jsonify({"error": "File not found"}), 404
 
-    if user_file.user_id != current_user_id:
+    project = Projects.query.get(user_file.project_id)
+
+    if not project:
+        return jsonify({"error": "Project not found"}), 404
+
+    permission = Permissions.query.filter_by(
+        project_id=user_file.project_id,
+        user_id=current_user_id
+    ).first()
+
+    is_owner = (current_user_id == project.user_id)
+    has_access = permission is not None
+
+    if not is_owner and not has_access:
         return jsonify({"error": "Not authorized"}), 401
 
-    signed = supabase.storage.from_(bucket).create_signed_url(
-        user_file.file_path,
-        expires_in=60
-    )
+    try:
+        signed = supabase.storage.from_(bucket).create_signed_url(
+            user_file.file_path,
+            expires_in=60
+        )
 
-    if signed.get("error"):
+        if isinstance(signed, dict) and signed.get("error"):
+            return jsonify({
+                "error": "Could not generate access URL",
+                "details": signed["error"]
+            }), 500
+
+        return jsonify({
+            "id": user_file.id,
+            "file_name": user_file.file_name,
+            "url": signed.get("signedURL")
+        }), 200
+
+    except Exception as e:
         return jsonify({
             "error": "Could not generate access URL",
-            "details": signed["error"]
+            "details": str(e)
         }), 500
-
-    return jsonify({
-        "id": user_file.id,
-        "file_name": user_file.file_name,
-        "url": signed["signedURL"]
-    }), 200
 
 
 @bp.route('/<int:project_id>/files/<int:file_id>', methods=['DELETE'])
 @jwt_required()
 def delete_file(project_id, file_id):
-    """
-    delete a file from supabase
-    :param project_id:
-    :param file_id:
-    :return:
-    """
     current_user_id = int(get_jwt_identity())
     supabase = get_supabase()
     bucket = "project-files"
 
-    file = File.query.get(file_id)
-
-    if not file:
-        return jsonify({"error": "File not found"}), 404
-
     project = Projects.query.get(project_id)
+
+    if not project:
+        return jsonify({"error": "Project not found"}), 404
+
     permission = Permissions.query.filter_by(
         project_id=project_id,
         user_id=current_user_id
@@ -193,6 +192,14 @@ def delete_file(project_id, file_id):
 
     if not is_owner and not is_editor:
         return jsonify({"error": "Not authorized"}), 401
+
+    file = File.query.filter_by(
+        id=file_id,
+        project_id=project_id
+    ).first()
+
+    if not file:
+        return jsonify({"error": "File not found"}), 404
 
     try:
         supabase.storage.from_(bucket).remove([file.file_path])
