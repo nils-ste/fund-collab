@@ -4,6 +4,7 @@ from flask import request, jsonify, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import File, Users, Projects, Permissions, db
 from werkzeug.utils import secure_filename
+import io
 
 from backend.supabase_client import get_supabase
 
@@ -48,26 +49,22 @@ def file_upload(project_id):
     file_id = str(uuid.uuid4())
     file_path = f"{current_user_id}/{file_id}_{original_filename}"
 
-    file_bytes = file.stream
+    file_bytes = file.read()
+    file_obj = io.BytesIO(file_bytes)
 
     try:
         response = supabase.storage.from_(bucket).upload(
             path=file_path,
-            file=file_bytes,
+            file=file_obj,
             file_options={
                 "content-type": file.content_type
             }
         )
-        print("SUPABASE RESPONSE:", response)
-
+        if hasattr(response, "error") and response.error:
+            return jsonify({"error": response.error}), 500
 
     except Exception as e:
-
-        import traceback
-
-        print("UPLOAD ERROR:", e)
-
-        print(traceback.format_exc())
+        return jsonify({"error": str(e)}), 500
 
     new_file = File(
         user_id=current_user_id,
