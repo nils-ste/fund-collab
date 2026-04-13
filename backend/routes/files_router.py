@@ -1,5 +1,4 @@
 import uuid
-import httpx
 
 from flask import request, jsonify, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -55,15 +54,12 @@ def file_upload(project_id):
             }
         )
 
+
     except Exception as e:
-        cause = e.__cause__
-        status = None
-        body = None
-        if hasattr(cause, 'response'):
-            status = cause.response.status_code
-            body = cause.response.text
-        print(f"Status: {status} | Body: {body} | Error: {e}")
-        return jsonify({"error": "Upload failed", "status": status, "body": body}), 500
+        return jsonify({
+            "error": "Upload failed",
+            "details": str(e)
+        }), 500
 
     new_file = File(
         user_id=current_user_id,
