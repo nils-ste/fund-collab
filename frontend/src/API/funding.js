@@ -22,7 +22,7 @@ export async function deleteFunding(projectId, fundingId) {
       Authorization: `Bearer ${token}`,
     },
   });
-  if (!res.ok) throw new Error("Failed to delete project");
+  if (!res.ok) throw new Error("Failed to delete funding");
   return true;
 }
 

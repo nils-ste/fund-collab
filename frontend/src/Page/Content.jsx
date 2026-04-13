@@ -3,9 +3,11 @@ import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
 import { ContContext } from "../Context/contentContext";
 import { ProjectsContext } from "../Context/projectContext";
-import { Circle, Share, ArrowUpDown } from "lucide-react";
+import { Circle, Share, ArrowUpDown, FileText } from "lucide-react";
+import { getFiles, deleteFile } from "../API/file";
 import ContentSelector from "../Components/Forms/ContentSelector";
 import VideoForm from "../Components/Forms/VideoForm";
+import FileForm from "../Components/Forms/FileForm";
 import ContentCard from "../Components/Cards/ContentCard";
 import VideoCard from "../Components/Cards/VideoCard";
 import Funding from "./Funding";
@@ -23,6 +25,8 @@ export default function Content() {
   const { content, setContent } = useContext(ContContext);
   const { projects, loadingProjects } = useContext(ProjectsContext);
   const [activeFunding, setActiveFunding] = useState(null);
+  const [projectFiles, setProjectFiles] = useState([]); //could put into context
+  const [addFile, setAddFile] = useState(false);
 
   const projectContent = content.filter(
     (c) => c.project_id === Number(projectId) && c.category === "text",
@@ -38,7 +42,16 @@ export default function Content() {
       const updated = await getContent(fetchId);
       setContent(updated.length ? [...updated] : []);
     } catch (err) {
-      console.log("Error deleting project:", err);
+      console.error("Error deleting project:", err);
+    }
+  }
+
+  async function handleFileDelete(fileId) {
+    try {
+      await deleteFile(fetchId, fileId);
+      setProjectFiles((prev) => prev.filter((f) => f.id !== fileId));
+    } catch (err) {
+      console.error("Error deleting file:", err);
     }
   }
 
@@ -62,7 +75,17 @@ export default function Content() {
     if (project && ["admin", "editor"].includes(project?.role)) {
       setHasPermission(true);
     }
-  }, [project?.role]);
+    //fetching files
+    async function fetchFiles() {
+      try {
+        const files = await getFiles(fetchId);
+        setProjectFiles(files);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchFiles()
+  }, [project?.role, fetchId]);
 
   if (loadingProjects) {
     return (
@@ -246,6 +269,33 @@ export default function Content() {
         <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
           Documents
         </h2>
+        <FileForm projectId={fetchId} onFileSuccess={async () => {
+          const updatedFiles = await getFiles(fetchId);
+          setProjectFiles(updatedFiles)
+        }} />
+      </div>
+
+      <div className="flex flex-col justify-center items-center md:flex-row md:justify-start gap-4 mt-4 mb-5 p-5">
+        {projectFiles.length === 0 ? (
+          <div className="flex flex-col items-center justify-center min-h-[10vh] mb-10 text-xl text-(--color-font-secondary)">
+            No documents yet
+          </div>
+        ) : (
+          projectFiles.map((file) => (
+             <div key={file.id} className="flex flex-col justify-between p-4 max-w-sm bg-(--color-primary) border border-(--color-border-primary) rounded-lg shadow-sm">
+               <div className="flex justify-between items-start mb-2">
+                 <div className="flex items-center gap-2">
+                   <FileText className="text-(--color-button) w-6 h-6" />
+                   <h5 className="text-md font-bold tracking-tight text-(--color-font-primary) truncate break-all max-w-[150px] sm:max-w-[200px]" title={file.file_name}>
+                     {file.file_name}
+                   </h5>
+                 </div>
+               
+               </div>
+               
+             </div>
+          ))
+        )}
       </div>
     </div>
   );
