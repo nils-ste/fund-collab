@@ -2,7 +2,7 @@ from supabase import create_client
 from flask import current_app
 
 def get_supabase():
-    return create_client(
-        current_app.config["SUPABASE_URL"],
-        current_app.config["SUPABASE_SERVICE_KEY"]
-    )
+    url = current_app.config["SUPABASE_URL"]
+    key = current_app.config["SUPABASE_SERVICE_KEY"]
+    print(f"Creating supabase client | URL: {url} | Key starts with: {key[:15] if key else None}")
+    return create_client(url, key)

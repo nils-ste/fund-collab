@@ -1,5 +1,5 @@
 import uuid
-import traceback
+import httpx
 
 from flask import request, jsonify, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -46,7 +46,6 @@ def file_upload(project_id):
 
     try:
         file_bytes = file.read()
-
         supabase.storage.from_(bucket).upload(
             path=file_path,
             file=file_bytes,
@@ -57,15 +56,14 @@ def file_upload(project_id):
         )
 
     except Exception as e:
-        resp_text = ""
-        if hasattr(e, "response"):
-            resp_text = e.response.text
-        print(f"Supabase upload error: {e} | Response body: {resp_text}")
-        return jsonify({
-            "error": "Upload failed",
-            "details": str(e),
-            "supabase_response": resp_text
-        }), 500
+        cause = e.__cause__
+        status = None
+        body = None
+        if hasattr(cause, 'response'):
+            status = cause.response.status_code
+            body = cause.response.text
+        print(f"Status: {status} | Body: {body} | Error: {e}")
+        return jsonify({"error": "Upload failed", "status": status, "body": body}), 500
 
     new_file = File(
         user_id=current_user_id,
