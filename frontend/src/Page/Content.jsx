@@ -8,6 +8,7 @@ import { getFiles, deleteFile, getFile } from "../API/file";
 import ContentSelector from "../Components/Forms/ContentSelector";
 import VideoForm from "../Components/Forms/VideoForm";
 import FileForm from "../Components/Forms/FileForm";
+import FileCard from "../Components/Cards/FileCard";
 import ContentCard from "../Components/Cards/ContentCard";
 import VideoCard from "../Components/Cards/VideoCard";
 import Funding from "./Funding";
@@ -286,44 +287,14 @@ export default function Content() {
           </div>
         ) : (
           projectFiles.map((file) => (
-            <div
-              key={file.id}
-              className="flex flex-col justify-between p-4 w-48 bg-(--color-primary) border border-(--color-border-primary) rounded-lg shadow-sm"
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <FileText className="text-(--color-button) w-5 h-5 shrink-0" />
-                <h5
-                  className="text-sm font-bold text-(--color-font-primary) truncate"
-                  title={file.file_name}
-                >
-                  {file.file_name}
-                </h5>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={async () => {
-                    try {
-                      const data = await getFile(fetchId, file.id);
-                      window.open(data.url, "_blank");
-                    } catch (err) {
-                      console.error("Download failed:", err);
-                    }
-                  }}
-                  className="flex-1 text-xs text-(--color-button) hover:text-(--color-button-font) border border-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg px-2 py-1 text-center"
-                >
-                  Download
-                </button>
-                {hasPermission && (
-                  <button
-                    onClick={() => handleFileDelete(file.id)}
-                    className="flex-1 text-xs text-red-500 hover:text-white border border-red-500 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg px-2 py-1 text-center"
-                  >
-                    Delete
-                  </button>
-                )}
-              </div>
-            </div>
-          ))
+  <FileCard
+    key={file.id}
+    file={file}
+    projectId={fetchId}
+    onDelete={handleFileDelete}
+    hasPermission={hasPermission}
+  />
+))
         )}
       </div>
     </div>
