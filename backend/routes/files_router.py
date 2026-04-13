@@ -1,10 +1,11 @@
+import uuid
+
 from flask import request, jsonify, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import File, Users, Projects, Permissions, db
 from werkzeug.utils import secure_filename
 
 from backend.supabase_client import get_supabase
-import uuid
 
 bp = Blueprint('files', __name__, url_prefix='/projects')
 
@@ -163,9 +164,10 @@ def get_file(upload_id):
 
 @bp.route('/<int:project_id>/files/<int:file_id>', methods=['DELETE'])
 @jwt_required()
-def delete_file(file_id):
+def delete_file(project_id, file_id):
     """
     delete a file from supabase
+    :param project_id:
     :param file_id:
     :return:
     """
@@ -178,9 +180,9 @@ def delete_file(file_id):
     if not file:
         return jsonify({"error": "File not found"}), 404
 
-    project = Projects.query.get(file.project_id)
+    project = Projects.query.get(project_id)
     permission = Permissions.query.filter_by(
-        project_id=file.project_id,
+        project_id=project_id,
         user_id=current_user_id
     ).first()
 
