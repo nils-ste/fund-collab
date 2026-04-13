@@ -134,7 +134,7 @@ def get_file(upload_id):
     """
     current_user_id = int(get_jwt_identity())
     supabase = get_supabase()
-    bucket = "private_uploads"
+    bucket = "project-files"
 
     user_file = File.query.get(upload_id)
 
@@ -173,7 +173,7 @@ def delete_file(project_id, file_id):
     """
     current_user_id = int(get_jwt_identity())
     supabase = get_supabase()
-    bucket = "private_uploads"
+    bucket = "project-files"
 
     file = File.query.get(file_id)
 
