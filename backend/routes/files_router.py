@@ -58,6 +58,8 @@ def file_upload(project_id):
                 "content-type": file.content_type
             }
         )
+        print("SUPABASE RESPONSE:", response)
+
     except Exception as e:
         return jsonify({
             "error": "Upload failed",
