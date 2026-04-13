@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { postFile } from "../../API/file";
 
-export default function FileForm({projectId, onFileSuccess}) {
+export default function FileForm({ projectId, onFileSuccess }) {
   const [file, setFile] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -20,7 +20,7 @@ export default function FileForm({projectId, onFileSuccess}) {
       const data = await postFile(projectId, formData);
       onFileSuccess();
     } catch (err) {
-      setError(err);
+      setError(err.message || "Upload failed");
       console.error(err);
     } finally {
       setLoading(false);
