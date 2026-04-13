@@ -34,7 +34,7 @@ def file_upload(project_id):
         return jsonify({"Error": "Not authorized"}), 401
 
     supabase = get_supabase()
-    bucket = "private_uploads"
+    bucket = "project-files"
 
     if 'file' not in request.files:
         return jsonify({"error": "No file provided"}), 400
