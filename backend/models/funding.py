@@ -4,7 +4,7 @@ from . import db
 
 class Funding(db.Model):
     """
-    Funding table
+    Funding model
     """
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)

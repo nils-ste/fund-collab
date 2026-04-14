@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 
 class Users(db.Model):
     """
-    Users table
+    Users model
     """
     id = db.Column(db.Integer, primary_key=True)
     password = db.Column(db.String(200), nullable=False)

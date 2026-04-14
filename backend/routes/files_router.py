@@ -13,6 +13,11 @@ bp = Blueprint('files', __name__, url_prefix='/projects')
 @bp.route('/<int:project_id>/files/upload', methods=['POST'])
 @jwt_required()
 def file_upload(project_id):
+    """
+    uploads a file to supabase
+    :param project_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     project_user = Projects.query.filter_by(id=project_id).first()
 
@@ -84,6 +89,11 @@ def file_upload(project_id):
 @bp.route('/<int:project_id>/files', methods=['GET'])
 @jwt_required()
 def get_project_files(project_id):
+    """
+    gets a list of all files in a project
+    :param project_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
 
     project = Projects.query.get(project_id)
@@ -119,6 +129,12 @@ def get_project_files(project_id):
 @bp.route('/<int:project_id>/files/<int:upload_id>', methods=['GET'])
 @jwt_required()
 def get_file(project_id, upload_id):
+    """
+    gets a file and serves it from supabase
+    :param project_id:
+    :param upload_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     supabase = get_supabase()
     bucket = "project-files"
@@ -172,6 +188,12 @@ def get_file(project_id, upload_id):
 @bp.route('/<int:project_id>/files/<int:file_id>', methods=['DELETE'])
 @jwt_required()
 def delete_file(project_id, file_id):
+    """
+    deletes a file from postgres and supabase
+    :param project_id:
+    :param file_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     supabase = get_supabase()
     bucket = "project-files"

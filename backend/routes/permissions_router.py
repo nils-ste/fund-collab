@@ -7,6 +7,11 @@ bp = Blueprint('permissions', __name__, url_prefix='/projects')
 @bp.route('/<int:project_id>/permissions', methods=['GET'])
 @jwt_required()
 def permissions(project_id):
+    """
+    gets permission data for a project
+    :param project_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     project = Projects.query.get(project_id)
     if not project:
@@ -24,6 +29,11 @@ def permissions(project_id):
 @bp.route('/<int:project_id>/permissions', methods=['POST'])
 @jwt_required()
 def add_permission(project_id):
+    """
+    adds a permission to the project ( currently per project maybe later per section)
+    :param project_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     project = Projects.query.get(project_id)
     if current_user_id != project.user_id:
@@ -58,6 +68,12 @@ def add_permission(project_id):
 @bp.route('/<int:project_id>/permissions/<int:permission_id>', methods=['PUT'])
 @jwt_required()
 def update_permission(project_id, permission_id):
+    """
+    updates a permission
+    :param project_id:
+    :param permission_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
 
     project = Projects.query.get(project_id)
@@ -91,6 +107,12 @@ def update_permission(project_id, permission_id):
 @bp.route('/<int:project_id>/permissions/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_permission(project_id, id):
+    """
+    deletes a permission, either your own or of a user with access to your project
+    :param project_id:
+    :param id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
 
     project = Projects.query.get(project_id)

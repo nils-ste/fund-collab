@@ -10,6 +10,11 @@ bp = Blueprint('funding', __name__, url_prefix='/projects/<int:project_id>/fundi
 @bp.route('', methods=['GET'])
 @jwt_required()
 def funding_by_id(project_id):
+    """
+    gets a funding by project id
+    :param project_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     project_user = Projects.query.filter_by(id=project_id).first()
 
@@ -38,6 +43,11 @@ def funding_by_id(project_id):
 @bp.route('', methods=['POST'])
 @jwt_required()
 def add_funding(project_id):
+    """
+    adds a new funding to the project
+    :param project_id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     project_user = Projects.query.filter_by(id=project_id).first()
 
@@ -92,6 +102,12 @@ def add_funding(project_id):
 @bp.route('/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_funding(project_id, id):
+    """
+    updates a funding
+    :param project_id:
+    :param id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     project_user = Projects.query.filter_by(id=project_id).first()
 
@@ -146,6 +162,12 @@ def update_funding(project_id, id):
 @bp.route('/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_funding(project_id, id):
+    """
+    deletes a funding
+    :param project_id:
+    :param id:
+    :return:
+    """
     current_user_id = int(get_jwt_identity())
     project_user = Projects.query.filter_by(id=project_id).first()
 

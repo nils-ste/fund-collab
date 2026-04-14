@@ -3,6 +3,9 @@ from sqlalchemy.orm import relationship
 from . import db
 
 class File(db.Model):
+    """
+    File model
+    """
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

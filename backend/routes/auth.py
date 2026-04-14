@@ -8,6 +8,10 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/signup', methods=['POST'])
 def signup():
+    """
+    handles user signup and encrypts password for postgres
+    :return:
+    """
     data = request.get_json()
 
     email = data.get('email')
@@ -34,6 +38,10 @@ def signup():
 
 @bp.route('/login', methods=['POST'])
 def login():
+    """
+    handles user login
+    :return:
+    """
     data = request.get_json()
 
     email = data.get('email')
