@@ -33,8 +33,8 @@ export default function About() {
           </h1>
           <p className="mt-6 text-lg sm:text-xl max-w-2xl mx-auto text-pretty">
             The tools available for managing creative funding proposals are
-            either too generic or too complex. I set out to build something
-            better.
+            either too generic or too inaccessible. I set out to build something
+            better, with the needs of small creative teams in mind.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
@@ -61,7 +61,7 @@ export default function About() {
               collaborators actually felt intuitive?
             </p>
             <p>
-              I built it with React, Flask, and Supabase, and it covers
+              I built it with React (JavaScript), Flask (Python), PostgreSQL, and Supabase, and it covers
               real-world concerns like authentication, file storage, team
               permissions, and deadline tracking — all within a clean,
               purpose-built interface.
