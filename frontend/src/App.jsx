@@ -73,10 +73,10 @@ export default function App() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              to="#how-it-works"
+              to="/about"
               className="w-full sm:w-auto text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) hover:border-transparent inline-flex items-center justify-center px-8 py-3 border font-medium rounded-full"
             >
-              See How It Works
+              Find out more
             </Link>
           </div>
         </div>
