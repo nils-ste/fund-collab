@@ -3,8 +3,8 @@ import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
 import { ContContext } from "../Context/contentContext";
 import { ProjectsContext } from "../Context/projectContext";
-import { Circle, Share, ArrowUpDown, FileText } from "lucide-react";
-import { getFiles, deleteFile, getFile } from "../API/file";
+import { Circle, Share, ArrowUpDown} from "lucide-react";
+import { getFiles, deleteFile} from "../API/file";
 import ContentSelector from "../Components/Forms/ContentSelector";
 import VideoForm from "../Components/Forms/VideoForm";
 import FileForm from "../Components/Forms/FileForm";
@@ -248,7 +248,7 @@ export default function Content() {
         </div>
       )}
 
-      <div className="flex flex-col justify-center items-center md:flex-row md:justify-start gap-4 mt-4 mb-5 p-5">
+      <div className="flex flex-col justify-center items-center md:flex-row md:justify-center gap-4 mt-4 mb-5 p-5">
         {projectVideos.length === 0 ? (
           <div className="flex flex-col items-center justify-center min-h-[20vh] mb-10 text-xl text-(--color-font-secondary)">
             No videos yet
@@ -266,8 +266,8 @@ export default function Content() {
         )}
       </div>
 
-      <div>
-        <h2 className="mb-5 mx-5 md:mx-0 items-center justify-start border-b border-(--color-border-primary) text-lg font-medium text-(--color-font-primary) pb-5">
+      <div className="flex justify-between items-center border-b border-(--color-border-primary)">
+        <h2 className="mx-5  md:mx-0 items-center justify-start text-lg font-medium text-(--color-font-primary)">
           Documents
         </h2>
         <FileForm
@@ -280,21 +280,21 @@ export default function Content() {
         />
       </div>
 
-      <div className="flex flex-col justify-center items-center md:flex-row md:justify-start gap-4 mt-4 mb-5 p-5">
+      <div className="flex flex-col justify-center items-center md:flex-row md:justify-center gap-4 mt-4 mb-5 p-5">
         {projectFiles.length === 0 ? (
-          <div className="flex flex-col items-center justify-center min-h-[10vh] mb-10 text-xl text-(--color-font-secondary)">
+          <div className="flex flex-col items-center justify-center min-h-[20vh] mb-10 text-xl text-(--color-font-secondary)">
             No documents yet
           </div>
         ) : (
           projectFiles.map((file) => (
-  <FileCard
-    key={file.id}
-    file={file}
-    projectId={fetchId}
-    onDelete={handleFileDelete}
-    hasPermission={hasPermission}
-  />
-))
+            <FileCard
+              key={file.id}
+              file={file}
+              projectId={fetchId}
+              onDelete={handleFileDelete}
+              hasPermission={hasPermission}
+            />
+          ))
         )}
       </div>
     </div>

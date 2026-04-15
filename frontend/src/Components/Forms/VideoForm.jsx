@@ -91,7 +91,7 @@ export default function VideoForm({ projectId, setAddVideo, addVideo }) {
 
             <TextInput
               name="text_box"
-              inputLabel="Vimeo Link:"
+              inputLabel="Video Link:"
               data={contentData.text_box}
               handleChange={handleChangeLink}
             />

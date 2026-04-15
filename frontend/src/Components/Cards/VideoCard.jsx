@@ -1,3 +1,5 @@
+import { Trash2 } from "lucide-react";
+
 function parseVideoUrl(url) {
   try {
     const urlObj = new URL(url);
@@ -79,13 +81,10 @@ export default function VideoCard({ id, videoUrl, title, onDelete }) {
   }
 
   return (
-    
     <div
       className={`w-72 overflow-hidden rounded-lg border border-(--color-border-primary) bg-(--color-primary) shadow-sm`}
     >
-        
       <div className="relative aspect-video w-full">
-        
         <iframe
           src={embedUrl}
           title={title || `${provider} video`}
@@ -93,26 +92,26 @@ export default function VideoCard({ id, videoUrl, title, onDelete }) {
           allowFullScreen
           className="absolute inset-0 h-full w-full"
         />
-
       </div>
       {title && (
-          <div className="flex justify-between border-t border-(--color-border-secondary) px-3 py-2">
-            <div>
-              <p className="truncate text-sm font-medium text-(--color-font-primary)">
-                {title}
-              </p>
-              <p className="text-xs capitalize text-(--color-font-secondary)">
-                {provider}
-              </p>
-            </div>
-            <button
-              onClick={() => onDelete(id)}
-              className="text-(--color-font-primary)"
-            >
-              x
-            </button>
+        <div className="flex justify-between border-t border-(--color-border-secondary) px-3 py-2">
+          <div>
+            <p className="truncate text-sm font-medium text-(--color-font-primary)">
+              {title}
+            </p>
+            <p className="text-xs capitalize text-(--color-font-secondary)">
+              {provider}
+            </p>
           </div>
-        )}
+          <button
+            onClick={() => onDelete(id)}
+            aria-label="Delete Video"
+            className="flex text-(--color-button) hover:text-(--color-button-font) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:(--color-button-focus) font-medium rounded-lg text-sm px-3 py-2"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

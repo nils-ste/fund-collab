@@ -1,16 +1,52 @@
-export default function DeleteModal({ setModalState, deleteContent, deleteFunction }) {
+import { useState } from "react";
+
+export default function DeleteModal({ setIsOpen, title, onConfirm }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleConfirm = async () => {
+    setIsLoading(true);
+    try {
+      await onConfirm();
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Delete failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 transition-opacity duration-300 ease-out">
-      <div className="bg-(--color-primary) p-6 rounded-lg w-full max-w-lg relative transform transition-transform duration-300 ease-out scale-95 animate-modalShow">
-        <button
-          className="absolute top-2 right-2 text-(--color-font-secondary) hover:text-(--color-font-primary) dark:hover:text-(--color-primary) text-lg font-bold"
-          onClick={() => setModalState(false)}
-        >
-          ✕
-        </button>
-        <h1>Caution!</h1>
-        <p>You are about to delete {deleteContent}. Any delete is final. Do you want to proceed?</p>
-        <button onClick={() => deleteFunction(deleteContent.id)}>Delete</button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+      <div className="bg-(--color-primary) rounded-lg shadow-lg p-6 max-w-sm w-full mx-4">
+        <h2 className="text-lg font-semibold text-(--color-font-primary) mb-2">
+          Delete {title}?
+        </h2>
+
+        <p className="text-(--color-font-secondary) text-sm mb-6">
+          This action cannot be undone. Are you sure?
+        </p>
+
+        <div className="flex gap-3 justify-end">
+          <button
+            onClick={handleCancel}
+            disabled={isLoading}
+            className="px-4 py-2 text-sm font-medium text-(--color-button-font) bg-(--color-button) rounded-lg hover:bg-(--color-button-hover)"
+          >
+            Cancel
+          </button>
+
+          <button
+            onClick={handleConfirm}
+            disabled={isLoading}
+            className="px-4 py-2 text-sm font-medium text-(--color-button-font) bg-(--color-delete) rounded-lg hover:bg-(--color-delete-hover)"
+          >
+            {isLoading ? "Deleting..." : "Delete"}
+          </button>
+        </div>
       </div>
     </div>
   );
