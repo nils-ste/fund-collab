@@ -9,6 +9,8 @@ export default function Authentication() {
     password: "",
   });
   const [register, setRegister] = useState(false);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate();
   const { userId, fetchUser, loading } = useContext(AuthContext);
 
@@ -19,23 +21,32 @@ export default function Authentication() {
 
   async function handleLogin(e) {
     e.preventDefault();
+    setError("");
+    setIsSubmitting(true)
     try {
       await logIn(logInInformation);
       await fetchUser();
       navigate("/projects");
     } catch (err) {
+      setError("Login failed. Please check your credentials.");
       console.error("Error on logIn:", err);
+      setIsSubmitting(false)
     }
   }
 
   async function handleSignUp(e) {
     e.preventDefault();
+    setError("");
+    setIsSubmitting(true)
     try {
       const user = await signUp(logInInformation);
       await fetchUser();
       setRegister(false);
+      setIsSubmitting(false)
     } catch (err) {
-      console.error("Error on logIn:", err);
+      setError("Signup failed. Please try again.");
+      console.error("Error on Signup:", err);
+      setIsSubmitting(false)
     }
   }
 
@@ -58,6 +69,11 @@ export default function Authentication() {
               className="space-y-4 md:space-y-6"
               onSubmit={register ? handleSignUp : handleLogin}
             >
+              {error && (
+                <div className="p-4 text-sm text-red-800 bg-red-100 rounded-lg border border-red-300">
+                  {error}
+                </div>
+              )}
               <div>
                 <label
                   htmlFor="email"
@@ -124,9 +140,10 @@ export default function Authentication() {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full text-(--color-button-font) bg-(--color-button) hover:bg-(--color-button-hover) focus:ring-4 focus:outline-none focus:ring-(--color-button-focus) font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
-                {register ? "Sign up" : "Sign in"}
+                {isSubmitting ? "Loading..." : register ? "Sign up" : "Sign in"}
               </button>
 
               <p className="text-sm font-light text-(--color-font-primary)">

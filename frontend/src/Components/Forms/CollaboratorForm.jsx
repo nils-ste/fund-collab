@@ -125,9 +125,7 @@ export default function CollaboratorForm({
             </div>
           </form>
           <div className="mt-4 mb-2">
-            <h2 className="block text-m font-medium text-(--color-font-primary)">
-              Collaborators
-            </h2>
+            
             {loadingPermissions
               ? "Loading..."
               : projectPermissions.map((p) => (
