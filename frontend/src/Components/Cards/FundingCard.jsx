@@ -1,6 +1,6 @@
 import StatusFunding from "../Badges/StatusFunding";
 
-export default function FundingCards({
+export default function FundingCard({
   fund,
   handleDelete,
   setModalFunding,

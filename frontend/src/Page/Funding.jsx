@@ -18,20 +18,28 @@ export default function Funding({ setActiveFunding }) {
     (f) => f.project_id === Number(projectId),
   );
 
-  function handleDeleteClick(project) {
-    setFundingToDelete(project);
+  function handleDeleteClick(funding) {
+    setFundingToDelete(funding);
     setDeleteModalOpen(true);
   }
 
   async function handleConfirmDelete() {
-    if (!fundingToDelete) return;
-    try {
-      await deleteFunding(projectId, fundingToDelete.id);
-      setFunding((prev) => prev.filter((f) => f.id !== fundingToDelete.id));
-    } catch (err) {
-      console.log("Error deleting project:", err);
-    }
+  if (!fundingToDelete) return;
+
+  try {
+    await deleteFunding(projectId, fundingToDelete.id);
+
+    setFunding((prev) =>
+      prev.filter((f) => f.id !== fundingToDelete.id)
+    );
+
+    setDeleteModalOpen(false);
+    setFundingToDelete(null);
+
+  } catch (err) {
+    console.log(err);
   }
+}
 
   const [open, setOpen] = useState(false);
 
@@ -179,7 +187,7 @@ export default function Funding({ setActiveFunding }) {
           {deleteModalOpen && (
             <DeleteModal
               setIsOpen={setDeleteModalOpen}
-              title={fundingToDelete?.project_title}
+              title={fundingToDelete?.title}
               onConfirm={handleConfirmDelete}
             />
           )}
