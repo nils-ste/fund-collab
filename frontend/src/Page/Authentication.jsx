@@ -110,7 +110,7 @@ export default function Authentication() {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
+              {/* <div className="flex items-center justify-between">
                 <div className="flex items-start">
                   <div className="flex items-center h-5">
                     <input
@@ -128,7 +128,7 @@ export default function Authentication() {
                       Remember me
                     </label>
                   </div>
-                </div>
+                </div> 
 
                 <a
                   href="#"
@@ -136,7 +136,7 @@ export default function Authentication() {
                 >
                   Forgot password?
                 </a>
-              </div>
+              </div>*/}
 
               <button
                 type="submit"
