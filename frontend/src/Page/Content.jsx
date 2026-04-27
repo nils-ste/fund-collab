@@ -3,8 +3,9 @@ import { useParams } from "react-router";
 import { getContent, deleteContent } from "../API/content";
 import { ContContext } from "../Context/contentContext";
 import { ProjectsContext } from "../Context/projectContext";
-import { Circle, Share, ArrowUpDown} from "lucide-react";
-import { getFiles, deleteFile} from "../API/file";
+import { Circle, Share, ArrowUpDown } from "lucide-react";
+import { getFiles, deleteFile } from "../API/file";
+import DeleteModal from "../Components/Buttons/DeleteModal";
 import ContentSelector from "../Components/Forms/ContentSelector";
 import VideoForm from "../Components/Forms/VideoForm";
 import FileForm from "../Components/Forms/FileForm";
@@ -17,17 +18,22 @@ import CollaboratorForm from "../Components/Forms/CollaboratorForm";
 export default function Content() {
   const { projectId } = useParams();
   const fetchId = Number(projectId);
+
+  const { content, setContent } = useContext(ContContext);
+  const { projects, loadingProjects } = useContext(ProjectsContext);
+
   const [addContent, setAddContent] = useState(false);
   const [addVideo, setAddVideo] = useState(false);
   const [addCollaborator, setAddColaborator] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
   const [sorting, setSorting] = useState("default");
   const [openSorting, setOpenSorting] = useState(false);
-  const { content, setContent } = useContext(ContContext);
-  const { projects, loadingProjects } = useContext(ProjectsContext);
   const [activeFunding, setActiveFunding] = useState(null);
   const [projectFiles, setProjectFiles] = useState([]); //could put into context
   const [addFile, setAddFile] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [deleteType, setDeleteType] = useState(null); // 'content', 'video', or 'file'
 
   const projectContent = content.filter(
     (c) => c.project_id === Number(projectId) && c.category === "text",
@@ -37,24 +43,33 @@ export default function Content() {
     (c) => c.project_id === Number(projectId) && c.category === "video",
   );
 
-  async function handleDelete(contentId) {
-    try {
-      await deleteContent(fetchId, contentId);
-      const updated = await getContent(fetchId);
-      setContent(updated.length ? [...updated] : []);
-    } catch (err) {
-      console.error("Error deleting project:", err);
-    }
-  }
+  function handleDeleteClick(item, type) {
+  setItemToDelete(item);
+  setDeleteType(type);
+  setDeleteModalOpen(true);
+}
 
-  async function handleFileDelete(fileId) {
+  async function handleConfirmDelete() {
+    if (!itemToDelete || !deleteType) return;
+    
     try {
-      await deleteFile(fetchId, fileId);
-      setProjectFiles((prev) => prev.filter((f) => f.id !== fileId));
+      if (deleteType === 'file') {
+        await deleteFile(fetchId, itemToDelete.id);
+        setProjectFiles((prev) => prev.filter((f) => f.id !== itemToDelete.id));
+      } else {
+        await deleteContent(fetchId, itemToDelete.id);
+        const updated = await getContent(fetchId);
+        setContent(updated.length ? [...updated] : []);
+      }
+      
+      setDeleteModalOpen(false);
+      setItemToDelete(null);
+      setDeleteType(null);
     } catch (err) {
-      console.error("Error deleting file:", err);
+      console.error(`Error deleting ${deleteType}:`, err);
     }
-  }
+  };
+
 
   const sortedContent = [...projectContent].sort((a, b) => {
     switch (sorting) {
@@ -211,7 +226,7 @@ export default function Content() {
             <ContentCard
               key={cont.id}
               cont={cont}
-              onDelete={handleDelete}
+              onDelete={() => handleDeleteClick(cont, 'content')}
               project={project}
               hasPermission={hasPermission}
               setHasPermission={setHasPermission}
@@ -260,7 +275,7 @@ export default function Content() {
               id={cont.id}
               title={cont.section_type}
               videoUrl={cont.text_box}
-              onDelete={handleDelete}
+              onDelete={() => handleDeleteClick(cont, 'video')}
             />
           ))
         )}
@@ -291,12 +306,23 @@ export default function Content() {
               key={file.id}
               file={file}
               projectId={fetchId}
-              onDelete={handleFileDelete}
+              onDelete={() => handleDeleteClick(file, 'file')}
               hasPermission={hasPermission}
             />
           ))
         )}
       </div>
+      {deleteModalOpen && (
+        <DeleteModal
+          setIsOpen={setDeleteModalOpen}
+          title={
+            deleteType === 'file'
+              ? itemToDelete?.file_name
+              : itemToDelete?.section_type || itemToDelete?.project_title
+          }
+          onConfirm={handleConfirmDelete}
+        />
+      )}
     </div>
   );
 }
