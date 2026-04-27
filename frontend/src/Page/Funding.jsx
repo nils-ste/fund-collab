@@ -1,24 +1,33 @@
 import { useState, useContext, useEffect } from "react";
 import { deleteFunding } from "../API/funding";
 import { useParams } from "react-router";
-import FundingForm from "../Components/Forms/FundingForm";
 import { FundingContext } from "../Context/fundingContext";
+import FundingForm from "../Components/Forms/FundingForm";
 import FundingCard from "../Components/Cards/FundingCard";
 import Accordion from "../Components/Buttons/Accordion";
+import DeleteModal from "../Components/Buttons/DeleteModal";
 
 export default function Funding({ setActiveFunding }) {
   const { projectId } = useParams();
   const { funding, setFunding } = useContext(FundingContext);
   const [selectedFundingId, setSelectedFundingId] = useState(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [fundingToDelete, setFundingToDelete] = useState(null);
 
   const projectFunding = funding.filter(
     (f) => f.project_id === Number(projectId),
   );
 
-  async function handleDelete(fundingId) {
+  function handleDeleteClick(project) {
+    setFundingToDelete(project);
+    setDeleteModalOpen(true);
+  }
+
+  async function handleConfirmDelete() {
+    if (!fundingToDelete) return;
     try {
-      await deleteFunding(projectId, fundingId);
-      setFunding((prev) => prev.filter((f) => f.id !== fundingId));
+      await deleteFunding(projectId, fundingToDelete.id);
+      setFunding((prev) => prev.filter((f) => f.id !== fundingToDelete.id));
     } catch (err) {
       console.log("Error deleting project:", err);
     }
@@ -59,7 +68,9 @@ export default function Funding({ setActiveFunding }) {
   const upcoming = sortedFunding.filter((f) => isSameOrAfterToday(f.deadline));
   const past = sortedFunding.filter((f) => isBeforeToday(f.deadline));
 
-  useEffect(() => {funding && setActiveFunding(upcoming.length)}, [funding]);
+  useEffect(() => {
+    funding && setActiveFunding(upcoming.length);
+  }, [funding]);
 
   return (
     <>
@@ -119,7 +130,7 @@ export default function Funding({ setActiveFunding }) {
               <FundingCard
                 key={fund.id}
                 fund={fund}
-                handleDelete={handleDelete}
+                handleDelete={handleDeleteClick}
                 setModalFunding={setModalFunding}
                 setSelectedFundingId={setSelectedFundingId}
               />
@@ -130,7 +141,7 @@ export default function Funding({ setActiveFunding }) {
               <FundingCard
                 key={fund.id}
                 fund={fund}
-                handleDelete={handleDelete}
+                handleDelete={handleDeleteClick}
                 setModalFunding={setModalFunding}
                 setSelectedFundingId={setSelectedFundingId}
               />
@@ -164,6 +175,14 @@ export default function Funding({ setActiveFunding }) {
           </div>
         </div>
       )}
+      {/* Delete Modal */}
+          {deleteModalOpen && (
+            <DeleteModal
+              setIsOpen={setDeleteModalOpen}
+              title={fundingToDelete?.project_title}
+              onConfirm={handleConfirmDelete}
+            />
+          )}
     </>
   );
 }

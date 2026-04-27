@@ -40,7 +40,7 @@ export default function FundingCards({
         </button>
 
         <button
-          onClick={() => handleDelete(fund.id)}
+          onClick={() => handleDelete(fund)}
           className="px-4 py-2 text-sm font-medium text-(--color-button-font) bg-(--color-button) rounded-lg hover:bg-(--color-button-hover)"
         >
           Delete

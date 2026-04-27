@@ -19,12 +19,12 @@ export default function Projects() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [projectToDelete, setProjectToDelete] = useState(null);
 
-  const handleDeleteClick = (project) => {
+  function handleDeleteClick(project) {
     setProjectToDelete(project);
     setDeleteModalOpen(true);
   };
 
-  const handleConfirmDelete = async () => {
+  async function handleConfirmDelete() {
     if (!projectToDelete) return;
     try {
       await deleteProject(userId, projectToDelete.id);
